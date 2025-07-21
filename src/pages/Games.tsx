@@ -12,88 +12,102 @@ import {
   BookOpen,
   Globe,
   Star,
-  Clock
+  Clock,
+  ArrowLeft
 } from 'lucide-react';
+import SnakeGame from '@/components/games/SnakeGame';
+import TetrisGame from '@/components/games/TetrisGame';
+import QuizGame from '@/components/games/QuizGame';
 
 const Games = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [currentGame, setCurrentGame] = useState<string | null>(null);
 
   const games = [
     {
-      id: 1,
-      title: 'Math Quiz Challenge',
-      description: 'Test your arithmetic skills with timed math problems',
-      category: 'math',
+      id: 'snake',
+      title: 'Snake Classic',
+      description: 'Guide the snake to eat food and grow longer without hitting walls',
+      category: 'arcade',
       difficulty: 'Easy',
       time: '5 min',
-      players: 234,
-      icon: Calculator,
-      color: 'text-blue-500'
+      players: 1247,
+      icon: Target,
+      color: 'text-green-500',
+      component: SnakeGame
     },
     {
-      id: 2,
-      title: 'Word Builder',
-      description: 'Create words from scrambled letters to improve vocabulary',
-      category: 'language',
+      id: 'tetris',
+      title: 'Tetris',
+      description: 'Drop and arrange falling blocks to clear lines',
+      category: 'puzzle',
       difficulty: 'Medium',
       time: '10 min',
-      players: 156,
-      icon: BookOpen,
-      color: 'text-green-500'
-    },
-    {
-      id: 3,
-      title: 'Geography Quest',
-      description: 'Identify countries, capitals, and landmarks around the world',
-      category: 'geography',
-      difficulty: 'Hard',
-      time: '15 min',
-      players: 89,
-      icon: Globe,
-      color: 'text-purple-500'
-    },
-    {
-      id: 4,
-      title: 'Memory Palace',
-      description: 'Train your memory with pattern recognition challenges',
-      category: 'brain',
-      difficulty: 'Medium',
-      time: '8 min',
-      players: 201,
+      players: 892,
       icon: Brain,
-      color: 'text-cyan-500'
+      color: 'text-blue-500',
+      component: TetrisGame
     },
     {
-      id: 5,
-      title: 'Quick Facts',
-      description: 'Answer rapid-fire questions across various subjects',
+      id: 'quiz',
+      title: 'Quick Quiz',
+      description: 'Test your knowledge with rapid-fire questions',
       category: 'trivia',
       difficulty: 'Easy',
       time: '3 min',
-      players: 312,
-      icon: Zap,
-      color: 'text-yellow-500'
+      players: 1543,
+      icon: BookOpen,
+      color: 'text-purple-500',
+      component: QuizGame
     },
     {
-      id: 6,
-      title: 'Target Practice',
-      description: 'Improve focus and hand-eye coordination',
+      id: 'math-runner',
+      title: 'Math Runner',
+      description: 'Solve math problems while running through obstacles',
+      category: 'math',
+      difficulty: 'Medium',
+      time: '8 min',
+      players: 456,
+      icon: Calculator,
+      color: 'text-cyan-500',
+      external: true,
+      url: 'https://example.com/math-runner'
+    },
+    {
+      id: 'geography-race',
+      title: 'Geography Race',
+      description: 'Race against time to identify countries and capitals',
+      category: 'geography',
+      difficulty: 'Hard',
+      time: '15 min',
+      players: 234,
+      icon: Globe,
+      color: 'text-orange-500',
+      external: true,
+      url: 'https://example.com/geography-race'
+    },
+    {
+      id: 'reaction-time',
+      title: 'Reaction Master',
+      description: 'Test and improve your reaction time with quick challenges',
       category: 'skill',
       difficulty: 'Easy',
-      time: '5 min',
-      players: 178,
-      icon: Target,
-      color: 'text-red-500'
+      time: '2 min',
+      players: 678,
+      icon: Zap,
+      color: 'text-yellow-500',
+      external: true,
+      url: 'https://example.com/reaction-time'
     }
   ];
 
   const categories = [
     { id: 'all', label: 'All Games' },
-    { id: 'math', label: 'Mathematics' },
-    { id: 'language', label: 'Language Arts' },
-    { id: 'geography', label: 'Geography' },
-    { id: 'brain', label: 'Brain Training' },
+    { id: 'arcade', label: 'Arcade' },
+    { id: 'puzzle', label: 'Puzzle' },
     { id: 'trivia', label: 'Trivia' },
+    { id: 'math', label: 'Mathematics' },
+    { id: 'geography', label: 'Geography' },
     { id: 'skill', label: 'Skill Games' }
   ];
 
@@ -116,6 +130,25 @@ const Games = () => {
       default: return 'bg-gray-500/20 text-gray-300';
     }
   };
+
+  const handlePlayGame = (game: any) => {
+    if (game.external) {
+      // For external games, open in new tab (these would normally be embedded)
+      window.open(game.url, '_blank');
+    } else {
+      // For built-in games, switch to game component
+      setCurrentGame(game.id);
+    }
+  };
+
+  // Render specific game component
+  if (currentGame) {
+    const game = games.find(g => g.id === currentGame);
+    if (game && game.component) {
+      const GameComponent = game.component;
+      return <GameComponent onBack={() => setCurrentGame(null)} />;
+    }
+  }
 
   return (
     <div className="min-h-screen bg-background pt-20">
@@ -231,7 +264,10 @@ const Games = () => {
                           {game.players} playing
                         </div>
                       </div>
-                      <Button className="w-full bg-gradient-primary hover:opacity-90">
+                      <Button 
+                        className="w-full bg-gradient-primary hover:opacity-90"
+                        onClick={() => handlePlayGame(game)}
+                      >
                         <Play size={16} className="mr-2" />
                         Play Now
                       </Button>
