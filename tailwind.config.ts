@@ -53,10 +53,10 @@ export default {
 					foreground: 'hsl(var(--card-foreground))'
 				},
 				nova: {
-					blue: 'hsl(var(--nova-blue))',
-					purple: 'hsl(var(--nova-purple))',
-					cyan: 'hsl(var(--nova-cyan))',
-					pink: 'hsl(var(--nova-pink))'
+					blue: 'hsl(217 91% 60%)',
+					navy: 'hsl(222 47% 11%)',
+					cyan: 'hsl(189 94% 55%)',
+					green: 'hsl(142 76% 36%)'
 				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
@@ -128,9 +128,9 @@ export default {
 				'float': 'float 3s ease-in-out infinite'
 			},
 			backgroundImage: {
-				'gradient-primary': 'var(--gradient-primary)',
-				'gradient-secondary': 'var(--gradient-secondary)',
-				'gradient-card': 'var(--gradient-card)'
+				'gradient-primary': 'linear-gradient(135deg, hsl(217 91% 60%), hsl(189 94% 55%))',
+				'gradient-secondary': 'linear-gradient(135deg, hsl(142 76% 36%), hsl(217 91% 60%))',
+				'gradient-academic': 'linear-gradient(135deg, hsl(222 47% 11%), hsl(217 91% 60%))'
 			}
 		}
 	},

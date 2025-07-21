@@ -8,46 +8,46 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
+    --background: 222 15% 6%;
+    --foreground: 210 40% 98%;
 
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
+    --card: 222 15% 8%;
+    --card-foreground: 210 40% 98%;
 
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 222 15% 8%;
+    --popover-foreground: 210 40% 98%;
 
-    --primary: 263 70% 50%;
-    --primary-foreground: 0 0% 98%;
+    --primary: 217 91% 60%;
+    --primary-foreground: 222 15% 6%;
 
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 222 15% 12%;
+    --secondary-foreground: 210 40% 98%;
 
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
+    --muted: 222 15% 12%;
+    --muted-foreground: 215 20% 65%;
 
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
+    --accent: 222 15% 12%;
+    --accent-foreground: 210 40% 98%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 210 40% 98%;
 
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 263 70% 50%;
+    --border: 222 15% 15%;
+    --input: 222 15% 15%;
+    --ring: 217 91% 60%;
 
     --radius: 0.75rem;
 
-    /* NovaHub Brand Colors */
-    --nova-blue: 240 100% 67%;
-    --nova-purple: 263 70% 50%;
+    /* NovaHub Academic Theme Colors */
+    --nova-blue: 217 91% 60%;
+    --nova-navy: 222 47% 11%;
     --nova-cyan: 189 94% 55%;
-    --nova-pink: 322 90% 55%;
+    --nova-green: 142 76% 36%;
     
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(var(--nova-purple)), hsl(var(--nova-blue)));
-    --gradient-secondary: linear-gradient(135deg, hsl(var(--nova-cyan)), hsl(var(--nova-pink)));
-    --gradient-card: linear-gradient(135deg, hsl(var(--card)) 0%, hsl(var(--muted)) 100%);
+    /* Academic Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(217 91% 60%), hsl(189 94% 55%));
+    --gradient-secondary: linear-gradient(135deg, hsl(142 76% 36%), hsl(217 91% 60%));
+    --gradient-academic: linear-gradient(135deg, hsl(222 47% 11%), hsl(217 91% 60%));
     
     /* Glass morphism */
     --glass-bg: rgba(255, 255, 255, 0.05);
