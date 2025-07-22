@@ -7,6 +7,7 @@ import Landing from "./pages/Landing";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
+import Notes from "./pages/Notes";
 import Games from "./pages/Games";
 import Navigation from "./components/Navigation";
 import NotFound from "./pages/NotFound";
@@ -36,7 +37,7 @@ const App = () => (
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/notes" element={<Dashboard />} />
+          <Route path="/notes" element={<Notes />} />
           <Route path="/community" element={<Dashboard />} />
           <Route path="/games" element={<Games />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

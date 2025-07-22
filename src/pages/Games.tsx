@@ -132,21 +132,28 @@ const Games = () => {
   };
 
   const handlePlayGame = (game: any) => {
+    console.log('Playing game:', game.id, game);
     if (game.external) {
       // For external games, open in new tab (these would normally be embedded)
       window.open(game.url, '_blank');
     } else {
       // For built-in games, switch to game component
+      console.log('Setting current game to:', game.id);
       setCurrentGame(game.id);
     }
   };
 
   // Render specific game component
   if (currentGame) {
+    console.log('Rendering game component for:', currentGame);
     const game = games.find(g => g.id === currentGame);
+    console.log('Found game:', game);
     if (game && game.component) {
       const GameComponent = game.component;
+      console.log('Rendering GameComponent:', GameComponent);
       return <GameComponent onBack={() => setCurrentGame(null)} />;
+    } else {
+      console.log('No component found for game:', currentGame);
     }
   }
 
