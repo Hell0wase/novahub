@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, RotateCcw, Trophy } from 'lucide-react';
@@ -12,16 +12,23 @@ const SnakeGame = ({ onBack }: SnakeGameProps) => {
   const [gameOver, setGameOver] = useState(false);
   const [snake, setSnake] = useState([{ x: 10, y: 10 }]);
   const [food, setFood] = useState({ x: 15, y: 15 });
-  const [direction, setDirection] = useState({ x: 0, y: 1 });
+  const [direction, setDirection] = useState({ x: 0, y: 0 });
   const [gameStarted, setGameStarted] = useState(false);
 
   const GRID_SIZE = 20;
   const CANVAS_SIZE = 400;
 
+  const generateFood = useCallback(() => {
+    return {
+      x: Math.floor(Math.random() * GRID_SIZE),
+      y: Math.floor(Math.random() * GRID_SIZE)
+    };
+  }, []);
+
   const resetGame = () => {
     setSnake([{ x: 10, y: 10 }]);
-    setFood({ x: 15, y: 15 });
-    setDirection({ x: 0, y: 1 });
+    setFood(generateFood());
+    setDirection({ x: 0, y: 0 });
     setScore(0);
     setGameOver(false);
     setGameStarted(false);
@@ -29,12 +36,84 @@ const SnakeGame = ({ onBack }: SnakeGameProps) => {
 
   const startGame = () => {
     setGameStarted(true);
-    // Game logic would go here - for demo purposes, we'll simulate
-    setTimeout(() => {
-      setScore(Math.floor(Math.random() * 500) + 100);
-      setGameOver(true);
-    }, 3000);
+    setDirection({ x: 0, y: 1 });
   };
+
+  const moveSnake = useCallback(() => {
+    if (gameOver || !gameStarted || (direction.x === 0 && direction.y === 0)) return;
+
+    setSnake(currentSnake => {
+      const newSnake = [...currentSnake];
+      const head = { ...newSnake[0] };
+      head.x += direction.x;
+      head.y += direction.y;
+
+      // Check wall collision
+      if (head.x < 0 || head.x >= GRID_SIZE || head.y < 0 || head.y >= GRID_SIZE) {
+        setGameOver(true);
+        return currentSnake;
+      }
+
+      // Check self collision
+      if (newSnake.some(segment => segment.x === head.x && segment.y === head.y)) {
+        setGameOver(true);
+        return currentSnake;
+      }
+
+      newSnake.unshift(head);
+
+      // Check food collision
+      if (head.x === food.x && head.y === food.y) {
+        setScore(prev => prev + 10);
+        setFood(generateFood());
+      } else {
+        newSnake.pop();
+      }
+
+      return newSnake;
+    });
+  }, [direction, food, gameOver, gameStarted, generateFood]);
+
+  // Handle keyboard input
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      if (!gameStarted || gameOver) return;
+
+      switch (e.key) {
+        case 'ArrowUp':
+        case 'w':
+        case 'W':
+          if (direction.y !== 1) setDirection({ x: 0, y: -1 });
+          break;
+        case 'ArrowDown':
+        case 's':
+        case 'S':
+          if (direction.y !== -1) setDirection({ x: 0, y: 1 });
+          break;
+        case 'ArrowLeft':
+        case 'a':
+        case 'A':
+          if (direction.x !== 1) setDirection({ x: -1, y: 0 });
+          break;
+        case 'ArrowRight':
+        case 'd':
+        case 'D':
+          if (direction.x !== -1) setDirection({ x: 1, y: 0 });
+          break;
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, [direction, gameStarted, gameOver]);
+
+  // Game loop
+  useEffect(() => {
+    if (!gameStarted || gameOver) return;
+
+    const gameInterval = setInterval(moveSnake, 150);
+    return () => clearInterval(gameInterval);
+  }, [moveSnake, gameStarted, gameOver]);
 
   return (
     <div className="min-h-screen bg-background pt-20 p-6">
@@ -102,11 +181,40 @@ const SnakeGame = ({ onBack }: SnakeGameProps) => {
                 </div>
               )}
 
-              {/* Game grid visualization */}
-              <div className="grid grid-cols-20 gap-0 w-full h-full opacity-10">
-                {Array.from({ length: 400 }).map((_, i) => (
-                  <div key={i} className="border border-border/20"></div>
+              {/* Game grid */}
+              <div className="relative w-full h-full">
+                {/* Snake */}
+                {snake.map((segment, index) => (
+                  <div
+                    key={index}
+                    className={`absolute ${index === 0 ? 'bg-green-400' : 'bg-green-600'} rounded-sm`}
+                    style={{
+                      left: `${(segment.x / GRID_SIZE) * 100}%`,
+                      top: `${(segment.y / GRID_SIZE) * 100}%`,
+                      width: `${100 / GRID_SIZE}%`,
+                      height: `${100 / GRID_SIZE}%`,
+                    }}
+                  />
                 ))}
+                {/* Food */}
+                <div
+                  className="absolute bg-red-500 rounded-full"
+                  style={{
+                    left: `${(food.x / GRID_SIZE) * 100}%`,
+                    top: `${(food.y / GRID_SIZE) * 100}%`,
+                    width: `${100 / GRID_SIZE}%`,
+                    height: `${100 / GRID_SIZE}%`,
+                  }}
+                />
+                {/* Grid lines */}
+                <div className="absolute inset-0 opacity-10">
+                  {Array.from({ length: GRID_SIZE + 1 }).map((_, i) => (
+                    <div key={`v-${i}`} className="absolute border-l border-border" style={{ left: `${(i / GRID_SIZE) * 100}%`, height: '100%' }} />
+                  ))}
+                  {Array.from({ length: GRID_SIZE + 1 }).map((_, i) => (
+                    <div key={`h-${i}`} className="absolute border-t border-border" style={{ top: `${(i / GRID_SIZE) * 100}%`, width: '100%' }} />
+                  ))}
+                </div>
               </div>
             </div>
 

@@ -6,9 +6,11 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { Github, Chrome, Eye, EyeOff } from 'lucide-react';
+import { useAuth } from '@/hooks/useAuth';
 
 const Login = () => {
   const navigate = useNavigate();
+  const { login } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
@@ -18,6 +20,8 @@ const Login = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Simulate successful login and redirect to dashboard
+    const userName = formData.email.split('@')[0];
+    login(formData.email, userName);
     console.log('Login successful:', formData);
     navigate('/dashboard');
   };

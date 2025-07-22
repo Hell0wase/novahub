@@ -1,11 +1,19 @@
 import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Menu, X, BookOpen, Users, Gamepad2 } from 'lucide-react';
+import { Menu, X, BookOpen, Users, Gamepad2, LogOut, User } from 'lucide-react';
+import { useAuth } from '@/hooks/useAuth';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { isAuthenticated, user, logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
 
   const navItems = [
     { href: '/notes', label: 'Notes', icon: BookOpen },
@@ -50,14 +58,29 @@ const Navigation = () => {
 
           {/* Auth Buttons */}
           <div className="hidden md:flex items-center space-x-4">
-            <Link to="/login">
-              <Button variant="ghost">Login</Button>
-            </Link>
-            <Link to="/signup">
-              <Button variant="default" className="bg-gradient-primary hover:opacity-90">
-                Sign Up
-              </Button>
-            </Link>
+            {isAuthenticated ? (
+              <div className="flex items-center space-x-4">
+                <div className="flex items-center space-x-2 text-sm">
+                  <User size={16} />
+                  <span>{user?.name}</span>
+                </div>
+                <Button variant="ghost" onClick={handleLogout}>
+                  <LogOut size={16} className="mr-2" />
+                  Logout
+                </Button>
+              </div>
+            ) : (
+              <>
+                <Link to="/login">
+                  <Button variant="ghost">Login</Button>
+                </Link>
+                <Link to="/signup">
+                  <Button variant="default" className="bg-gradient-primary hover:opacity-90">
+                    Sign Up
+                  </Button>
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -91,14 +114,29 @@ const Navigation = () => {
               );
             })}
             <div className="pt-4 space-y-2">
-              <Link to="/login" onClick={() => setIsOpen(false)}>
-                <Button variant="ghost" className="w-full">Login</Button>
-              </Link>
-              <Link to="/signup" onClick={() => setIsOpen(false)}>
-                <Button variant="default" className="w-full bg-gradient-primary hover:opacity-90">
-                  Sign Up
-                </Button>
-              </Link>
+              {isAuthenticated ? (
+                <div className="space-y-2">
+                  <div className="flex items-center space-x-2 px-3 py-2 text-sm">
+                    <User size={16} />
+                    <span>{user?.name}</span>
+                  </div>
+                  <Button variant="ghost" className="w-full" onClick={() => { handleLogout(); setIsOpen(false); }}>
+                    <LogOut size={16} className="mr-2" />
+                    Logout
+                  </Button>
+                </div>
+              ) : (
+                <>
+                  <Link to="/login" onClick={() => setIsOpen(false)}>
+                    <Button variant="ghost" className="w-full">Login</Button>
+                  </Link>
+                  <Link to="/signup" onClick={() => setIsOpen(false)}>
+                    <Button variant="default" className="w-full bg-gradient-primary hover:opacity-90">
+                      Sign Up
+                    </Button>
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         )}
