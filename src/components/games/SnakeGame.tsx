@@ -35,6 +35,7 @@ const SnakeGame = ({ onBack }: SnakeGameProps) => {
   };
 
   const startGame = () => {
+    console.log('Snake game start button clicked');
     setGameStarted(true);
     setDirection({ x: 0, y: 1 });
   };
@@ -158,15 +159,6 @@ const SnakeGame = ({ onBack }: SnakeGameProps) => {
                 </div>
               )}
 
-              {gameStarted && !gameOver && (
-                <div className="absolute inset-0 flex items-center justify-center bg-background/80 rounded-lg">
-                  <div className="text-center">
-                    <div className="animate-pulse text-2xl mb-2">🐍</div>
-                    <p className="text-lg">Playing...</p>
-                    <p className="text-sm text-muted-foreground">Score: {score}</p>
-                  </div>
-                </div>
-              )}
 
               {gameOver && (
                 <div className="absolute inset-0 flex items-center justify-center bg-background/90 rounded-lg">

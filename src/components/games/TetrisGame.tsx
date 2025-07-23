@@ -25,6 +25,7 @@ const TetrisGame = ({ onBack }: TetrisGameProps) => {
   };
 
   const startGame = () => {
+    console.log('Tetris game start button clicked');
     setGameStarted(true);
     // Simulate game progression
     setTimeout(() => {
@@ -78,23 +79,6 @@ const TetrisGame = ({ onBack }: TetrisGameProps) => {
                       </div>
                     )}
 
-                    {gameStarted && !gameOver && !isPaused && (
-                      <div className="absolute inset-0 flex items-center justify-center bg-background/80 rounded-lg">
-                        <div className="text-center">
-                          <div className="animate-bounce text-3xl mb-2">🟦</div>
-                          <p className="text-lg">Playing...</p>
-                          <p className="text-sm text-muted-foreground">Lines: {lines}</p>
-                          <Button 
-                            variant="outline" 
-                            size="sm" 
-                            onClick={togglePause}
-                            className="mt-2"
-                          >
-                            Pause
-                          </Button>
-                        </div>
-                      </div>
-                    )}
 
                     {isPaused && (
                       <div className="absolute inset-0 flex items-center justify-center bg-background/90 rounded-lg">
