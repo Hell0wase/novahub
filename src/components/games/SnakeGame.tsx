@@ -12,8 +12,8 @@ const SnakeGame = ({ onBack }: SnakeGameProps) => {
   const [gameOver, setGameOver] = useState(false);
   const [snake, setSnake] = useState([{ x: 10, y: 10 }]);
   const [food, setFood] = useState({ x: 15, y: 15 });
-  const [direction, setDirection] = useState({ x: 0, y: 0 });
-  const [gameStarted, setGameStarted] = useState(false);
+  const [direction, setDirection] = useState({ x: 0, y: 1 });
+  const [gameStarted, setGameStarted] = useState(true);
 
   const GRID_SIZE = 20;
   const CANVAS_SIZE = 400;
@@ -28,10 +28,10 @@ const SnakeGame = ({ onBack }: SnakeGameProps) => {
   const resetGame = () => {
     setSnake([{ x: 10, y: 10 }]);
     setFood(generateFood());
-    setDirection({ x: 0, y: 0 });
+    setDirection({ x: 0, y: 1 });
     setScore(0);
     setGameOver(false);
-    setGameStarted(false);
+    setGameStarted(true);
   };
 
   const startGame = () => {
@@ -147,23 +147,6 @@ const SnakeGame = ({ onBack }: SnakeGameProps) => {
               className="bg-background border-2 border-border rounded-lg mb-4 relative"
               style={{ width: CANVAS_SIZE, height: CANVAS_SIZE }}
             >
-              {!gameStarted && !gameOver && (
-                <div className="absolute inset-0 flex items-center justify-center bg-background/80 rounded-lg">
-                  <div className="text-center">
-                    <h3 className="text-xl font-bold mb-2">Ready to Play?</h3>
-                    <p className="text-muted-foreground mb-4">Use arrow keys to control the snake</p>
-                    <Button 
-                      onClick={() => {
-                        console.log('Start Game button clicked!');
-                        startGame();
-                      }} 
-                      className="bg-gradient-primary hover:opacity-90"
-                    >
-                      Start Game
-                    </Button>
-                  </div>
-                </div>
-              )}
 
 
               {gameOver && (
