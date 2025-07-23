@@ -132,7 +132,7 @@ const Notes = () => {
     ));
   };
 
-  const handleAIMessage = () => {
+  const handleAIMessage = async () => {
     if (!aiInput.trim()) return;
 
     const userMessage: ChatMessage = {
@@ -143,28 +143,76 @@ const Notes = () => {
     };
 
     setChatMessages(prev => [...prev, userMessage]);
-
-    // Simulate AI response
-    setTimeout(() => {
-      const responses = [
-        "That's a great question! Let me help you understand that concept better.",
-        "I can help you create a summary of that topic. Would you like me to organize the key points?",
-        "Based on your notes, here's what I think you should focus on for your studies.",
-        "That's an interesting topic! Here are some additional insights that might help.",
-        "I notice you have several notes on this subject. Would you like me to create connections between them?"
-      ];
-
-      const botMessage: ChatMessage = {
-        id: (Date.now() + 1).toString(),
-        message: responses[Math.floor(Math.random() * responses.length)],
-        isBot: true,
-        timestamp: new Date().toISOString()
-      };
-
-      setChatMessages(prev => [...prev, botMessage]);
-    }, 1000);
-
     setAiInput('');
+
+    // Show typing indicator
+    const typingMessage: ChatMessage = {
+      id: 'typing',
+      message: 'AI is thinking...',
+      isBot: true,
+      timestamp: new Date().toISOString()
+    };
+    setChatMessages(prev => [...prev, typingMessage]);
+
+    try {
+      // Simple AI logic for math and study help
+      let response = '';
+      const input = aiInput.toLowerCase().trim();
+      
+      // Math detection and solving
+      if (input.includes('+') || input.includes('-') || input.includes('*') || input.includes('/') || input.includes('=')) {
+        try {
+          // Simple math evaluation for basic operations
+          const mathExpression = input.replace(/[^0-9+\-*/().\s]/g, '');
+          if (mathExpression && /^[0-9+\-*/().\s]+$/.test(mathExpression)) {
+            const result = eval(mathExpression);
+            response = `The answer is: ${result}`;
+          } else {
+            response = "I can help with basic math operations like addition (+), subtraction (-), multiplication (*), and division (/).";
+          }
+        } catch (error) {
+          response = "I couldn't solve that math problem. Please check the format and try again.";
+        }
+      }
+      // Study help responses
+      else if (input.includes('study') || input.includes('learn') || input.includes('help')) {
+        response = "I'm here to help you study! You can ask me math questions, request explanations of concepts, or ask for study tips. What subject are you working on?";
+      }
+      else if (input.includes('what is') || input.includes('define') || input.includes('explain')) {
+        response = "I'd be happy to explain that concept! Can you be more specific about what you'd like to learn about?";
+      }
+      else {
+        response = "Hello! I'm your AI study assistant. I can help you with:\n\n• Basic math calculations (try: 1 + 1)\n• Study tips and techniques\n• Explaining concepts\n• Creating study schedules\n\nWhat would you like help with today?";
+      }
+
+      // Remove typing indicator and add real response
+      setTimeout(() => {
+        setChatMessages(prev => {
+          const withoutTyping = prev.filter(msg => msg.id !== 'typing');
+          return [...withoutTyping, {
+            id: Date.now().toString(),
+            message: response,
+            isBot: true,
+            timestamp: new Date().toISOString()
+          }];
+        });
+      }, 1000);
+
+    } catch (error) {
+      // Remove typing indicator and show error
+      setTimeout(() => {
+        setChatMessages(prev => {
+          const withoutTyping = prev.filter(msg => msg.id !== 'typing');
+          return [...withoutTyping, {
+            id: Date.now().toString(),
+            message: "Sorry, I encountered an error. Please try again.",
+            isBot: true,
+            timestamp: new Date().toISOString()
+          }];
+        });
+      }, 1000);
+    }
+
   };
 
   const handleNewNote = () => {

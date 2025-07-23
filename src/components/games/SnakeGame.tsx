@@ -152,7 +152,13 @@ const SnakeGame = ({ onBack }: SnakeGameProps) => {
                   <div className="text-center">
                     <h3 className="text-xl font-bold mb-2">Ready to Play?</h3>
                     <p className="text-muted-foreground mb-4">Use arrow keys to control the snake</p>
-                    <Button onClick={startGame} className="bg-gradient-primary hover:opacity-90">
+                    <Button 
+                      onClick={() => {
+                        console.log('Start Game button clicked!');
+                        startGame();
+                      }} 
+                      className="bg-gradient-primary hover:opacity-90"
+                    >
                       Start Game
                     </Button>
                   </div>
