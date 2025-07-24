@@ -62,6 +62,7 @@ const QuizGame = ({ onBack }: QuizGameProps) => {
   };
 
   const resetGame = () => {
+    console.log('Resetting Quiz game');
     setCurrentQuestion(0);
     setScore(0);
     setSelectedAnswer(null);

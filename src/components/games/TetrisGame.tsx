@@ -16,6 +16,7 @@ const TetrisGame = ({ onBack }: TetrisGameProps) => {
   const [isPaused, setIsPaused] = useState(false);
 
   const resetGame = () => {
+    console.log('Resetting Tetris game');
     setScore(0);
     setLevel(1);
     setLines(0);

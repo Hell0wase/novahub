@@ -62,6 +62,45 @@ const Games = () => {
       component: QuizGame
     },
     {
+      id: 'granny',
+      title: 'Granny Horror',
+      description: 'Escape from Granny\'s house in this thrilling horror game',
+      category: 'horror',
+      difficulty: 'Hard',
+      time: '20 min',
+      players: 3456,
+      icon: Brain,
+      color: 'text-red-500',
+      external: true,
+      url: 'https://granny.online/'
+    },
+    {
+      id: '1v1-lol',
+      title: '1v1.LOL',
+      description: 'Online multiplayer battle royale and building game',
+      category: 'battle',
+      difficulty: 'Medium',
+      time: '15 min',
+      players: 8921,
+      icon: Target,
+      color: 'text-blue-500',
+      external: true,
+      url: 'https://1v1.lol/'
+    },
+    {
+      id: 'slope',
+      title: 'Slope',
+      description: 'Control a ball rolling down a steep slope',
+      category: 'arcade',
+      difficulty: 'Easy',
+      time: '8 min',
+      players: 5432,
+      icon: Zap,
+      color: 'text-green-500',
+      external: true,
+      url: 'https://slope-game.github.io/slope/'
+    },
+    {
       id: 'alien-invasion',
       title: 'Alien Invasion',
       description: 'Defend Earth from alien invaders in this action-packed shooter',
@@ -122,7 +161,9 @@ const Games = () => {
     { id: 'trivia', label: 'Trivia' },
     { id: 'action', label: 'Action' },
     { id: 'adventure', label: 'Adventure' },
-    { id: 'racing', label: 'Racing' }
+    { id: 'racing', label: 'Racing' },
+    { id: 'horror', label: 'Horror' },
+    { id: 'battle', label: 'Battle Royale' }
   ];
 
   const achievements = [
@@ -148,8 +189,13 @@ const Games = () => {
   const handlePlayGame = (game: any) => {
     console.log('Playing game:', game.id, game);
     if (game.external) {
-      // Show message that HTML5 games are being prepared
-      toast.info("HTML5 games are being prepared! The games from your ZIP file need to be extracted and set up. This will be available soon!");
+      if (game.url.includes('UGS_Files.zip')) {
+        // Show message that HTML5 games are being prepared
+        toast.info("HTML5 games are being prepared! The games from your ZIP file need to be extracted and set up. This will be available soon!");
+      } else {
+        // Open external games like Granny, 1v1.LOL, Slope in new tab
+        window.open(game.url, '_blank');
+      }
     } else {
       // For built-in games, switch to game component
       console.log('Setting current game to:', game.id);

@@ -26,6 +26,7 @@ const SnakeGame = ({ onBack }: SnakeGameProps) => {
   }, []);
 
   const resetGame = () => {
+    console.log('Resetting Snake game');
     setSnake([{ x: 10, y: 10 }]);
     setFood(generateFood());
     setDirection({ x: 0, y: 1 });
