@@ -19,6 +19,9 @@ import {
 import SnakeGame from '@/components/games/SnakeGame';
 import TetrisGame from '@/components/games/TetrisGame';
 import QuizGame from '@/components/games/QuizGame';
+import GrannyGame from '@/components/games/GrannyGame';
+import OneVOneGame from '@/components/games/OneVOneGame';
+import SlopeGame from '@/components/games/SlopeGame';
 
 const Games = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -71,8 +74,7 @@ const Games = () => {
       players: 3456,
       icon: Brain,
       color: 'text-red-500',
-      external: true,
-      url: 'https://granny.online/'
+      component: GrannyGame
     },
     {
       id: '1v1-lol',
@@ -84,8 +86,7 @@ const Games = () => {
       players: 8921,
       icon: Target,
       color: 'text-blue-500',
-      external: true,
-      url: 'https://1v1.lol/'
+      component: OneVOneGame
     },
     {
       id: 'slope',
@@ -97,8 +98,7 @@ const Games = () => {
       players: 5432,
       icon: Zap,
       color: 'text-green-500',
-      external: true,
-      url: 'https://slope-game.github.io/slope/'
+      component: SlopeGame
     },
     {
       id: 'alien-invasion',
@@ -193,11 +193,11 @@ const Games = () => {
         // Show message that HTML5 games are being prepared
         toast.info("HTML5 games are being prepared! The games from your ZIP file need to be extracted and set up. This will be available soon!");
       } else {
-        // Open external games like Granny, 1v1.LOL, Slope in new tab
+        // This shouldn't happen now since we converted external games to components
         window.open(game.url, '_blank');
       }
     } else {
-      // For built-in games, switch to game component
+      // For all games with components, switch to game component
       console.log('Setting current game to:', game.id);
       setCurrentGame(game.id);
     }
