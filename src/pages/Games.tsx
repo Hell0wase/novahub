@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { toast } from "sonner";
 import { 
   Play, 
   Trophy, 
@@ -61,43 +62,56 @@ const Games = () => {
       component: QuizGame
     },
     {
-      id: 'math-runner',
-      title: 'Math Runner',
-      description: 'Solve math problems while running through obstacles',
-      category: 'math',
+      id: 'alien-invasion',
+      title: 'Alien Invasion',
+      description: 'Defend Earth from alien invaders in this action-packed shooter',
+      category: 'action',
       difficulty: 'Medium',
-      time: '8 min',
-      players: 456,
-      icon: Calculator,
-      color: 'text-cyan-500',
+      time: '10 min',
+      players: 1234,
+      icon: Zap,
+      color: 'text-red-500',
       external: true,
-      url: 'https://example.com/math-runner'
+      url: '/games/UGS_Files.zip'
     },
     {
-      id: 'geography-race',
-      title: 'Geography Race',
-      description: 'Race against time to identify countries and capitals',
-      category: 'geography',
+      id: 'space-adventure',
+      title: 'Space Adventure',
+      description: 'Explore the cosmos in this thrilling space adventure',
+      category: 'adventure',
       difficulty: 'Hard',
       time: '15 min',
-      players: 234,
+      players: 892,
       icon: Globe,
-      color: 'text-orange-500',
+      color: 'text-blue-500',
       external: true,
-      url: 'https://example.com/geography-race'
+      url: '/games/UGS_Files.zip'
     },
     {
-      id: 'reaction-time',
-      title: 'Reaction Master',
-      description: 'Test and improve your reaction time with quick challenges',
-      category: 'skill',
+      id: 'puzzle-master',
+      title: 'Puzzle Master',
+      description: 'Challenge your mind with intricate puzzles',
+      category: 'puzzle',
       difficulty: 'Easy',
-      time: '2 min',
-      players: 678,
-      icon: Zap,
-      color: 'text-yellow-500',
+      time: '5 min',
+      players: 567,
+      icon: Brain,
+      color: 'text-purple-500',
       external: true,
-      url: 'https://example.com/reaction-time'
+      url: '/games/UGS_Files.zip'
+    },
+    {
+      id: 'racing-championship',
+      title: 'Racing Championship',
+      description: 'High-speed racing action with realistic physics',
+      category: 'racing',
+      difficulty: 'Medium',
+      time: '12 min',
+      players: 2103,
+      icon: Target,
+      color: 'text-orange-500',
+      external: true,
+      url: '/games/UGS_Files.zip'
     }
   ];
 
@@ -106,9 +120,9 @@ const Games = () => {
     { id: 'arcade', label: 'Arcade' },
     { id: 'puzzle', label: 'Puzzle' },
     { id: 'trivia', label: 'Trivia' },
-    { id: 'math', label: 'Mathematics' },
-    { id: 'geography', label: 'Geography' },
-    { id: 'skill', label: 'Skill Games' }
+    { id: 'action', label: 'Action' },
+    { id: 'adventure', label: 'Adventure' },
+    { id: 'racing', label: 'Racing' }
   ];
 
   const achievements = [
@@ -134,8 +148,8 @@ const Games = () => {
   const handlePlayGame = (game: any) => {
     console.log('Playing game:', game.id, game);
     if (game.external) {
-      // For external games, open in new tab (these would normally be embedded)
-      window.open(game.url, '_blank');
+      // Show message that HTML5 games are being prepared
+      toast.info("HTML5 games are being prepared! The games from your ZIP file need to be extracted and set up. This will be available soon!");
     } else {
       // For built-in games, switch to game component
       console.log('Setting current game to:', game.id);
