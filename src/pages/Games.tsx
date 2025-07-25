@@ -19,7 +19,7 @@ import {
 import SnakeGame from '@/components/games/SnakeGame';
 import TetrisGame from '@/components/games/TetrisGame';
 import QuizGame from '@/components/games/QuizGame';
-import GrannyGame from '@/components/games/GrannyGame';
+import GrannyGameHTML from '@/components/games/GrannyGameHTML';
 import OneVOneGame from '@/components/games/OneVOneGame';
 import SlopeGame from '@/components/games/SlopeGame';
 import RetroBowlGame from '@/components/games/RetroBowlGame';
@@ -27,6 +27,7 @@ import SnowRiderGame from '@/components/games/SnowRiderGame';
 import PolytrackGame from '@/components/games/PolytrackGame';
 import BasketballStarsGame from '@/components/games/BasketballStarsGame';
 import DriveMadGame from '@/components/games/DriveMadGame';
+import HTMLGameComponent from '@/components/games/HTMLGameComponent';
 
 const Games = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -79,7 +80,7 @@ const Games = () => {
       players: 3456,
       icon: Brain,
       color: 'text-red-500',
-      component: GrannyGame
+      component: GrannyGameHTML
     },
     {
       id: '1v1-lol',
@@ -175,8 +176,7 @@ const Games = () => {
       players: 1234,
       icon: Zap,
       color: 'text-red-500',
-      external: true,
-      url: '/games/UGS_Files.zip'
+      component: (props: any) => <HTMLGameComponent {...props} title="Alien Invasion" gameId="alien-invasion" />
     },
     {
       id: 'space-adventure',
@@ -188,8 +188,7 @@ const Games = () => {
       players: 892,
       icon: Globe,
       color: 'text-blue-500',
-      external: true,
-      url: '/games/UGS_Files.zip'
+      component: (props: any) => <HTMLGameComponent {...props} title="Space Adventure" gameId="space-adventure" />
     },
     {
       id: 'puzzle-master',
@@ -201,8 +200,7 @@ const Games = () => {
       players: 567,
       icon: Brain,
       color: 'text-purple-500',
-      external: true,
-      url: '/games/UGS_Files.zip'
+      component: (props: any) => <HTMLGameComponent {...props} title="Puzzle Master" gameId="puzzle-master" />
     },
     {
       id: 'racing-championship',
@@ -214,8 +212,7 @@ const Games = () => {
       players: 2103,
       icon: Target,
       color: 'text-orange-500',
-      external: true,
-      url: '/games/UGS_Files.zip'
+      component: (props: any) => <HTMLGameComponent {...props} title="Racing Championship" gameId="racing-championship" />
     }
   ];
 
@@ -254,19 +251,9 @@ const Games = () => {
 
   const handlePlayGame = (game: any) => {
     console.log('Playing game:', game.id, game);
-    if (game.external) {
-      if (game.url.includes('UGS_Files.zip')) {
-        // Show message that HTML5 games are being prepared
-        toast.info("HTML5 games are being prepared! The games from your ZIP file need to be extracted and set up. This will be available soon!");
-      } else {
-        // This shouldn't happen now since we converted external games to components
-        window.open(game.url, '_blank');
-      }
-    } else {
-      // For all games with components, switch to game component
-      console.log('Setting current game to:', game.id);
-      setCurrentGame(game.id);
-    }
+    // All games now have components, switch to game component
+    console.log('Setting current game to:', game.id);
+    setCurrentGame(game.id);
   };
 
   // Render specific game component
