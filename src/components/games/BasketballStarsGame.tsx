@@ -2,11 +2,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, ExternalLink } from 'lucide-react';
 
-interface SlopeGameProps {
+interface BasketballStarsGameProps {
   onBack: () => void;
 }
 
-const SlopeGame = ({ onBack }: SlopeGameProps) => {
+const BasketballStarsGame = ({ onBack }: BasketballStarsGameProps) => {
   return (
     <div className="min-h-screen bg-background pt-20 p-6">
       <div className="max-w-6xl mx-auto">
@@ -16,9 +16,9 @@ const SlopeGame = ({ onBack }: SlopeGameProps) => {
             Back to Games
           </Button>
           <h1 className="text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-            Slope
+            Basketball Stars
           </h1>
-          <Button variant="outline" size="sm" className="ml-auto" onClick={() => window.open('https://slope-game.github.io/slope/', '_blank')}>
+          <Button variant="outline" size="sm" className="ml-auto" onClick={() => window.open('https://basketballstars.app/', '_blank')}>
             <ExternalLink size={16} className="mr-2" />
             Open Full Screen
           </Button>
@@ -26,27 +26,27 @@ const SlopeGame = ({ onBack }: SlopeGameProps) => {
 
         <Card className="bg-card/50 backdrop-blur-sm border-border/50">
           <CardHeader>
-            <CardTitle>Slope - Control the Rolling Ball</CardTitle>
+            <CardTitle>Basketball Stars - Multiplayer Basketball</CardTitle>
           </CardHeader>
           <CardContent className="p-0">
             <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
               <iframe
-                src="https://slope-unblocked.github.io/"
+                src="https://basketballstarsunblocked.io/"
                 className="absolute top-0 left-0 w-full h-full rounded-lg"
                 frameBorder="0"
                 allowFullScreen
-                title="Slope Game"
+                title="Basketball Stars Game"
               />
             </div>
           </CardContent>
         </Card>
         
         <div className="mt-4 text-center text-sm text-muted-foreground">
-          <p>Use A/D or Left/Right arrow keys to control the ball. Avoid obstacles and survive as long as possible!</p>
+          <p>Use WASD keys to move and space to shoot. Play 1v1 or tournaments!</p>
         </div>
       </div>
     </div>
   );
 };
 
-export default SlopeGame;
+export default BasketballStarsGame;

@@ -22,6 +22,11 @@ import QuizGame from '@/components/games/QuizGame';
 import GrannyGame from '@/components/games/GrannyGame';
 import OneVOneGame from '@/components/games/OneVOneGame';
 import SlopeGame from '@/components/games/SlopeGame';
+import RetroBowlGame from '@/components/games/RetroBowlGame';
+import SnowRiderGame from '@/components/games/SnowRiderGame';
+import PolytrackGame from '@/components/games/PolytrackGame';
+import BasketballStarsGame from '@/components/games/BasketballStarsGame';
+import DriveMadGame from '@/components/games/DriveMadGame';
 
 const Games = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -101,6 +106,66 @@ const Games = () => {
       component: SlopeGame
     },
     {
+      id: 'retro-bowl',
+      title: 'Retro Bowl',
+      description: 'American football management and gameplay',
+      category: 'sports',
+      difficulty: 'Medium',
+      time: '20 min',
+      players: 7891,
+      icon: Target,
+      color: 'text-orange-500',
+      component: RetroBowlGame
+    },
+    {
+      id: 'snow-rider',
+      title: 'Snow Rider 3D',
+      description: 'Thrilling sled ride down snowy mountains',
+      category: 'arcade',
+      difficulty: 'Easy',
+      time: '10 min',
+      players: 4567,
+      icon: Zap,
+      color: 'text-blue-500',
+      component: SnowRiderGame
+    },
+    {
+      id: 'polytrack',
+      title: 'Polytrack',
+      description: 'Low-poly racing with challenging tracks',
+      category: 'racing',
+      difficulty: 'Medium',
+      time: '15 min',
+      players: 3241,
+      icon: Target,
+      color: 'text-purple-500',
+      component: PolytrackGame
+    },
+    {
+      id: 'basketball-stars',
+      title: 'Basketball Stars',
+      description: 'Multiplayer basketball competition',
+      category: 'sports',
+      difficulty: 'Medium',
+      time: '12 min',
+      players: 6789,
+      icon: Target,
+      color: 'text-orange-500',
+      component: BasketballStarsGame
+    },
+    {
+      id: 'drive-mad',
+      title: 'Drive Mad',
+      description: 'Crazy car stunts and obstacle courses',
+      category: 'arcade',
+      difficulty: 'Hard',
+      time: '18 min',
+      players: 5123,
+      icon: Zap,
+      color: 'text-red-500',
+      component: DriveMadGame
+    },
+    {
       id: 'alien-invasion',
       title: 'Alien Invasion',
       description: 'Defend Earth from alien invaders in this action-packed shooter',
@@ -163,7 +228,8 @@ const Games = () => {
     { id: 'adventure', label: 'Adventure' },
     { id: 'racing', label: 'Racing' },
     { id: 'horror', label: 'Horror' },
-    { id: 'battle', label: 'Battle Royale' }
+    { id: 'battle', label: 'Battle Royale' },
+    { id: 'sports', label: 'Sports' }
   ];
 
   const achievements = [

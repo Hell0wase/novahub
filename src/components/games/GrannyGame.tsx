@@ -31,7 +31,7 @@ const GrannyGame = ({ onBack }: GrannyGameProps) => {
           <CardContent className="p-0">
             <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
               <iframe
-                src="https://granny.online/"
+                src="https://granny-horror.github.io/"
                 className="absolute top-0 left-0 w-full h-full rounded-lg"
                 frameBorder="0"
                 allowFullScreen

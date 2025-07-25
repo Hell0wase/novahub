@@ -31,7 +31,7 @@ const OneVOneGame = ({ onBack }: OneVOneGameProps) => {
           <CardContent className="p-0">
             <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
               <iframe
-                src="https://1v1.lol/"
+                src="https://1v1lol.github.io/"
                 className="absolute top-0 left-0 w-full h-full rounded-lg"
                 frameBorder="0"
                 allowFullScreen
