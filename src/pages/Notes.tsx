@@ -160,18 +160,45 @@ const Notes = () => {
       const input = aiInput.toLowerCase().trim();
       
       // Math operations and algebra
-      if (input.includes('+') || input.includes('-') || input.includes('*') || input.includes('/') || input.includes('=')) {
+      if (input.includes('+') || input.includes('-') || input.includes('*') || input.includes('/') || input.includes('=') || /\d/.test(input)) {
         try {
           // Handle algebraic expressions and basic math
           if (input.includes('x') || input.includes('y') || input.includes('algebra')) {
             response = "For algebraic equations, I can help explain the steps:\n\n• Linear equations: ax + b = c\n• Quadratic formula: x = (-b ± √(b²-4ac))/2a\n• Factor by grouping\n• Solve for the variable\n\nWhat specific algebraic problem would you like help with?";
           } else {
-            const mathExpression = input.replace(/[^0-9+\-*/().\s]/g, '');
-            if (mathExpression && /^[0-9+\-*/().\s]+$/.test(mathExpression)) {
-              const result = eval(mathExpression);
-              response = `The answer is: ${result}`;
+            // Safe math evaluation for basic operations
+            const cleanInput = input.replace(/[^0-9+\-*/().\s]/g, '').trim();
+            if (cleanInput && /^[0-9+\-*/().\s]+$/.test(cleanInput)) {
+              try {
+                // Handle fractions
+                if (input.includes('/') && !input.includes('*') && !input.includes('+') && !input.includes('-')) {
+                  const parts = cleanInput.split('/');
+                  if (parts.length === 2) {
+                    const numerator = parseFloat(parts[0]);
+                    const denominator = parseFloat(parts[1]);
+                    if (!isNaN(numerator) && !isNaN(denominator) && denominator !== 0) {
+                      const result = numerator / denominator;
+                      response = `${numerator}/${denominator} = ${result}`;
+                    } else {
+                      response = "Invalid fraction. Please check the format.";
+                    }
+                  } else {
+                    response = "Please format fractions as 'numerator/denominator' (e.g., '3/4')";
+                  }
+                } else {
+                  // Use Function constructor instead of eval for safety
+                  const result = new Function('return ' + cleanInput)();
+                  if (typeof result === 'number' && !isNaN(result)) {
+                    response = `The answer is: ${result}`;
+                  } else {
+                    response = "I couldn't calculate that. Please check the format.";
+                  }
+                }
+              } catch (error) {
+                response = "I couldn't solve that math problem. Please check the format and try again.";
+              }
             } else {
-              response = "I can help with math operations. Try: '5 + 3' or ask for help with algebra, geometry, or calculus.";
+              response = "I can help with math operations like:\n• Addition: 5 + 3\n• Subtraction: 10 - 4\n• Multiplication: 6 * 7\n• Division: 20 / 4\n• Fractions: 3/4\n• Complex: (5 + 3) * 2\n\nTry one of these formats!";
             }
           }
         } catch (error) {
@@ -281,7 +308,7 @@ const Notes = () => {
               <CardHeader className="pb-4">
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-lg">Notes</CardTitle>
-                  <Button size="sm" onClick={handleNewNote} className="bg-gradient-primary hover:opacity-90">
+                  <Button size="sm" onClick={handleNewNote} variant="default">
                     <Plus size={16} className="mr-1" />
                     New
                   </Button>

@@ -40,7 +40,11 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     
     const theme = themes.find(t => t.value === themeColor);
     if (theme) {
+      // Update CSS variables
       document.documentElement.style.setProperty('--primary', theme.primaryHsl);
+      document.documentElement.style.setProperty('--theme-primary', theme.primaryHsl);
+      document.documentElement.style.setProperty('--ring', theme.primaryHsl);
+      
       // Update gradient with the new primary color
       const cyan = '189 94% 55%';
       document.documentElement.style.setProperty(

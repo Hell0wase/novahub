@@ -33,6 +33,8 @@ import MinecraftGame from '@/components/games/MinecraftGame';
 import SlitherIOGame from '@/components/games/SlitherIOGame';
 import CookieClickerGame from '@/components/games/CookieClickerGame';
 import PaperIOGame from '@/components/games/PaperIOGame';
+import DriftHuntersGame from '@/components/games/DriftHuntersGame';
+import RagdollArchersGame from '@/components/games/RagdollArchersGame';
 
 const Games = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -266,6 +268,30 @@ const Games = () => {
       icon: Target,
       color: 'text-blue-500',
       component: PaperIOGame
+    },
+    {
+      id: 'drifthunters',
+      title: 'Drift Hunters',
+      description: 'Master the art of drifting in this high-speed racing game',
+      category: 'racing',
+      difficulty: 'Hard',
+      time: '15 min',
+      players: 1234,
+      icon: Target,
+      color: 'text-orange-500',
+      component: DriftHuntersGame
+    },
+    {
+      id: 'ragdollarchers',
+      title: 'Ragdoll Archers',
+      description: 'Physics-based archery combat with ragdoll mechanics',
+      category: 'action',
+      difficulty: 'Medium',
+      time: '12 min',
+      players: 892,
+      icon: Target,
+      color: 'text-red-500',
+      component: RagdollArchersGame
     }
   ];
 
@@ -442,7 +468,8 @@ const Games = () => {
                         </div>
                       </div>
                       <Button 
-                        className="w-full bg-gradient-primary hover:opacity-90"
+                        variant="default"
+                        className="w-full"
                         onClick={() => handlePlayGame(game)}
                       >
                         <Play size={16} className="mr-2" />
