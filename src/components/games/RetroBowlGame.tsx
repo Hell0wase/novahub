@@ -1,12 +1,96 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, ExternalLink } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
+import { useRef, useEffect } from 'react';
 
 interface RetroBowlGameProps {
   onBack: () => void;
 }
 
 const RetroBowlGame = ({ onBack }: RetroBowlGameProps) => {
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+
+  useEffect(() => {
+    const gameHtml = `
+      <!DOCTYPE html>
+      <html lang="en">
+      <head> 
+        <base href="https://cdn.jsdelivr.net/gh/selenite-cc/selenite-old@9c743188888af0986c8c7b293dbac8f9e421a4ee/retrobowl/">
+        <link rel="icon" type="image/x-icon" href="retrobowl.ico" />
+        <script src="/js/all.js"></script>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="pragma" content="no-cache" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta charset="utf-8" />
+        <title>Retro Bowl</title>
+        <style>
+          body {
+            background: #000;
+            color: #cccccc;
+            margin: 0px;
+            padding: 0px;
+            border: 0px;
+          }
+          canvas {
+            image-rendering: optimizeSpeed;
+            -webkit-interpolation-mode: nearest-neighbor;
+            -ms-touch-action: none;
+            margin: 0px;
+            padding: 0px;
+            border: 0px;
+            width: 100%;
+            height: 100vh;
+          }
+          div.gm4html5_div_class {
+            margin: 0px;
+            padding: 0px;
+            border: 0px;
+            width: 100%;
+            height: 100vh;
+          }
+          div.gm4html5_login {
+            padding: 20px;
+            position: absolute;
+            border: solid 2px #000000;
+            background-color: #404040;
+            color: #00ff00;
+            border-radius: 15px;
+            box-shadow: #101010 20px 20px 40px;
+          }
+          div.gm4html5_cancel_button { float: right; }
+          div.gm4html5_login_button { float: left; }
+          div.gm4html5_login_header { text-align: center; }
+        </style>
+      </head>
+      <body>
+        <div class="gm4html5_div_class" id="gm4html5_div_id">
+          <img src="html5game/splash.png" id="GM4HTML5_loadingscreen" alt="GameMaker:HTML5 loading screen" style="display: none" />
+          <canvas id="canvas" width="960" height="540">
+            <p>Your browser doesn't support HTML5 canvas.</p>
+          </canvas>
+        </div>
+        <script type="text/javascript" src="html5game/RetroBowl.js?WAEAC=1633155445"></script>
+        <script>
+          window.onload = GameMaker_Init;
+        </script>
+        <script src="/html/settings/js/index.js"></script>
+      </body>
+      </html>
+    `;
+
+    if (iframeRef.current) {
+      const blob = new Blob([gameHtml], { type: 'text/html' });
+      const blobUrl = URL.createObjectURL(blob);
+      iframeRef.current.src = blobUrl;
+
+      return () => {
+        URL.revokeObjectURL(blobUrl);
+      };
+    }
+  }, []);
+
   return (
     <div className="min-h-screen bg-background pt-20 p-6">
       <div className="max-w-6xl mx-auto">
@@ -18,10 +102,6 @@ const RetroBowlGame = ({ onBack }: RetroBowlGameProps) => {
           <h1 className="text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent">
             Retro Bowl
           </h1>
-          <Button variant="outline" size="sm" className="ml-auto" onClick={() => window.open('https://retrobowl.fun/', '_blank')}>
-            <ExternalLink size={16} className="mr-2" />
-            Open Full Screen
-          </Button>
         </div>
 
         <Card className="bg-card/50 backdrop-blur-sm border-border/50">
@@ -31,10 +111,9 @@ const RetroBowlGame = ({ onBack }: RetroBowlGameProps) => {
           <CardContent className="p-0">
             <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
               <iframe
-                src="https://retrobowl.fun/games/retro-bowl/index.php"
+                ref={iframeRef}
                 className="absolute top-0 left-0 w-full h-full rounded-lg"
                 frameBorder="0"
-                allowFullScreen
                 title="Retro Bowl Game"
               />
             </div>

@@ -1,12 +1,59 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, ExternalLink } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
+import { useRef, useEffect } from 'react';
 
 interface SlopeGameProps {
   onBack: () => void;
 }
 
 const SlopeGame = ({ onBack }: SlopeGameProps) => {
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+
+  useEffect(() => {
+    const gameHtml = `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ReneTirado14/lbannana@3ad5bf7eab1a47660acd8fbe0c24d1119c7a0b6d/html/slope/TemplateData/style.css">
+        <style>
+          body { margin: 0; padding: 0; overflow: hidden; background: #000; }
+          .webgl-content { width: 100%; height: 100vh; }
+          #gameContainer { width: 100vw; height: 100vh; }
+        </style>
+      </head>
+      <body>
+        <script src="https://cdn.jsdelivr.net/gh/ReneTirado14/lbannana@3ad5bf7eab1a47660acd8fbe0c24d1119c7a0b6d/html/slope/TemplateData/UnityProgress.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/ReneTirado14/lbannana@3ad5bf7eab1a47660acd8fbe0c24d1119c7a0b6d/html/slope/TemplateData/unityloader41.js"></script>
+        <script>
+          var gameInstance = UnityLoader.instantiate("gameContainer", "https://cdn.jsdelivr.net/gh/ReneTirado14/lbannana@3ad5bf7eab1a47660acd8fbe0c24d1119c7a0b6d/html/slope/Build/slope.json", {
+            onProgress: UnityProgress,
+            Module: {
+              onRuntimeInitialized: function() {
+                UnityProgress(gameInstance, "complete");
+              }
+            }
+          });
+        </script>
+        <script src="https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/addc4348-16c2-4645-9dff-f99b962e39ef%2Fscr.js"></script>
+        <div class="webgl-content">
+          <div id="gameContainer" style="width: 100vw; height: 100vh"></div>
+        </div>
+      </body>
+      </html>
+    `;
+
+    if (iframeRef.current) {
+      const blob = new Blob([gameHtml], { type: 'text/html' });
+      const blobUrl = URL.createObjectURL(blob);
+      iframeRef.current.src = blobUrl;
+
+      return () => {
+        URL.revokeObjectURL(blobUrl);
+      };
+    }
+  }, []);
+
   return (
     <div className="min-h-screen bg-background pt-20 p-6">
       <div className="max-w-6xl mx-auto">
@@ -18,10 +65,6 @@ const SlopeGame = ({ onBack }: SlopeGameProps) => {
           <h1 className="text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent">
             Slope
           </h1>
-          <Button variant="outline" size="sm" className="ml-auto" onClick={() => window.open('https://slope-game.github.io/slope/', '_blank')}>
-            <ExternalLink size={16} className="mr-2" />
-            Open Full Screen
-          </Button>
         </div>
 
         <Card className="bg-card/50 backdrop-blur-sm border-border/50">
@@ -31,10 +74,9 @@ const SlopeGame = ({ onBack }: SlopeGameProps) => {
           <CardContent className="p-0">
             <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
               <iframe
-                src="https://slope-unblocked.github.io/"
+                ref={iframeRef}
                 className="absolute top-0 left-0 w-full h-full rounded-lg"
                 frameBorder="0"
-                allowFullScreen
                 title="Slope Game"
               />
             </div>
