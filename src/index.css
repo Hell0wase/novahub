@@ -17,7 +17,7 @@ All colors MUST be HSL.
     --popover: 222 15% 8%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 217 91% 60%;
+    --primary: var(--theme-primary, 217 91% 60%);
     --primary-foreground: 222 15% 6%;
 
     --secondary: 222 15% 12%;
@@ -45,9 +45,9 @@ All colors MUST be HSL.
     --nova-green: 142 76% 36%;
     
     /* Academic Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(217 91% 60%), hsl(189 94% 55%));
-    --gradient-secondary: linear-gradient(135deg, hsl(142 76% 36%), hsl(217 91% 60%));
-    --gradient-academic: linear-gradient(135deg, hsl(222 47% 11%), hsl(217 91% 60%));
+    --gradient-primary: var(--theme-gradient-primary, linear-gradient(135deg, hsl(217 91% 60%), hsl(189 94% 55%)));
+    --gradient-secondary: linear-gradient(135deg, hsl(142 76% 36%), hsl(var(--theme-primary, 217 91% 60%)));
+    --gradient-academic: linear-gradient(135deg, hsl(222 47% 11%), hsl(var(--theme-primary, 217 91% 60%)));
     
     /* Glass morphism */
     --glass-bg: rgba(255, 255, 255, 0.05);

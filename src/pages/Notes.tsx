@@ -155,34 +155,60 @@ const Notes = () => {
     setChatMessages(prev => [...prev, typingMessage]);
 
     try {
-      // Simple AI logic for math and study help
+      // Enhanced AI logic for comprehensive study help
       let response = '';
       const input = aiInput.toLowerCase().trim();
       
-      // Math detection and solving
+      // Math operations and algebra
       if (input.includes('+') || input.includes('-') || input.includes('*') || input.includes('/') || input.includes('=')) {
         try {
-          // Simple math evaluation for basic operations
-          const mathExpression = input.replace(/[^0-9+\-*/().\s]/g, '');
-          if (mathExpression && /^[0-9+\-*/().\s]+$/.test(mathExpression)) {
-            const result = eval(mathExpression);
-            response = `The answer is: ${result}`;
+          // Handle algebraic expressions and basic math
+          if (input.includes('x') || input.includes('y') || input.includes('algebra')) {
+            response = "For algebraic equations, I can help explain the steps:\n\n• Linear equations: ax + b = c\n• Quadratic formula: x = (-b ± √(b²-4ac))/2a\n• Factor by grouping\n• Solve for the variable\n\nWhat specific algebraic problem would you like help with?";
           } else {
-            response = "I can help with basic math operations like addition (+), subtraction (-), multiplication (*), and division (/).";
+            const mathExpression = input.replace(/[^0-9+\-*/().\s]/g, '');
+            if (mathExpression && /^[0-9+\-*/().\s]+$/.test(mathExpression)) {
+              const result = eval(mathExpression);
+              response = `The answer is: ${result}`;
+            } else {
+              response = "I can help with math operations. Try: '5 + 3' or ask for help with algebra, geometry, or calculus.";
+            }
           }
         } catch (error) {
           response = "I couldn't solve that math problem. Please check the format and try again.";
         }
       }
-      // Study help responses
-      else if (input.includes('study') || input.includes('learn') || input.includes('help')) {
-        response = "I'm here to help you study! You can ask me math questions, request explanations of concepts, or ask for study tips. What subject are you working on?";
+      // Cooking and daily life questions
+      else if (input.includes('cook') || input.includes('recipe') || input.includes('boiled eggs')) {
+        if (input.includes('boiled eggs') || input.includes('boil eggs')) {
+          response = "How to cook perfect boiled eggs:\n\n1. Place eggs in a pot and cover with cold water\n2. Bring water to a rolling boil\n3. For soft-boiled: 4-6 minutes\n4. For medium-boiled: 7-9 minutes\n5. For hard-boiled: 10-12 minutes\n6. Transfer to ice bath to stop cooking\n7. Peel when cool\n\nTip: Older eggs (1 week+) are easier to peel!";
+        } else {
+          response = "I can help with cooking tips! Try asking about:\n• How to boil eggs\n• Basic cooking techniques\n• Kitchen safety tips\n• Recipe conversions\n\nWhat would you like to cook today?";
+        }
       }
-      else if (input.includes('what is') || input.includes('define') || input.includes('explain')) {
-        response = "I'd be happy to explain that concept! Can you be more specific about what you'd like to learn about?";
+      // History questions
+      else if (input.includes('history') || input.includes('war') || input.includes('when did') || input.includes('who was')) {
+        if (input.includes('world war') || input.includes('ww2') || input.includes('wwii')) {
+          response = "World War II (1939-1945):\n\n• Started: September 1, 1939 (Germany invaded Poland)\n• Major Allied Powers: UK, US, Soviet Union, China\n• Major Axis Powers: Germany, Japan, Italy\n• Key events: Pearl Harbor (1941), D-Day (1944), Holocaust\n• Ended: August 15, 1945 (Japan surrendered)\n\nWhat specific aspect would you like to learn more about?";
+        } else {
+          response = "I can help with history topics! Ask me about:\n• World Wars\n• Ancient civilizations\n• Important historical figures\n• Key dates and events\n• Historical periods\n\nWhat historical topic interests you?";
+        }
       }
+      // Reading comprehension
+      else if (input.includes('read') || input.includes('comprehension') || input.includes('analyze') || input.includes('text')) {
+        response = "Reading comprehension strategies:\n\n1. **Preview**: Look at titles, headings, images\n2. **Active reading**: Take notes, ask questions\n3. **Main idea**: What's the central point?\n4. **Supporting details**: What evidence supports the main idea?\n5. **Context clues**: Use surrounding text to understand unfamiliar words\n6. **Summarize**: Restate in your own words\n\nWhat text would you like help analyzing?";
+      }
+      // Study techniques
+      else if (input.includes('study') || input.includes('learn') || input.includes('help') || input.includes('tips')) {
+        response = "Effective study techniques:\n\n• **Pomodoro Technique**: 25 min study, 5 min break\n• **Active recall**: Quiz yourself without looking\n• **Spaced repetition**: Review material at increasing intervals\n• **Mind mapping**: Create visual connections\n• **Teaching method**: Explain concepts to someone else\n• **Cornell notes**: Divide page into notes, cues, summary\n\nWhat subject are you studying?";
+      }
+      // Science explanations
+      else if (input.includes('science') || input.includes('explain') || input.includes('what is') || input.includes('define')) {
+        response = "I can explain scientific concepts! Try asking about:\n\n• **Physics**: Forces, energy, waves, electricity\n• **Chemistry**: Elements, reactions, acids/bases\n• **Biology**: Cells, genetics, ecosystems\n• **Earth Science**: Weather, geology, astronomy\n• **Math concepts**: Algebra, geometry, calculus\n\nWhat concept would you like me to explain?";
+      }
+      // Default helpful response
       else {
-        response = "Hello! I'm your AI study assistant. I can help you with:\n\n• Basic math calculations (try: 1 + 1)\n• Study tips and techniques\n• Explaining concepts\n• Creating study schedules\n\nWhat would you like help with today?";
+        response = "I'm your comprehensive AI study assistant! I can help with:\n\n📚 **Academic Subjects**\n• Math (basic to algebra/calculus)\n• Science (physics, chemistry, biology)\n• History (events, dates, analysis)\n• Reading comprehension strategies\n\n🍳 **Daily Life**\n• Cooking instructions\n• Practical tips and how-tos\n\n📖 **Study Skills**\n• Note-taking techniques\n• Study strategies\n• Time management\n\nWhat would you like help with today?";
       }
 
       // Remove typing indicator and add real response

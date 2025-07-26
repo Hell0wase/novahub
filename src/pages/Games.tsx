@@ -29,6 +29,10 @@ import PolytrackGame from '@/components/games/PolytrackGame';
 import BasketballStarsGame from '@/components/games/BasketballStarsGame';
 import DriveMadGame from '@/components/games/DriveMadGame';
 import HTMLGameComponent from '@/components/games/HTMLGameComponent';
+import MinecraftGame from '@/components/games/MinecraftGame';
+import SlitherIOGame from '@/components/games/SlitherIOGame';
+import CookieClickerGame from '@/components/games/CookieClickerGame';
+import PaperIOGame from '@/components/games/PaperIOGame';
 
 const Games = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -214,6 +218,54 @@ const Games = () => {
       icon: Target,
       color: 'text-orange-500',
       component: (props: any) => <HTMLGameComponent {...props} title="Racing Championship" gameId="racing-championship" />
+    },
+    {
+      id: 'minecraft',
+      title: 'Minecraft Classic',
+      description: 'Build and explore in this classic block-building game',
+      category: 'adventure',
+      difficulty: 'Easy',
+      time: '30 min',
+      players: 12456,
+      icon: Brain,
+      color: 'text-green-500',
+      component: MinecraftGame
+    },
+    {
+      id: 'slither-io',
+      title: 'Slither.io',
+      description: 'Grow your snake by eating dots and avoid other players',
+      category: 'arcade',
+      difficulty: 'Medium',
+      time: '10 min',
+      players: 8765,
+      icon: Target,
+      color: 'text-purple-500',
+      component: SlitherIOGame
+    },
+    {
+      id: 'cookie-clicker',
+      title: 'Cookie Clicker',
+      description: 'Click cookies and build your baking empire',
+      category: 'arcade',
+      difficulty: 'Easy',
+      time: '20 min',
+      players: 5432,
+      icon: Star,
+      color: 'text-orange-500',
+      component: CookieClickerGame
+    },
+    {
+      id: 'paper-io',
+      title: 'Paper.io',
+      description: 'Capture territory by drawing lines and closing areas',
+      category: 'arcade',
+      difficulty: 'Medium',
+      time: '8 min',
+      players: 6789,
+      icon: Target,
+      color: 'text-blue-500',
+      component: PaperIOGame
     }
   ];
 

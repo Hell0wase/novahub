@@ -14,22 +14,24 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
-    password: ''
+    password: '',
+    rememberMe: false
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Simulate successful login and redirect to dashboard
     const userName = formData.email.split('@')[0];
-    login(formData.email, userName);
+    login(formData.email, userName, formData.rememberMe);
     console.log('Login successful:', formData);
     navigate('/dashboard');
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
     setFormData(prev => ({
       ...prev,
-      [e.target.name]: e.target.value
+      [e.target.name]: value
     }));
   };
 
@@ -97,7 +99,13 @@ const Login = () => {
               
               <div className="flex items-center justify-between">
                 <label className="flex items-center space-x-2 text-sm">
-                  <input type="checkbox" className="rounded" />
+                  <input 
+                    type="checkbox" 
+                    name="rememberMe"
+                    checked={formData.rememberMe}
+                    onChange={handleChange}
+                    className="rounded" 
+                  />
                   <span>Remember me</span>
                 </label>
                 <Link to="/forgot-password" className="text-sm text-primary hover:underline">
