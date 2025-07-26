@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 
 export const useAuth = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState<{ email: string; name: string } | null>(null);
 
   useEffect(() => {
@@ -12,6 +13,7 @@ export const useAuth = () => {
       setUser(JSON.parse(savedUser));
       setIsAuthenticated(true);
     }
+    setIsLoading(false);
   }, []);
 
   const login = (email: string, name: string, remember: boolean = false) => {
@@ -31,6 +33,7 @@ export const useAuth = () => {
 
   return {
     isAuthenticated,
+    isLoading,
     user,
     login,
     logout
