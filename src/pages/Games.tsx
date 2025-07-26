@@ -16,6 +16,7 @@ import {
   Clock,
   ArrowLeft
 } from 'lucide-react';
+import FullscreenGame from '@/components/FullscreenGame';
 import SnakeGame from '@/components/games/SnakeGame';
 import TetrisGame from '@/components/games/TetrisGame';
 import QuizGame from '@/components/games/QuizGame';
@@ -256,7 +257,7 @@ const Games = () => {
     setCurrentGame(game.id);
   };
 
-  // Render specific game component
+  // Render specific game component in fullscreen
   if (currentGame) {
     console.log('Rendering game component for:', currentGame);
     const game = games.find(g => g.id === currentGame);
@@ -264,7 +265,11 @@ const Games = () => {
     if (game && game.component) {
       const GameComponent = game.component;
       console.log('Rendering GameComponent:', GameComponent);
-      return <GameComponent onBack={() => setCurrentGame(null)} />;
+      return (
+        <FullscreenGame gameName={game.title} onBack={() => setCurrentGame(null)}>
+          <GameComponent onBack={() => setCurrentGame(null)} />
+        </FullscreenGame>
+      );
     } else {
       console.log('No component found for game:', currentGame);
     }

@@ -125,3 +125,12 @@ All colors MUST be HSL.
     @apply bg-background text-foreground;
   }
 }
+
+@keyframes tetrisFall {
+  from {
+    transform: translateY(-40px) rotate(0deg);
+  }
+  to {
+    transform: translateY(640px) rotate(360deg);
+  }
+}

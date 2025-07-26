@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Menu, X, BookOpen, Users, Gamepad2, LogOut, User } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
+import ThemeSettings from '@/components/ThemeSettings';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -58,6 +59,7 @@ const Navigation = () => {
 
           {/* Auth Buttons */}
           <div className="hidden md:flex items-center space-x-4">
+            <ThemeSettings />
             {isAuthenticated ? (
               <div className="flex items-center space-x-4">
                 <div className="flex items-center space-x-2 text-sm">
@@ -114,6 +116,9 @@ const Navigation = () => {
               );
             })}
             <div className="pt-4 space-y-2">
+              <div className="px-3">
+                <ThemeSettings />
+              </div>
               {isAuthenticated ? (
                 <div className="space-y-2">
                   <div className="flex items-center space-x-2 px-3 py-2 text-sm">

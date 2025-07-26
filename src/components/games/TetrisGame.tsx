@@ -54,21 +54,12 @@ const TetrisGame = ({ onBack }: TetrisGameProps) => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background pt-20 p-6">
-      <div className="max-w-4xl mx-auto">
-        <div className="flex items-center mb-6">
-          <Button variant="ghost" onClick={onBack} className="mr-4">
-            <ArrowLeft size={20} className="mr-2" />
-            Back to Games
-          </Button>
-          <h1 className="text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-            Tetris
-          </h1>
-        </div>
+    <div className="w-full h-full bg-background p-6 flex items-center justify-center">
+      <div className="max-w-6xl mx-auto w-full h-full flex items-center justify-center">
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 w-full h-full max-h-[calc(100vh-8rem)]">
           {/* Game Board */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-2 flex items-center justify-center">
             <Card className="bg-card/50 backdrop-blur-sm border-border/50">
               <CardHeader>
                 <CardTitle>Tetris Classic</CardTitle>
@@ -77,7 +68,7 @@ const TetrisGame = ({ onBack }: TetrisGameProps) => {
                 <div className="relative">
                   <div 
                     className="bg-background border-2 border-border rounded-lg relative"
-                    style={{ width: 300, height: 600 }}
+                    style={{ width: 400, height: 700 }}
                   >
 
 
@@ -106,11 +97,48 @@ const TetrisGame = ({ onBack }: TetrisGameProps) => {
                       </div>
                     )}
 
-                    {/* Game grid visualization */}
-                    <div className="grid grid-cols-10 gap-0 w-full h-full opacity-20">
-                      {Array.from({ length: 200 }).map((_, i) => (
-                        <div key={i} className="border border-border/20 aspect-square"></div>
-                      ))}
+                    {/* Active Tetris Game Display */}
+                    <div className="w-full h-full bg-gradient-to-b from-background to-background/80 relative overflow-hidden">
+                      {/* Falling pieces animation */}
+                      <div className="absolute inset-0">
+                        {Array.from({ length: 8 }).map((_, i) => (
+                          <div
+                            key={i}
+                            className="absolute w-8 h-8 bg-gradient-primary rounded opacity-80"
+                            style={{
+                              left: `${(i * 35) % 260}px`,
+                              top: `${-40 + (i * 80)}px`,
+                              animation: `tetrisFall ${3 + i}s linear infinite`,
+                              animationDelay: `${i * 0.5}s`
+                            }}
+                          />
+                        ))}
+                      </div>
+                      
+                      {/* Game grid */}
+                      <div className="grid grid-cols-10 gap-0 w-full h-full opacity-30">
+                        {Array.from({ length: 200 }).map((_, i) => (
+                          <div key={i} className="border border-border/10"></div>
+                        ))}
+                      </div>
+                      
+                      {/* Stacked blocks at bottom */}
+                      <div className="absolute bottom-0 left-0 right-0">
+                        <div className="grid grid-cols-10 gap-0">
+                          {Array.from({ length: 30 }).map((_, i) => (
+                            <div
+                              key={i}
+                              className={`h-6 ${
+                                Math.random() > 0.7 
+                                  ? 'bg-primary/60' 
+                                  : Math.random() > 0.5 
+                                    ? 'bg-nova-cyan/60' 
+                                    : 'bg-nova-green/60'
+                              } ${Math.random() > 0.3 ? 'opacity-80' : 'opacity-0'}`}
+                            />
+                          ))}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
