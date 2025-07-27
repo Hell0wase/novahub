@@ -57,9 +57,9 @@ const Navigation = () => {
   return (
     <nav className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md border-b border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16 gap-8">
+        <div className="flex justify-between items-center h-16 gap-12">
           {/* Left Section - About:Blank + Logo */}
-          <div className="flex items-center space-x-6">
+          <div className="flex items-center space-x-10">
             <Button
               variant="ghost"
               size="sm"
@@ -82,7 +82,7 @@ const Navigation = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-12">
             {navItems.map((item) => {
               const Icon = item.icon;
               return (
@@ -103,7 +103,7 @@ const Navigation = () => {
           </div>
 
           {/* Auth Buttons */}
-          <div className="hidden md:flex items-center space-x-4">
+          <div className="hidden md:flex items-center space-x-6">
             <ThemeSettings />
             {isAuthenticated ? (
               <div className="flex items-center space-x-4">
