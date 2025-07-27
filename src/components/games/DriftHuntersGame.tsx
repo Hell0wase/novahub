@@ -9,248 +9,278 @@ const DriftHuntersGame = ({ onBack }: DriftHuntersGameProps) => {
 
   useEffect(() => {
     const gameHTML = `
-<!DOCTYPE html>
-<html lang="en">
+<!-- Ultimate Game Stash file--> 
+<!-- For the regularly updating doc go to https://docs.google.com/document/d/1_FmH3BlSBQI7FGgAQL59-ZPe8eCxs35wel6JUyVaG8Q/ -->
+
+<html lang="en-us">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Drift Hunters</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background: #000;
-            overflow: hidden;
-            font-family: Arial, sans-serif;
-        }
-        #gameContainer {
-            width: 100vw;
-            height: 100vh;
-            position: relative;
-            background: linear-gradient(45deg, #1a1a2e, #16213e);
-        }
-        canvas {
-            display: block;
-            margin: 0 auto;
-            background: #0f0f23;
-            border: 2px solid #333;
-        }
-        .hud {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            color: white;
-            font-size: 18px;
-            z-index: 10;
-        }
-        .controls {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            color: white;
-            font-size: 14px;
-            z-index: 10;
-        }
-    </style>
+	<script src="https://s0.2mdn.net/instream/video/client.js" async="" type="text/javascript"></script>
+	<script async="" src="https://www.google-analytics.com/analytics.js"></script>
+	<script type="text/javascript" id="analytics" async="" src="https://cdn.jsdelivr.net/gh/st39/sdk@main/ga.js">
+	</script>
+	<script type="text/javascript" async="" src="https://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
+	<script id="gamemonetize-sdk" src="https://cdn.jsdelivr.net/gh/st39/sdk@main/sdkjs.js"></script>
+	<script src="//www.google.com/jsapi"></script>
+	<script>
+		window.parent.maeExportApis_();
+	</script>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		.webgl-content * {
+			border: 0;
+			margin: 0;
+			padding: 0;
+		}
+
+		.webgl-content {
+			position: absolute;
+		}
+
+		.webgl-content,
+		#gameContainer,
+		#unityContainer,
+		canvas {
+			width: 100% !important;
+			height: 100% !important;
+		}
+
+		.webgl-content .logo,
+		.progress {
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			-webkit-transform: translate(-50%, -50%);
+			transform: translate(-50%, -50%);
+		}
+
+		.webgl-content .logo {
+			background: url("progressLogo.Light.png") no-repeat center/contain;
+			width: 354px;
+			height: 130px;
+		}
+
+		.webgl-content .progress {
+			height: 18px;
+			width: 141px;
+			margin-top: 90px;
+		}
+
+		.webgl-content .progress .empty {
+			background: url("progressEmpty.Light.png") no-repeat right/cover;
+			float: right;
+			width: 100%;
+			height: 100%;
+			display: inline-block;
+		}
+
+		.webgl-content .progress .full {
+			background: url("progressFull.Light.png") no-repeat left/cover;
+			float: left;
+			width: 0%;
+			height: 100%;
+			display: inline-block;
+		}
+
+		.webgl-content .logo.Dark {
+			background-image: url(progressLogo.Dark.png);
+		}
+
+		.webgl-content .progress.Dark .empty {
+			background-image: url(progressEmpty.Dark.png);
+		}
+
+		.webgl-content .progress.Dark .full {
+			background-image: url(progressFull.Dark.png);
+		}
+
+		.webgl-content .footer {
+			margin-top: 5px;
+			height: 38px;
+			line-height: 38px;
+			font-family: Helvetica, Verdana, Arial, sans-serif;
+			font-size: 18px;
+		}
+
+		.webgl-content .footer .webgl-logo,
+		.title,
+		.fullscreen {
+			height: 100%;
+			display: inline-block;
+			background: transparent center no-repeat;
+		}
+
+		.webgl-content .footer .webgl-logo {
+			background-image: url(webgl-logo.png);
+			width: 204px;
+			float: left;
+		}
+
+		.webgl-content .footer .title {
+			margin-right: 10px;
+			float: right;
+		}
+
+		.webgl-content .footer .fullscreen {
+			background-image: url(fullscreen.png);
+			width: 38px;
+			float: right;
+		}
+	</style>
+
+	<style type="text/css">
+		#button {
+			display: none;
+		}
+
+		.imgb_vis {
+			animation: imgb-animation 7s linear;
+		}
+
+		@keyframes imgb-animation {
+			10% {
+				transform: translateX(0);
+			}
+
+			20% {
+				transform: translateX(100px);
+			}
+
+			90% {
+				transform: translateX(100px);
+			}
+
+			100% {
+				transform: translateX(0);
+			}
+		}
+	</style>
+	<meta http-equiv="origin-trial"
+		content="A9AxgGSwmnfgzzkyJHILUr3H8nJ/3D+57oAsL4DBt4USlng4jZ0weq+fZtHC/Qwwn6gd4QSa5DzT3OBif+kXVA0AAAB4eyJvcmlnaW4iOiJodHRwczovL2ltYXNkay5nb29nbGVhcGlzLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjk1MTY3OTk5LCJpc1RoaXJkUGFydHkiOnRydWV9">
+	<meta http-equiv="origin-trial"
+		content="AlK2UR5SkAlj8jjdEc9p3F3xuFYlF6LYjAML3EOqw1g26eCwWPjdmecULvBH5MVPoqKYrOfPhYVL71xAXI1IBQoAAAB8eyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3NTgwNjcxOTksImlzU3ViZG9tYWluIjp0cnVlfQ==">
 </head>
-<body>
-    <div id="gameContainer">
-        <canvas id="gameCanvas" width="800" height="600"></canvas>
-        <div class="hud">
-            <div>Speed: <span id="speed">0</span> km/h</div>
-            <div>Score: <span id="score">0</span></div>
-            <div>Drift Points: <span id="drift">0</span></div>
-        </div>
-        <div class="controls">
-            <div>Controls: WASD or Arrow Keys to drive</div>
-            <div>Hold SPACE to handbrake</div>
-        </div>
-    </div>
 
-    <script>
-        const canvas = document.getElementById('gameCanvas');
-        const ctx = canvas.getContext('2d');
-        
-        // Resize canvas to fill container
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
+<body style="margin: 0 auto; overflow: hidden">
 
-        // Game state
-        const game = {
-            car: {
-                x: canvas.width / 2,
-                y: canvas.height / 2,
-                angle: 0,
-                speed: 0,
-                maxSpeed: 8,
-                acceleration: 0.2,
-                friction: 0.95,
-                turnSpeed: 0.05,
-                isDrifting: false
-            },
-            score: 0,
-            driftPoints: 0,
-            keys: {},
-            obstacles: []
-        };
+	<div class="webgl-content">
 
-        // Create obstacles/track boundaries
-        for (let i = 0; i < 20; i++) {
-            game.obstacles.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                width: 60,
-                height: 20,
-                angle: Math.random() * Math.PI * 2
-            });
-        }
+		<div id="gameContainer"
+			style="width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; position: relative; background: rgb(17, 17, 17);">
+			<canvas id="#canvas" width="1322" height="925" style=""></canvas>
+			<div
+				style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); background: url(&quot;data:image/png;base64,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&quot;) center center / contain no-repeat; width: 154px; height: 130px; display: none;">
+			</div>
+			<div
+				style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); height: 18px; width: 141px; margin-top: 90px; display: none;">
+				<div
+					style="background: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAI0AAAASCAYAAABmbl0zAAAACXBIWXMAAAsSAAALEgHS3X78AAAATUlEQVRo3u3aIQ4AIAwEQUr4/5cPiyMVBDOj0M2mCKgkGdAwjYCudZzLOLiITYPrCdEgGkSDaEA0iAbRIBpEA6JBNHx1vnL7V4NNwxsbCNMGI3YImu0AAAAASUVORK5CYII=&quot;) right center / cover no-repeat; float: right; width: 0%; height: 100%; display: inline-block;">
+				</div>
+				<div
+					style="background: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAI0AAAASCAYAAABmbl0zAAAACXBIWXMAAAsSAAALEgHS3X78AAAAO0lEQVRo3u3SQREAAAjDMMC/56EB3omEXjtJCg5GAkyDaTANpsE0YBpMg2kwDaYB02AaTINpMA2Yhr8FO18EIBpZMeQAAAAASUVORK5CYII=&quot;) left center / cover no-repeat; float: left; width: 100%; height: 100%; display: inline-block;">
+				</div>
+			</div>
+		</div>
 
-        // Input handling
-        document.addEventListener('keydown', (e) => {
-            game.keys[e.code] = true;
-        });
+	</div>
 
-        document.addEventListener('keyup', (e) => {
-            game.keys[e.code] = false;
-        });
+	<script
+		src="https://rawcdn.githack.com/unxa/unxa.github.io/976db99398423b4e5a8b327892c2b57b6a5b766f/g/drift-hunters/UnityLoader2019.js">
+	</script>
 
-        function updateCar() {
-            const car = game.car;
-            
-            // Acceleration
-            if (game.keys['KeyW'] || game.keys['ArrowUp']) {
-                car.speed = Math.min(car.speed + car.acceleration, car.maxSpeed);
-            }
-            if (game.keys['KeyS'] || game.keys['ArrowDown']) {
-                car.speed = Math.max(car.speed - car.acceleration, -car.maxSpeed / 2);
-            }
-            
-            // Turning
-            if (game.keys['KeyA'] || game.keys['ArrowLeft']) {
-                car.angle -= car.turnSpeed * (car.speed / car.maxSpeed);
-            }
-            if (game.keys['KeyD'] || game.keys['ArrowRight']) {
-                car.angle += car.turnSpeed * (car.speed / car.maxSpeed);
-            }
-            
-            // Handbrake drift
-            if (game.keys['Space']) {
-                car.isDrifting = true;
-                car.speed *= 0.98;
-                if (Math.abs(car.speed) > 2) {
-                    game.driftPoints += Math.floor(Math.abs(car.speed));
-                }
-            } else {
-                car.isDrifting = false;
-            }
-            
-            // Apply friction
-            car.speed *= car.friction;
-            
-            // Move car
-            car.x += Math.cos(car.angle) * car.speed;
-            car.y += Math.sin(car.angle) * car.speed;
-            
-            // Keep car on screen
-            if (car.x < 0) car.x = canvas.width;
-            if (car.x > canvas.width) car.x = 0;
-            if (car.y < 0) car.y = canvas.height;
-            if (car.y > canvas.height) car.y = 0;
-            
-            // Update score
-            game.score += Math.floor(Math.abs(car.speed));
-        }
+	<script>
+		var gameInstance = UnityLoader.instantiate("gameContainer", "https://rawcdn.githack.com/unxa/unxa.github.io/976db99398423b4e5a8b327892c2b57b6a5b766f/g/drift-hunters/dh.json");
 
-        function drawCar() {
-            const car = game.car;
-            
-            ctx.save();
-            ctx.translate(car.x, car.y);
-            ctx.rotate(car.angle);
-            
-            // Car body
-            ctx.fillStyle = car.isDrifting ? '#ff6b6b' : '#4ecdc4';
-            ctx.fillRect(-15, -8, 30, 16);
-            
-            // Car details
-            ctx.fillStyle = '#333';
-            ctx.fillRect(-12, -6, 8, 4);
-            ctx.fillRect(-12, 2, 8, 4);
-            ctx.fillRect(8, -6, 8, 4);
-            ctx.fillRect(8, 2, 8, 4);
-            
-            // Drift smoke
-            if (car.isDrifting && Math.abs(car.speed) > 2) {
-                for (let i = 0; i < 5; i++) {
-                    const opacity = 0.3 - i * 0.06;
-                    ctx.fillStyle = 'rgba(200, 200, 200, ' + opacity + ')';
-                    ctx.beginPath();
-                    ctx.arc(-20 - i * 5, 0, 8 - i, 0, Math.PI * 2);
-                    ctx.fill();
-                }
-            }
-            
-            ctx.restore();
-        }
+		function UnityProgress(gameInstance, progress) {
+			if (!gameInstance.Module) {
+				return;
+			}
+		}
+	</script>
 
-        function drawObstacles() {
-            ctx.fillStyle = '#666';
-            game.obstacles.forEach(obstacle => {
-                ctx.save();
-                ctx.translate(obstacle.x, obstacle.y);
-                ctx.rotate(obstacle.angle);
-                ctx.fillRect(-obstacle.width/2, -obstacle.height/2, obstacle.width, obstacle.height);
-                ctx.restore();
-            });
-        }
+	<script src=""></script>
 
-        function drawTrack() {
-            // Draw track lines
-            ctx.strokeStyle = '#444';
-            ctx.lineWidth = 3;
-            ctx.setLineDash([20, 10]);
-            
-            // Circular track
-            ctx.beginPath();
-            ctx.arc(canvas.width / 2, canvas.height / 2, 200, 0, Math.PI * 2);
-            ctx.stroke();
-            
-            ctx.beginPath();
-            ctx.arc(canvas.width / 2, canvas.height / 2, 300, 0, Math.PI * 2);
-            ctx.stroke();
-            
-            ctx.setLineDash([]);
-        }
+	<script type="text/javascript">
+		window.SDK_OPTIONS = {
+			gameId: "r2tzpy9cgrn2u4xgzc9z0zbtvxm16mby",
+			onEvent: function(a) {
+				switch (a.name) {
+					case "SDK_GAME_PAUSE":
+						// pause game logic / mute audio
+						break;
+					case "SDK_GAME_START":
+						// advertisement done, resume game logic and unmute audio
+						break;
+					case "SDK_READY":
+						// when sdk is ready
+						break;
+				}
+			}
+		};
 
-        function updateHUD() {
-            document.getElementById('speed').textContent = Math.floor(Math.abs(game.car.speed * 20));
-            document.getElementById('score').textContent = game.score;
-            document.getElementById('drift').textContent = game.driftPoints;
-        }
+		(function(a, b, c) {
+			var d = a.getElementsByTagName(b)[0];
+			a.getElementById(c) || (a = a.createElement(b), a.id = c, a.src = "", d.parentNode.insertBefore(a, d))
+		})(document, "script", "gamemonetize-sdk");
+	</script>
 
-        function gameLoop() {
-            // Clear canvas
-            ctx.fillStyle = '#0f0f23';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            // Update and draw
-            updateCar();
-            drawTrack();
-            drawObstacles();
-            drawCar();
-            updateHUD();
-            
-            requestAnimationFrame(gameLoop);
-        }
+	<script type="text/javascript">
+		let isAdShown = false;
 
-        // Start game
-        gameLoop();
-    </script>
+		function onClick(e) {
+			if (!isAdShown && typeof sdk !== 'undefined' && typeof sdk.showBanner === 'function') {
+				sdk.showBanner(); 
+				isAdShown = true; 
+			}
+			window.removeEventListener("click", onClick); 
+		}
+
+		window.addEventListener("click", onClick);
+	</script>
+
+	<div id="imaContainer"
+		style="position: absolute; z-index: 10000; top: 0px; left: 0px; width: 100%; height: 100%; background-color: rgb(0, 0, 0); visibility: hidden; overflow: hidden;">
+		<video id="imaVideo"></video></div>
+	<div id="imaContainer_new"
+		style="position: absolute; z-index: 10000; top: 0px; left: 0px; width: 100%; height: 100%; background-color: rgb(0, 0, 0); visibility: hidden; overflow: hidden;">
+		<video2 id="imaVideo2"></video2>
+	</div>
+	<div id="sdk__advertisement"
+		style="position: fixed; z-index: 0; top: 0px; left: 0px; width: 100%; height: 100%; transform: translateX(-9999px); background-color: rgba(0, 0, 0, 0.8); opacity: 0; transition: opacity 300ms cubic-bezier(0.55, 0, 0.1, 1);">
+		<div id="sdk__advertisement_slot"
+			style="position: absolute; background-color: rgb(0, 0, 0); top: 0px; left: 0px; width: 1322px; height: 925px;">
+			<div style="position: absolute;">
+				<div style="display: none;"><video title="Advertisement" webkit-playsinline="true" playsinline="true"
+						style="background-color: rgb(0, 0, 0); position: absolute; width: 100%; height: 100%; left: 0px; top: 0px;"></video>
+					<div style="position: absolute; width: 100%; height: 100%; left: 0px; top: 0px;"></div>
+				</div>
+				<div style="display: none;"><video title="Advertisement" webkit-playsinline="true" playsinline="true"
+						style="background-color: rgb(0, 0, 0); position: absolute; width: 100%; height: 100%; left: 0px; top: 0px;"></video>
+					<div style="position: absolute; width: 100%; height: 100%; left: 0px; top: 0px;"></div>
+				</div><iframe src=""
+					allowfullscreen="" allow="autoplay;attribution-reporting" id="goog_1813318078" title="Advertisement"
+					style="border: 0px; opacity: 0; margin: 0px; padding: 0px; position: relative; color-scheme: light;"></iframe><iframe
+					title="Advertisement" style="display: none;"></iframe>
+			</div>
+		</div>
+	</div><iframe name="google_video_inner_static_iframe" id="google_video_inner_static_iframe" src="about:blank"
+		style="height: 0px; width: 0px; display:none"></iframe>
+	<script
+		src="">
+	</script>
+	<script
+		src="">
+	</script>
 </body>
+ 
 </html>`;
 
     const blob = new Blob([gameHTML], { type: 'text/html' });
