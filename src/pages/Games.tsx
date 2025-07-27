@@ -999,7 +999,7 @@ const Games = () => {
                           {game.difficulty}
                         </Badge>
                       </div>
-                      <CardTitle className="text-lg group-hover:text-primary transition-colors gradient-text">
+                      <CardTitle className="text-lg text-foreground group-hover:text-primary transition-colors">
                         {game.title}
                       </CardTitle>
                       <CardDescription className="text-sm leading-relaxed">
