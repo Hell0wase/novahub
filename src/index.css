@@ -44,6 +44,7 @@ All colors MUST be HSL.
     --nova-navy: 222 47% 11%;
     --nova-cyan: 189 94% 55%;
     --nova-green: 142 76% 36%;
+    --nova-purple: 271 81% 56%;
     
     /* Academic Gradients */
     --gradient-primary: linear-gradient(135deg, hsl(var(--theme-primary)), hsl(189 94% 55%));
