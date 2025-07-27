@@ -160,46 +160,74 @@ const Notes = () => {
       const input = aiInput.toLowerCase().trim();
       
       // Math operations and algebra
-      if (input.includes('+') || input.includes('-') || input.includes('*') || input.includes('x') || input.includes('/') || input.includes('=') || /\d/.test(input)) {
+      if (input.includes('+') || input.includes('-') || input.includes('*') || input.includes('x') || input.includes('/') || input.includes('÷') || input.includes('divided by') || input.includes('=') || /\d/.test(input)) {
         try {
           // Handle algebraic expressions and basic math
           if ((input.includes('x') && input.includes('=')) || input.includes('algebra')) {
             response = "For algebraic equations, I can help explain the steps:\n\n• Linear equations: ax + b = c\n• Quadratic formula: x = (-b ± √(b²-4ac))/2a\n• Factor by grouping\n• Solve for the variable\n\nWhat specific algebraic problem would you like help with?";
           } else {
-            // Handle multiplication with 'x' symbol
+            // Handle multiplication with 'x' symbol and division with various symbols
             let cleanInput = input;
             
             // Replace 'x' with '*' for multiplication when surrounded by numbers or spaces
             cleanInput = cleanInput.replace(/(\d+)\s*x\s*(\d+)/g, '$1 * $2');
             cleanInput = cleanInput.replace(/(\d+)x(\d+)/g, '$1 * $2');
             
+            // Replace division symbols and words
+            cleanInput = cleanInput.replace(/(\d+)\s*÷\s*(\d+)/g, '$1 / $2');
+            cleanInput = cleanInput.replace(/(\d+)÷(\d+)/g, '$1 / $2');
+            cleanInput = cleanInput.replace(/(\d+)\s*divided\s*by\s*(\d+)/g, '$1 / $2');
+            
             // Clean the input for safe evaluation
             cleanInput = cleanInput.replace(/[^0-9+\-*/().\s]/g, '').trim();
             
             if (cleanInput && /^[0-9+\-*/().\s]+$/.test(cleanInput)) {
               try {
-                // Handle fractions
-                if (cleanInput.includes('/') && !cleanInput.includes('*') && !cleanInput.includes('+') && !cleanInput.includes('-')) {
+                // Handle simple division
+                if (cleanInput.includes('/') && !cleanInput.includes('*') && !cleanInput.includes('+') && !cleanInput.includes('-') && !cleanInput.includes('(')) {
                   const parts = cleanInput.split('/');
                   if (parts.length === 2) {
-                    const numerator = parseFloat(parts[0]);
-                    const denominator = parseFloat(parts[1]);
+                    const numerator = parseFloat(parts[0].trim());
+                    const denominator = parseFloat(parts[1].trim());
                     if (!isNaN(numerator) && !isNaN(denominator) && denominator !== 0) {
                       const result = numerator / denominator;
-                      response = `${numerator}/${denominator} = ${result}`;
+                      // Show division symbol in response
+                      let originalExpression = input;
+                      originalExpression = originalExpression.replace(/(\d+)\s*÷\s*(\d+)/g, '$1 ÷ $2');
+                      originalExpression = originalExpression.replace(/(\d+)\s*divided\s*by\s*(\d+)/g, '$1 ÷ $2');
+                      originalExpression = originalExpression.replace(/(\d+)\s*\/\s*(\d+)/g, '$1 ÷ $2');
+                      
+                      // Show result with decimal places if needed
+                      if (Number.isInteger(result)) {
+                        response = `${originalExpression} = ${result}`;
+                      } else {
+                        response = `${originalExpression} = ${result.toFixed(4).replace(/\.?0+$/, '')}`;
+                      }
+                    } else if (denominator === 0) {
+                      response = "Error: Cannot divide by zero!";
                     } else {
-                      response = "Invalid fraction. Please check the format.";
+                      response = "Invalid division. Please check the format.";
                     }
                   } else {
-                    response = "Please format fractions as 'numerator/denominator' (e.g., '3/4')";
+                    response = "Please format division as 'number ÷ number' or 'number / number' (e.g., '12 ÷ 3')";
                   }
                 } else {
-                  // Use Function constructor instead of eval for safety
+                  // Handle complex expressions with division
                   const result = new Function('return ' + cleanInput)();
                   if (typeof result === 'number' && !isNaN(result)) {
                     // Show the original input format in the response
-                    const originalExpression = input.replace(/(\d+)\s*x\s*(\d+)/g, '$1 × $2');
-                    response = `${originalExpression} = ${result}`;
+                    let originalExpression = input;
+                    originalExpression = originalExpression.replace(/(\d+)\s*x\s*(\d+)/g, '$1 × $2');
+                    originalExpression = originalExpression.replace(/(\d+)\s*÷\s*(\d+)/g, '$1 ÷ $2');
+                    originalExpression = originalExpression.replace(/(\d+)\s*divided\s*by\s*(\d+)/g, '$1 ÷ $2');
+                    originalExpression = originalExpression.replace(/(\d+)\s*\/\s*(\d+)/g, '$1 ÷ $2');
+                    
+                    // Show result with appropriate decimal places
+                    if (Number.isInteger(result)) {
+                      response = `${originalExpression} = ${result}`;
+                    } else {
+                      response = `${originalExpression} = ${result.toFixed(4).replace(/\.?0+$/, '')}`;
+                    }
                   } else {
                     response = "I couldn't calculate that. Please check the format.";
                   }
@@ -208,7 +236,7 @@ const Notes = () => {
                 response = "I couldn't solve that math problem. Please check the format and try again.";
               }
             } else {
-              response = "I can help with math operations like:\n• Addition: 5 + 3\n• Subtraction: 10 - 4\n• Multiplication: 6 * 7 or 6 x 7\n• Division: 20 / 4\n• Fractions: 3/4\n• Complex: (5 + 3) * 2\n\nTry one of these formats!";
+              response = "I can help with math operations like:\n• Addition: 5 + 3\n• Subtraction: 10 - 4\n• Multiplication: 6 * 7 or 6 x 7\n• Division: 20 / 4 or 20 ÷ 4 or 20 divided by 4\n• Fractions: 3/4\n• Complex: (15 + 5) ÷ 4\n\nTry one of these formats!";
             }
           }
         } catch (error) {
