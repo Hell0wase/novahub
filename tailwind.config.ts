@@ -131,15 +131,6 @@ export default {
 				'gradient-primary': 'linear-gradient(135deg, hsl(217 91% 60%), hsl(189 94% 55%))',
 				'gradient-secondary': 'linear-gradient(135deg, hsl(142 76% 36%), hsl(217 91% 60%))',
 				'gradient-academic': 'linear-gradient(135deg, hsl(222 47% 11%), hsl(217 91% 60%))'
-			},
-			fontFamily: {
-				'inter': ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
-				'playfair': ['Playfair Display', 'serif'],
-				'roboto': ['Roboto', 'system-ui', '-apple-system', 'sans-serif'],
-				'opensans': ['Open Sans', 'system-ui', '-apple-system', 'sans-serif'],
-				'poppins': ['Poppins', 'system-ui', '-apple-system', 'sans-serif'],
-				'montserrat': ['Montserrat', 'system-ui', '-apple-system', 'sans-serif']
-			}
 			}
 		}
 	},

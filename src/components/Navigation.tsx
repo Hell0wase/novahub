@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Menu, X, BookOpen, Users, Gamepad2, LogOut, User, Settings } from 'lucide-react';
+import { Menu, X, BookOpen, Users, Gamepad2, LogOut, User } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import ThemeSettings from '@/components/ThemeSettings';
 
@@ -20,7 +20,6 @@ const Navigation = () => {
     { href: '/notes', label: 'Notes', icon: BookOpen },
     { href: '/community', label: 'Community', icon: Users },
     { href: '/games', label: 'Fun Zone', icon: Gamepad2 },
-    { href: '/settings', label: 'Settings', icon: Settings },
   ];
 
   return (
