@@ -312,18 +312,6 @@ const Games = () => {
       component: (props: any) => <HTMLGameComponent {...props} title="Racing Championship" gameId="racing-championship" />
     },
     {
-      id: 'minecraft',
-      title: 'Minecraft Classic',
-      description: 'Build and explore in this classic block-building game',
-      category: 'adventure',
-      difficulty: 'Easy',
-      time: '30 min',
-      players: 12456,
-      icon: Brain,
-      color: 'text-green-500',
-      component: MinecraftGame
-    },
-    {
       id: 'duck-life-2',
       title: 'Duck Life 2',
       description: 'Train your duck to become world champion',

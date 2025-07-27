@@ -1,7 +1,4 @@
 import React, { useRef, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { ArrowLeft } from 'lucide-react';
 
 interface TombOfTheMaskGameProps {
   onBack: () => void;
@@ -66,38 +63,12 @@ const TombOfTheMaskGame: React.FC<TombOfTheMaskGameProps> = ({ onBack }) => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background p-6">
-      <div className="max-w-6xl mx-auto">
-        <div className="flex items-center mb-6">
-          <Button variant="ghost" onClick={onBack} className="mr-4">
-            <ArrowLeft size={20} className="mr-2" />
-            Back to Games
-          </Button>
-          <h1 className="text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-            Tomb of the Mask
-          </h1>
-        </div>
-
-        <Card className="bg-card/50 backdrop-blur-sm border-border/50">
-          <CardHeader>
-            <CardTitle>Tomb of the Mask</CardTitle>
-          </CardHeader>
-          <CardContent className="p-0">
-            <div className="relative w-full h-[600px]">
-              <iframe
-                ref={iframeRef}
-                className="w-full h-full border-0 rounded-lg"
-                title="Tomb of the Mask Game"
-              />
-            </div>
-            <div className="p-4">
-              <p className="text-sm text-muted-foreground">
-                Navigate the tomb with your magical mask in this retro-style adventure!
-              </p>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+    <div className="w-full h-full">
+      <iframe
+        ref={iframeRef}
+        className="w-full h-full border-0"
+        title="Tomb of the Mask Game"
+      />
     </div>
   );
 };
