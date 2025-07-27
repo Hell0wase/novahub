@@ -57,7 +57,14 @@ const Landing = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative overflow-hidden">
+      {/* Animated Background */}
+      <div className="fixed inset-0 opacity-30">
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl floating-animation" />
+        <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-purple-500/20 rounded-full blur-3xl floating-animation" style={{ animationDelay: '2s' }} />
+        <div className="absolute bottom-1/4 left-1/3 w-72 h-72 bg-cyan-500/20 rounded-full blur-3xl floating-animation" style={{ animationDelay: '4s' }} />
+      </div>
+      
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
         <div className="absolute inset-0 z-0">
@@ -66,62 +73,62 @@ const Landing = () => {
             alt="Students collaborating" 
             className="w-full h-full object-cover opacity-20"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-background/90 to-background/70" />
+          <div className="absolute inset-0 bg-gradient-to-br from-background/95 via-background/80 to-background/95" />
         </div>
         
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 animate-fade-in">
-            <span className="bg-gradient-primary bg-clip-text text-transparent">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 slide-in-up">
+            <span className="gradient-text block mb-2">
               Learn, Chill,
             </span>
-            <br />
-            <span className="text-foreground">Connect.</span>
+            <span className="text-foreground neon-glow inline-block px-4 py-2 rounded-lg">Connect.</span>
           </h1>
           
-          <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto animate-fade-in">
+          <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto slide-in-up glass-card p-6 rounded-xl" style={{ animationDelay: '0.2s' }}>
             The ultimate platform for students to collaborate, share notes, and have fun during study breaks. 
-            Built for the modern learner.
+            Built for the modern learner with cutting-edge technology.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in">
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center zoom-in" style={{ animationDelay: '0.4s' }}>
             <Link to="/signup">
-              <Button size="lg" className="bg-gradient-primary hover:opacity-90 text-lg px-8 py-6">
-                Get Started Free
+              <Button size="lg" className="bg-gradient-primary hover:opacity-90 text-lg px-12 py-6 neon-glow pulse-glow rounded-full">
+                🚀 Get Started Free
               </Button>
             </Link>
             <Link to="/login">
-              <Button size="lg" variant="outline" className="text-lg px-8 py-6">
-                Sign In
+              <Button size="lg" variant="outline" className="text-lg px-12 py-6 glass-card border-primary/30 hover:border-primary rounded-full">
+                ✨ Sign In
               </Button>
             </Link>
           </div>
           
-          <div className="mt-12 flex justify-center items-center space-x-8 text-muted-foreground animate-fade-in">
-            <div className="text-center">
-              <div className="text-2xl font-bold text-foreground">10K+</div>
-              <div className="text-sm">Active Students</div>
+          <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 slide-in-up" style={{ animationDelay: '0.6s' }}>
+            <div className="text-center glass-card p-6 rounded-xl neon-glow">
+              <div className="text-3xl font-bold gradient-text">10K+</div>
+              <div className="text-sm text-muted-foreground">Active Students</div>
             </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold text-foreground">50K+</div>
-              <div className="text-sm">Notes Shared</div>
+            <div className="text-center glass-card p-6 rounded-xl neon-glow">
+              <div className="text-3xl font-bold gradient-text">50K+</div>
+              <div className="text-sm text-muted-foreground">Notes Shared</div>
             </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold text-foreground">99.9%</div>
-              <div className="text-sm">Uptime</div>
+            <div className="text-center glass-card p-6 rounded-xl neon-glow">
+              <div className="text-3xl font-bold gradient-text">99.9%</div>
+              <div className="text-sm text-muted-foreground">Uptime</div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-muted/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Everything you need to <span className="bg-gradient-primary bg-clip-text text-transparent">succeed</span>
+      <section className="py-20 relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-16 slide-in-up">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              Everything you need to <span className="gradient-text">succeed</span>
             </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Powerful features designed to enhance your learning experience
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto glass-card p-4 rounded-xl">
+              Powerful features designed to enhance your learning experience with cutting-edge technology
             </p>
           </div>
           
@@ -129,13 +136,13 @@ const Landing = () => {
             {features.map((feature, index) => {
               const Icon = feature.icon;
               return (
-                <Card key={index} className="bg-card/50 backdrop-blur-sm border-border/50 hover:border-primary/50 transition-all duration-300 group">
-                  <CardContent className="p-6">
-                    <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                      <Icon className="text-white" size={24} />
+                <Card key={index} className="glass-card border-primary/20 hover:border-primary/50 transition-all duration-500 group zoom-in hover:scale-105" style={{ animationDelay: `${index * 0.1}s` }}>
+                  <CardContent className="p-8">
+                    <div className="w-16 h-16 bg-gradient-primary rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 neon-glow">
+                      <Icon className="text-white" size={28} />
                     </div>
-                    <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                    <p className="text-muted-foreground">{feature.description}</p>
+                    <h3 className="text-xl font-semibold mb-3 gradient-text">{feature.title}</h3>
+                    <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
                   </CardContent>
                 </Card>
               );
@@ -145,25 +152,32 @@ const Landing = () => {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Loved by <span className="bg-gradient-primary bg-clip-text text-transparent">students</span> everywhere
+      <section className="py-20 relative">
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 via-transparent to-cyan-500/10" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-16 slide-in-up">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              Loved by <span className="gradient-text">students</span> everywhere
             </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto glass-card p-4 rounded-xl">
               See what our community has to say about NovaHub
             </p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
-              <Card key={index} className="bg-card/50 backdrop-blur-sm border-border/50">
-                <CardContent className="p-6">
-                  <p className="text-muted-foreground mb-4 italic">"{testimonial.content}"</p>
-                  <div>
-                    <div className="font-semibold">{testimonial.name}</div>
-                    <div className="text-sm text-muted-foreground">{testimonial.role}</div>
+              <Card key={index} className="glass-card border-primary/20 hover:border-primary/40 transition-all duration-500 zoom-in" style={{ animationDelay: `${index * 0.2}s` }}>
+                <CardContent className="p-8">
+                  <div className="text-4xl mb-4 opacity-50">"</div>
+                  <p className="text-muted-foreground mb-6 italic leading-relaxed">{testimonial.content}</p>
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center neon-glow">
+                      <span className="text-white font-bold">{testimonial.name[0]}</span>
+                    </div>
+                    <div>
+                      <div className="font-semibold gradient-text">{testimonial.name}</div>
+                      <div className="text-sm text-muted-foreground">{testimonial.role}</div>
+                    </div>
                   </div>
                 </CardContent>
               </Card>
@@ -173,20 +187,26 @@ const Landing = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-primary relative overflow-hidden">
-        <div className="absolute inset-0 bg-black/20" />
+      <section className="py-20 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-primary opacity-90" />
+        <div className="absolute inset-0">
+          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-white/10 rounded-full blur-3xl floating-animation" />
+          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-cyan-400/20 rounded-full blur-3xl floating-animation" style={{ animationDelay: '2s' }} />
+        </div>
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 slide-in-up">
             Ready to transform your learning?
           </h2>
-          <p className="text-xl text-white/90 mb-8">
-            Join thousands of students already using NovaHub to excel in their studies.
+          <p className="text-xl text-white/90 mb-10 slide-in-up glass-card p-6 rounded-xl inline-block" style={{ animationDelay: '0.2s' }}>
+            Join thousands of students already using NovaHub to excel in their studies with cutting-edge technology.
           </p>
-          <Link to="/signup">
-            <Button size="lg" className="bg-white text-primary hover:bg-white/90 text-lg px-8 py-6">
-              Start Your Journey
-            </Button>
-          </Link>
+          <div className="zoom-in" style={{ animationDelay: '0.4s' }}>
+            <Link to="/signup">
+              <Button size="lg" className="bg-white text-primary hover:bg-white/90 text-lg px-12 py-6 neon-glow pulse-glow rounded-full font-bold">
+                🎓 Start Your Journey
+              </Button>
+            </Link>
+          </div>
         </div>
       </section>
     </div>
