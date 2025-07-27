@@ -56,30 +56,28 @@ const Navigation = () => {
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md border-b border-border">
+      {/* About:Blank Button - Top Left Corner */}
+      <Button
+        variant="ghost"
+        size="sm"
+        onClick={openAboutBlank}
+        className="absolute top-2 left-2 z-10 p-2 text-muted-foreground hover:text-foreground"
+        title="Open in about:blank"
+      >
+        <ExternalLink size={16} />
+      </Button>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 gap-12">
-          {/* Left Section - About:Blank + Logo */}
-          <div className="flex items-center space-x-10">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={openAboutBlank}
-              className="flex items-center space-x-1 text-muted-foreground hover:text-foreground"
-              title="Open in about:blank"
-            >
-              <ExternalLink size={16} />
-              <span className="hidden sm:inline">about:blank</span>
-            </Button>
-
-            <Link to="/" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">N</span>
-              </div>
-              <span className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-                NovaHub
-              </span>
-            </Link>
-          </div>
+          {/* Logo */}
+          <Link to="/" className="flex items-center space-x-2">
+            <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-lg">N</span>
+            </div>
+            <span className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+              NovaHub
+            </span>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-12">
