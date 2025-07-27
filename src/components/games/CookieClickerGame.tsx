@@ -8,239 +8,139 @@ const CookieClickerGame = ({ onBack }: CookieClickerGameProps) => {
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
   useEffect(() => {
-    const gameHtml = `
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <title>Cookie Clicker</title>
-        <style>
-          body { 
-            margin: 0; 
-            padding: 20px; 
-            font-family: Arial, sans-serif; 
-            background: linear-gradient(135deg, #FFE4B5, #DEB887); 
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-          }
-          .game-container {
-            text-align: center;
-            background: rgba(255,255,255,0.9);
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            max-width: 500px;
-            width: 100%;
-          }
-          .cookie {
-            width: 200px;
-            height: 200px;
-            background: #D2691E;
-            border-radius: 50%;
-            margin: 20px auto;
-            cursor: pointer;
-            transition: transform 0.1s;
-            position: relative;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-          }
-          .cookie:hover {
-            transform: scale(1.05);
-          }
-          .cookie:active {
-            transform: scale(0.95);
-          }
-          .cookie::before {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background: #8B4513;
-            border-radius: 50%;
-            top: 30px;
-            left: 50px;
-          }
-          .cookie::after {
-            content: '';
-            position: absolute;
-            width: 15px;
-            height: 15px;
-            background: #8B4513;
-            border-radius: 50%;
-            bottom: 60px;
-            right: 40px;
-          }
-          .chip {
-            position: absolute;
-            width: 12px;
-            height: 12px;
-            background: #654321;
-            border-radius: 50%;
-          }
-          .chip1 { top: 80px; left: 120px; }
-          .chip2 { top: 120px; left: 80px; }
-          .chip3 { bottom: 100px; left: 100px; }
-          .score {
-            font-size: 2em;
-            font-weight: bold;
-            color: #8B4513;
-            margin: 20px 0;
-          }
-          .cps {
-            font-size: 1.2em;
-            color: #666;
-            margin: 10px 0;
-          }
-          .upgrades {
-            margin-top: 30px;
-          }
-          .upgrade {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #F5DEB3;
-            margin: 10px 0;
-            padding: 15px;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: background 0.2s;
-          }
-          .upgrade:hover {
-            background: #DEB887;
-          }
-          .upgrade.disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-          }
-          .upgrade-info {
-            text-align: left;
-          }
-          .upgrade-name {
-            font-weight: bold;
-            color: #8B4513;
-          }
-          .upgrade-desc {
-            font-size: 0.9em;
-            color: #666;
-          }
-          .upgrade-cost {
-            font-weight: bold;
-            color: #D2691E;
-          }
-        </style>
-      </head>
-      <body>
-        <div class="game-container">
-          <h1 style="color: #8B4513; margin-bottom: 10px;">Cookie Clicker</h1>
-          <div class="score" id="score">0 cookies</div>
-          <div class="cps" id="cps">0 cookies per second</div>
-          
-          <div class="cookie" id="cookie" onclick="clickCookie()">
-            <div class="chip chip1"></div>
-            <div class="chip chip2"></div>
-            <div class="chip chip3"></div>
-          </div>
-          
-          <div class="upgrades">
-            <div class="upgrade" id="cursor" onclick="buyUpgrade('cursor')">
-              <div class="upgrade-info">
-                <div class="upgrade-name">Cursor</div>
-                <div class="upgrade-desc">Auto-clicks the cookie</div>
-              </div>
-              <div class="upgrade-cost" id="cursorCost">15 cookies</div>
+    const gameHTML = `
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=900, initial-scale=1">
+    <script src="https://cdn.jsdelivr.net/gh/bcat1023/webprx@8b966f57aeceb9616de5f15455d811ab76df9c8f/gfiles/cookies/old/base64.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/bobydob/JSEngine@135436abead1c966dde378e7e41fe832330b1f5a/dist/main.js"></script>
+    <link href="https://cdn.jsdelivr.net/gh/bcat1023/webprx@8b966f57aeceb9616de5f15455d811ab76df9c8f/gfiles/cookies/old/style.css" rel="stylesheet" type="text/css">
+    <style>
+        body { margin: 0; padding: 0; overflow: hidden; }
+        #wrapper { width: 100%; height: 100vh; }
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="topBar">
+            <div><b>Cookie Clicker</b><a href="//orteil.dashnet.org" target="_blank" id="topbarOrteil">Orteil</a><a href="//dashnet.org" target="_blank" id="topbarDashnet">DashNet</a></div>
+            <div><a href="https://twitter.com/orteil42" target="_blank" id="topbarTwitter">twitter</a></div>
+            <div><a href="https://orteil42.tumblr.com" target="_blank" id="topbarTumblr">tumblr</a></div>
+            <div style="position:relative;"><div style="width:22px;height:32px;background:url(https://cdn.jsdelivr.net/gh/bcat1023/webprx@8b966f57aeceb9616de5f15455d811ab76df9c8f/gfiles/cookies/img/discord.png);position:absolute;left:0px;top:0px;pointer-events:none;"></div><a href="https://discordapp.com/invite/cookie" target="_blank" style="padding-left:16px;" id="topbarDiscord">Discord</a></div>
+            <div style="position:relative;"><div style="width:25px;height:32px;background:url(https://cdn.jsdelivr.net/gh/bcat1023/webprx@8b966f57aeceb9616de5f15455d811ab76df9c8f/gfiles/cookies/img/weeHoodie.png);position:absolute;left:-2px;top:0px;pointer-events:none;"></div><a class="blueLink" href="http://www.redbubble.com/people/dashnet" target="_blank" style="padding-left:12px;" id="topbarMerch">Merch!</a></div>
+            <div style="position:relative;"><div style="width:22px;height:32px;background:url(https://cdn.jsdelivr.net/gh/bcat1023/webprx@8b966f57aeceb9616de5f15455d811ab76df9c8f/gfiles/cookies/img/patreon.png);position:absolute;left:0px;top:0px;pointer-events:none;"></div><a class="orangeLink" href="https://www.patreon.com/dashnet" target="_blank" style="padding-left:16px;" id="topbarPatreon">Patreon</a></div>
+            <div style="position:relative;display:none;font-weight:bold;" id="heralds"><div style="position:absolute;top:-4px;width:31px;height:39px;background:url(https://cdn.jsdelivr.net/gh/bcat1023/webprx@8b966f57aeceb9616de5f15455d811ab76df9c8f/gfiles/cookies/img/heraldFlag.png);left:50%;margin-left:-15px;pointer-events:none;"></div><div id="heraldsAmount" style="position:relative;z-index:10;text-shadow:0px 1px 0px #000,0px 0px 6px #ff00e4;color:#fff;">-</div></div>
+            <div><a class="lightblueLink" style="font-weight:bold;" href="https://play.google.com/store/apps/details?id=org.dashnet.cookieclicker" target="_blank" id="topbarMobileCC">Cookie Clicker for Android</a></div>
+            <div><a href="//orteil.dashnet.org/randomgen/" target="_blank" id="topbarRandomgen">RandomGen</a></div>
+            <div><a href="//orteil.dashnet.org/igm/" target="_blank" id="topbarIGM">Idle Game Maker</a></div>
+            <div id="links" class="hoverer">
+                Other versions
+                <div class="hoverable">
+                    <a href="../" target="_blank" id="linkVersionLive">Live version</a>
+                    <a href="http://orteil.dashnet.org/cookieclicker/beta/" target="_blank" id="linkVersionBeta">Try the beta!</a>
+                    <a href="//orteil.dashnet.org/cookieclicker/v10466" target="_blank" id="linkVersionOld">v. 1.0466</a>
+                    <a href="//orteil.dashnet.org/experiments/cookie/" target="_blank">Classic</a>
+                </div>
             </div>
-            
-            <div class="upgrade" id="grandma" onclick="buyUpgrade('grandma')">
-              <div class="upgrade-info">
-                <div class="upgrade-name">Grandma</div>
-                <div class="upgrade-desc">Bakes cookies for you</div>
-              </div>
-              <div class="upgrade-cost" id="grandmaCost">100 cookies</div>
-            </div>
-            
-            <div class="upgrade" id="farm" onclick="buyUpgrade('farm')">
-              <div class="upgrade-info">
-                <div class="upgrade-name">Farm</div>
-                <div class="upgrade-desc">Grows cookie ingredients</div>
-              </div>
-              <div class="upgrade-cost" id="farmCost">1100 cookies</div>
-            </div>
-          </div>
         </div>
-        
-        <script>
-          let cookies = 0;
-          let cookiesPerSecond = 0;
-          let clickPower = 1;
-          
-          const upgrades = {
-            cursor: { cost: 15, owned: 0, cps: 0.1 },
-            grandma: { cost: 100, owned: 0, cps: 1 },
-            farm: { cost: 1100, owned: 0, cps: 8 }
-          };
-          
-          function clickCookie() {
-            cookies += clickPower;
-            updateDisplay();
-            
-            // Add click animation
-            const cookie = document.getElementById('cookie');
-            cookie.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-              cookie.style.transform = 'scale(1)';
-            }, 100);
-          }
-          
-          function buyUpgrade(type) {
-            const upgrade = upgrades[type];
-            if (cookies >= upgrade.cost) {
-              cookies -= upgrade.cost;
-              upgrade.owned++;
-              upgrade.cost = Math.floor(upgrade.cost * 1.15);
-              cookiesPerSecond += upgrade.cps;
-              updateDisplay();
-            }
-          }
-          
-          function updateDisplay() {
-            document.getElementById('score').textContent = Math.floor(cookies) + ' cookies';
-            document.getElementById('cps').textContent = cookiesPerSecond.toFixed(1) + ' cookies per second';
-            
-            // Update upgrade costs and availability
-            Object.keys(upgrades).forEach(type => {
-              const upgrade = upgrades[type];
-              const element = document.getElementById(type);
-              const costElement = document.getElementById(type + 'Cost');
-              
-              costElement.textContent = upgrade.cost + ' cookies';
-              
-              if (cookies >= upgrade.cost) {
-                element.classList.remove('disabled');
-              } else {
-                element.classList.add('disabled');
-              }
-              
-              if (upgrade.owned > 0) {
-                element.querySelector('.upgrade-name').textContent = 
-                  element.querySelector('.upgrade-name').textContent.split(' (')[0] + ' (' + upgrade.owned + ')';
-              }
-            });
-          }
-          
-          // Auto-generate cookies
-          setInterval(() => {
-            cookies += cookiesPerSecond / 10;
-            updateDisplay();
-          }, 100);
-          
-          updateDisplay();
-        </script>
-      </body>
-      </html>
+        <div id="game">
+            <div id="javascriptError">
+                <div id="loader">
+                    <div class="spinnyBig"></div>
+                    <div class="spinnySmall"></div>
+                    <div id="loading" class="title">Loading...</div>
+                    <div id="failedToLoad" class="title">This is taking longer than expected.<br>
+                        <div style="font-size:65%;line-height:120%;">Slow connection? If not, please make sure your javascript is enabled, then refresh.<br>
+                        If problems persist, this might be on our side - wait a few minutes, then hit ctrl+f5!</div>
+                    </div>
+                    <div id="ifIE9" class="title" style="font-size:100%;line-height:120%;">Your browser may not be recent enough to run Cookie Clicker.<br>
+                    You might want to update, or switch to a more modern browser such as Chrome or Firefox.</div>
+                </div>
+            </div>
+            <canvas id="backgroundCanvas"></canvas>
+            <div id="goldenCookie" class="goldenCookie"></div>
+            <div id="seasonPopup" class="seasonPopup"></div>
+            <div id="shimmers"></div>
+            <div id="alert"></div>
+            <div id="particles"></div>
+            <div id="sparkles" class="sparkles"></div>
+            <div id="notes"></div>
+            <div id="darken"></div>
+            <div id="toggleBox" class="framed prompt"></div>
+            <div id="promptAnchor"><div id="prompt" class="framed"><div id="promptContent"></div><div class="close" onclick="PlaySound('https://cdn.jsdelivr.net/gh/bcat1023/webprx@8b966f57aeceb9616de5f15455d811ab76df9c8f/gfiles/cookies/snd/tick.mp3');Game.ClosePrompt();">x</div></div></div>
+            <div id="versionNumber" class="title"></div>
+            <div id="ascend">
+                <div id="ascendBG"></div>
+                <div id="ascendZoomable"><div id="ascendContent"><div id="ascendUpgrades" style="position:absolute;"></div></div></div>
+                <div id="ascendOverlay"></div>
+            </div>
+            <div id="debug"><div id="devConsole" class="framed"></div><div id="debugLog"></div></div>
+            <div id="sectionLeft" class="inset">
+                <canvas id="backgroundLeftCanvas" style="z-index:5;"></canvas>
+                <div class="blackFiller"></div>
+                <div class="blackGradient"></div>
+                <div id="sectionLeftInfo"></div>
+                <div id="cookies" class="title"></div>
+                <div id="bakeryNameAnchor"><div id="bakeryName" class="title"></div></div>
+                <div id="specialPopup" class="framed prompt offScreen"></div>
+                <div id="buffs" class="crateBox"></div>
+                <div id="cookieAnchor">
+                    <div id="bigCookie"></div>
+                    <div id="cookieNumbers"></div>
+                </div>
+                <div id="sectionLeftExtra"></div>
+            </div>
+            <div class="separatorLeft"></div>
+            <div class="separatorRight"></div>
+            <div id="sectionMiddle" class="inset">
+                <div id="comments" class="inset title">
+                    <div id="prefsButton" class="button">Options</div>
+                    <div id="statsButton" class="button">Stats</div>
+                    <div id="logButton" class="button"><div id="checkForUpdate">New update!</div>Info</div>
+                    <div id="legacyButton" class="button">Legacy<div id="ascendMeterContainer" class="smallFramed meterContainer"><div id="ascendMeter" class="meter filling"></div></div><div class="roundedPanel" id="ascendNumber"></div><div id="ascendTooltip" class="framed"></div></div>
+                    <div id="commentsTextBelow" class="commentsText"></div>
+                    <div id="commentsText" class="commentsText"></div>
+                    <div class="separatorBottom"></div>
+                </div>
+                <div id="centerArea">
+                    <div id="buildingsTitle" class="inset title zoneTitle">Buildings</div>
+                    <div id="buildingsMaster"></div>
+                    <div id="rows"></div>
+                    <div id="menu"></div>
+                </div>
+            </div>
+            <div id="sectionRight" class="inset">
+                <div id="store">
+                    <div id="storeTitle" class="inset title zoneTitle">Store</div>
+                    <div id="toggleUpgrades" class="storeSection upgradeBox"></div>
+                    <div id="techUpgrades" class="storeSection upgradeBox"></div>
+                    <div id="vaultUpgrades" class="storeSection upgradeBox"></div>
+                    <div id="upgrades" class="storeSection upgradeBox"></div>
+                    <div id="products" class="storeSection"></div>
+                </div>
+            </div>
+            <div id="focusButtons">
+                <div id="focusLeft" class="title">Cookie</div>
+                <div id="focusMiddle" class="title" style="font-size:80%;padding-top:18px;padding-bottom:14px;">Buildings</div>
+                <div id="focusRight" class="title">Store</div>
+                <div id="focusMenu" class="title">Menu</div>
+            </div>
+            <div id="compactOverlay" class="title">
+                <div id="compactCommentsText" class="commentsText"></div>
+                <div id="compactCookies"></div>
+                <div class="separatorBottom"></div>
+            </div>
+            <div id="tooltipAnchor"><div id="tooltip" class="framed" onMouseOut="Game.tooltip.hide();"></div></div>
+        </div>
+    </div>
+    <script src=""></script>
+</body>
+</html>
     `;
 
     if (iframeRef.current) {
-      const blob = new Blob([gameHtml], { type: 'text/html' });
+      const blob = new Blob([gameHTML], { type: 'text/html' });
       const blobUrl = URL.createObjectURL(blob);
       iframeRef.current.src = blobUrl;
 
