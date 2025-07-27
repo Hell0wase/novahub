@@ -1,10 +1,10 @@
 import React, { useRef, useEffect } from 'react';
 
-interface TetrisGameProps {
+interface AlienInvasionGameProps {
   onBack: () => void;
 }
 
-const TetrisGame: React.FC<TetrisGameProps> = ({ onBack }) => {
+const AlienInvasionGame: React.FC<AlienInvasionGameProps> = ({ onBack }) => {
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
   useEffect(() => {
@@ -84,13 +84,13 @@ const TetrisGame: React.FC<TetrisGameProps> = ({ onBack }) => {
                 document.getElementById("game").style.display = "block";
                 document.getElementById("startButton").style.display = "none";
                 EJS_player = "#game";
-                EJS_core = "gba";
+                EJS_core = "nds";
                 EJS_color = "#000000";
                 EJS_startOnLoaded = true;
                 EJS_pathtodata = "https://cdn.jsdelivr.net/gh/a456pur/seraph@81f551ca0aa8e3d6018d32d8ac5904ac9bc78f76/storage/emulatorjs/data";
-                EJS_gameUrl = "https://cdn.jsdelivr.net/gh/bubbls/UGS-file-encryption@c39521ba7e7523bc039606d7befe445d2929c916/Tetris%20(World)%20(Rev%201).zip"; 
+                EJS_gameUrl = "https://cdn.jsdelivr.net/gh/bubbls/UGS-file-encryption@8fc7a6b563016b58afa6678a97ce42af6e8bdb9d/Ben%2010%20-%20Alien%20Force%20(USA)%20(En%2CFr%2CDe%2CEs%2CIt).zip";
                 loadGame(); 
-            }  
+            }
             document.getElementById("startButton").addEventListener("click", startGame);
             function loadGame() {
                 var script = document.createElement("script");
@@ -122,10 +122,10 @@ const TetrisGame: React.FC<TetrisGameProps> = ({ onBack }) => {
       <iframe
         ref={iframeRef}
         className="w-full h-full border-0"
-        title="Tetris Game"
+        title="Alien Invasion Game"
       />
     </div>
   );
 };
 
-export default TetrisGame;
+export default AlienInvasionGame;
