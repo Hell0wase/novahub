@@ -20,6 +20,10 @@ import FullscreenGame from '@/components/FullscreenGame';
 import SnakeGame from '@/components/games/SnakeGame';
 import TetrisGame from '@/components/games/TetrisGame';
 import QuizGame from '@/components/games/QuizGame';
+import MathQuizGame from '@/components/games/MathQuizGame';
+import ScienceQuizGame from '@/components/games/ScienceQuizGame';
+import SocialStudiesQuizGame from '@/components/games/SocialStudiesQuizGame';
+import ReadingQuizGame from '@/components/games/ReadingQuizGame';
 import GrannyGameHTML from '@/components/games/GrannyGameHTML';
 import Granny2Game from '@/components/games/Granny2Game';
 import OneVOneGame from '@/components/games/OneVOneGame';
@@ -189,6 +193,54 @@ const Games = () => {
       icon: BookOpen,
       color: 'text-purple-500',
       component: QuizGame
+    },
+    {
+      id: 'math-quiz',
+      title: 'Math Quiz',
+      description: '6th-8th grade math problems and equations',
+      category: 'trivia',
+      difficulty: 'Medium',
+      time: '10 min',
+      players: 2341,
+      icon: Calculator,
+      color: 'text-blue-500',
+      component: MathQuizGame
+    },
+    {
+      id: 'science-quiz',
+      title: 'Science Quiz',
+      description: 'Biology, chemistry, and physics for middle school',
+      category: 'trivia',
+      difficulty: 'Medium',
+      time: '10 min',
+      players: 1987,
+      icon: Brain,
+      color: 'text-green-500',
+      component: ScienceQuizGame
+    },
+    {
+      id: 'social-studies-quiz',
+      title: 'Social Studies Quiz',
+      description: 'History, geography, and civics knowledge',
+      category: 'trivia',
+      difficulty: 'Medium',
+      time: '10 min',
+      players: 1654,
+      icon: Globe,
+      color: 'text-orange-500',
+      component: SocialStudiesQuizGame
+    },
+    {
+      id: 'reading-quiz',
+      title: 'Reading Quiz',
+      description: 'Language arts and literature comprehension',
+      category: 'trivia',
+      difficulty: 'Medium',
+      time: '10 min',
+      players: 1432,
+      icon: BookOpen,
+      color: 'text-purple-500',
+      component: ReadingQuizGame
     },
     {
       id: 'granny',
