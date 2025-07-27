@@ -45,8 +45,8 @@ All colors MUST be HSL.
     --nova-gray: 0 0% 45%;
     --nova-light-gray: 0 0% 89%;
     
-    /* Monochrome Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(0 0% 9%), hsl(0 0% 25%));
+    /* Monochrome Gradients - Now Dynamic */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(189 94% 55%));
     --gradient-secondary: linear-gradient(135deg, hsl(0 0% 89%), hsl(0 0% 98%));
     --gradient-academic: linear-gradient(135deg, hsl(0 0% 3%), hsl(0 0% 15%));
     --gradient-neon: linear-gradient(135deg, hsl(0 0% 9%), hsl(0 0% 20%), hsl(0 0% 35%));
@@ -175,7 +175,7 @@ All colors MUST be HSL.
   }
   
   .gradient-text {
-    background: var(--gradient-neon);
+    background: linear-gradient(135deg, hsl(var(--primary)), hsl(189 94% 55%));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -211,11 +211,11 @@ All colors MUST be HSL.
 
 @keyframes pulseGlow {
   0% { 
-    box-shadow: 0 0 5px hsl(0 0% 9% / 0.5);
+    box-shadow: 0 0 5px hsl(var(--primary) / 0.5);
     transform: scale(1);
   }
   100% { 
-    box-shadow: 0 0 30px hsl(0 0% 9% / 0.8), 0 0 60px hsl(0 0% 9% / 0.4);
+    box-shadow: 0 0 30px hsl(var(--primary) / 0.8), 0 0 60px hsl(var(--primary) / 0.4);
     transform: scale(1.02);
   }
 }

@@ -128,9 +128,9 @@ export default {
 				'float': 'float 3s ease-in-out infinite'
 			},
 			backgroundImage: {
-				'gradient-primary': 'linear-gradient(135deg, hsl(217 91% 60%), hsl(189 94% 55%))',
-				'gradient-secondary': 'linear-gradient(135deg, hsl(142 76% 36%), hsl(217 91% 60%))',
-				'gradient-academic': 'linear-gradient(135deg, hsl(222 47% 11%), hsl(217 91% 60%))'
+				'gradient-primary': 'linear-gradient(135deg, hsl(var(--primary)), hsl(189 94% 55%))',
+				'gradient-secondary': 'linear-gradient(135deg, hsl(var(--primary)), hsl(217 91% 60%))',
+				'gradient-academic': 'linear-gradient(135deg, hsl(222 47% 11%), hsl(var(--primary)))'
 			},
 			fontFamily: {
 				'roboto': ['Roboto', 'sans-serif'],
