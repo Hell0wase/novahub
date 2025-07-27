@@ -16,7 +16,9 @@ import {
   Clock,
   Sparkles,
   Copy,
-  ThumbsUp
+  ThumbsUp,
+  Code,
+  Terminal
 } from 'lucide-react';
 import { toast } from 'sonner';
 
@@ -36,7 +38,7 @@ const AIAssistant = ({ onClose }: AIAssistantProps) => {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: '1',
-      message: 'Hi! I\'m Nova AI, your comprehensive assistant! I can help you with:\n\n🍳 **Cooking & Recipes** - Step-by-step cooking instructions\n📚 **Study Help** - Homework, explanations, and learning\n💡 **Life Advice** - Decision making and problem solving\n🔢 **Math & Calculations** - From basic math to complex equations\n🌍 **General Knowledge** - Facts, trivia, and explanations\n🎯 **Goal Planning** - Task management and productivity\n\nWhat would you like help with today?',
+      message: "Hi! I'm Nova AI, your comprehensive assistant! I can help you with:\n\n🍳 **Cooking & Recipes** - Step-by-step cooking instructions\n💻 **Programming & Code** - Debug, explain, and write code\n📚 **Study Help** - Homework, explanations, and learning\n💡 **Life Advice** - Decision making and problem solving\n🔢 **Math & Calculations** - From basic math to complex equations\n🌍 **General Knowledge** - Facts, trivia, and explanations\n🎯 **Goal Planning** - Task management and productivity\n\nWhat would you like help with today?",
       isBot: true,
       timestamp: new Date().toISOString(),
       category: 'welcome'
@@ -44,19 +46,59 @@ const AIAssistant = ({ onClose }: AIAssistantProps) => {
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const MAX_CHARACTERS = 50000;
 
   const quickActions = [
     { icon: BookOpen, label: 'Recipe Help', query: 'How do I cook ' },
+    { icon: Code, label: 'Code Help', query: 'Explain this code: ' },
     { icon: Calculator, label: 'Math Help', query: 'Calculate ' },
     { icon: BookOpen, label: 'Study Tips', query: 'Explain ' },
     { icon: Lightbulb, label: 'Life Advice', query: 'What should I do about ' },
-    { icon: MapPin, label: 'Local Info', query: 'Tell me about ' },
     { icon: Heart, label: 'Health Tips', query: 'Is it healthy to ' }
   ];
 
   const getEnhancedResponse = async (userInput: string): Promise<{ message: string; category: string }> => {
     const input = userInput.toLowerCase().trim();
     
+    // Programming and Coding Help
+    if (input.includes('code') || input.includes('programming') || input.includes('javascript') || input.includes('python') || input.includes('html') || input.includes('css') || input.includes('react') || input.includes('function') || input.includes('variable') || input.includes('array') || input.includes('loop') || input.includes('debug') || input.includes('error')) {
+      if (input.includes('javascript') || input.includes('js')) {
+        return {
+          message: "💻 **JavaScript Help:**\n\n**Basic Concepts:**\n```javascript\n// Variables\nlet name = \"John\";\nconst age = 25;\nvar city = \"NYC\";\n\n// Functions\nfunction greet(name) {\n  return `Hello, ${name}!`;\n}\n\n// Arrays\nlet numbers = [1, 2, 3, 4, 5];\nnumbers.push(6); // Add to end\n\n// Objects\nlet person = {\n  name: \"Alice\",\n  age: 30,\n  greet: function() {\n    console.log(\"Hi!\");\n  }\n};\n```\n\n**Common Issues:**\n• Use `const` for values that don't change\n• Use `let` for variables that will change\n• Remember semicolons `;`\n• Check for typos in variable names\n\nWhat specific JavaScript concept do you need help with?",
+          category: 'programming'
+        };
+      } else if (input.includes('python')) {
+        return {
+          message: "🐍 **Python Help:**\n\n**Basic Syntax:**\n```python\n# Variables\nname = \"Alice\"\nage = 25\n\n# Functions\ndef greet(name):\n    return f\"Hello, {name}!\"\n\n# Lists\nnumbers = [1, 2, 3, 4, 5]\nnumbers.append(6)  # Add to end\n\n# Dictionaries\nperson = {\n    \"name\": \"Bob\",\n    \"age\": 30\n}\n\n# Loops\nfor i in range(5):\n    print(i)\n\nfor item in numbers:\n    print(item)\n```\n\n**Key Points:**\n• Indentation matters in Python!\n• Use 4 spaces for indentation\n• No semicolons needed\n• Variables are dynamically typed\n\nWhat Python concept would you like me to explain?",
+          category: 'programming'
+        };
+      } else if (input.includes('html')) {
+        return {
+          message: "🌐 **HTML Help:**\n\n**Basic Structure:**\n```html\n<!DOCTYPE html>\n<html>\n<head>\n    <title>My Page</title>\n</head>\n<body>\n    <h1>Welcome!</h1>\n    <p>This is a paragraph.</p>\n    \n    <!-- Links -->\n    <a href=\"https://example.com\">Click here</a>\n    \n    <!-- Images -->\n    <img src=\"image.jpg\" alt=\"Description\">\n    \n    <!-- Lists -->\n    <ul>\n        <li>Item 1</li>\n        <li>Item 2</li>\n    </ul>\n    \n    <!-- Divs for structure -->\n    <div class=\"container\">\n        <p>Content goes here</p>\n    </div>\n</body>\n</html>\n```\n\n**Important Tags:**\n• `<h1>` to `<h6>` for headings\n• `<p>` for paragraphs\n• `<div>` for containers\n• `<span>` for inline elements\n• Always close your tags!\n\nWhat HTML element do you need help with?",
+          category: 'programming'
+        };
+      } else if (input.includes('css')) {
+        return {
+          message: "🎨 **CSS Help:**\n\n**Basic Styling:**\n```css\n/* Targeting elements */\nh1 {\n    color: blue;\n    font-size: 24px;\n}\n\n/* Classes */\n.container {\n    width: 100%;\n    max-width: 1200px;\n    margin: 0 auto;\n}\n\n/* IDs */\n#header {\n    background-color: #f0f0f0;\n    padding: 20px;\n}\n\n/* Flexbox */\n.flex-container {\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n\n/* Responsive */\n@media (max-width: 768px) {\n    .container {\n        padding: 10px;\n    }\n}\n```\n\n**Key Concepts:**\n• Selectors: target HTML elements\n• Properties: what to change\n• Values: how to change it\n• Box model: margin, border, padding, content\n\nWhat CSS property do you need help with?",
+          category: 'programming'
+        };
+      } else if (input.includes('react')) {
+        return {
+          message: "⚛️ **React Help:**\n\n**Basic Component:**\n```jsx\nimport React, { useState } from 'react';\n\nfunction MyComponent() {\n  const [count, setCount] = useState(0);\n  \n  const handleClick = () => {\n    setCount(count + 1);\n  };\n  \n  return (\n    <div>\n      <h1>Counter: {count}</h1>\n      <button onClick={handleClick}>\n        Click me\n      </button>\n    </div>\n  );\n}\n\nexport default MyComponent;\n```\n\n**Key Concepts:**\n• **Components**: Reusable pieces of UI\n• **State**: Data that can change\n• **Props**: Data passed to components\n• **Hooks**: Special functions (useState, useEffect)\n• **JSX**: HTML-like syntax in JavaScript\n\n**Common Mistakes:**\n• Forgetting to import React\n• Not using key props in lists\n• Directly mutating state\n\nWhat React concept needs clarification?",
+          category: 'programming'
+        };
+      } else if (input.includes('debug') || input.includes('error')) {
+        return {
+          message: "🐛 **Debugging Help:**\n\n**Common Debugging Steps:**\n1. **Read the error message carefully**\n   • Look for line numbers\n   • Understand what it's telling you\n\n2. **Console/Print debugging**\n   ```javascript\n   console.log(\"Variable value:\", myVariable);\n   ```\n   ```python\n   print(f\"Variable value: {my_variable}\")\n   ```\n\n3. **Check common issues:**\n   • Typos in variable names\n   • Missing semicolons (JavaScript)\n   • Wrong indentation (Python)\n   • Unclosed brackets/parentheses\n   • Case sensitivity\n\n4. **Use browser dev tools:**\n   • F12 to open developer tools\n   • Check Console tab for errors\n   • Use Network tab for API issues\n\n**Debugging Mindset:**\n• Start with the first error\n• Change one thing at a time\n• Test frequently\n• Don't guess - investigate!\n\nWhat specific error are you encountering?",
+          category: 'programming'
+        };
+      } else {
+        return {
+          message: "💻 **Programming Help Available!**\n\nI can help you with:\n\n**Languages:**\n• **JavaScript/TypeScript** - Web development, React, Node.js\n• **Python** - Basics, data structures, algorithms\n• **HTML/CSS** - Web structure and styling\n• **SQL** - Database queries\n\n**Topics:**\n• Code explanation and debugging\n• Best practices and conventions\n• Algorithm explanations\n• Project structure advice\n• Error troubleshooting\n\n**How to ask:**\n• \"Explain this JavaScript function\"\n• \"How do I create a loop in Python?\"\n• \"Fix this CSS layout issue\"\n• \"What does this error mean?\"\n\nShare your code or specific question and I'll help you out!",
+          category: 'programming'
+        };
+      }
+    }
     // Recipe and Cooking Help
     if (input.includes('recipe') || input.includes('cook') || input.includes('bake') || input.includes('food') || input.includes('ingredient')) {
       if (input.includes('pasta') || input.includes('spaghetti')) {
@@ -164,7 +206,7 @@ const AIAssistant = ({ onClose }: AIAssistantProps) => {
     // Default comprehensive response
     else {
       return {
-        message: "🤖 **I'm here to help with anything!**\n\nTry asking me about:\n\n🍳 **Cooking:** \"How do I make pasta?\" \"Cook chicken safely\"\n🔢 **Math:** \"Calculate 15% of 80\" \"Solve algebra problems\"\n📚 **Learning:** \"Study tips\" \"Explain photosynthesis\"\n💡 **Advice:** \"Help me decide\" \"What should I do about...\"\n💪 **Health:** \"Exercise tips\" \"Healthy eating habits\"\n⏰ **Productivity:** \"Time management\" \"How to organize\"\n🌍 **Knowledge:** \"What is...\" \"How does... work?\"\n🎮 **Fun:** \"I'm bored\" \"Tell me a fun fact\"\n\nJust tell me what's on your mind and I'll do my best to help!",
+        message: "🤖 **I'm here to help with anything!**\n\nTry asking me about:\n\n💻 **Programming:** \"Explain JavaScript functions\" \"Debug my Python code\"\n🍳 **Cooking:** \"How do I make pasta?\" \"Cook chicken safely\"\n🔢 **Math:** \"Calculate 15% of 80\" \"Solve algebra problems\"\n📚 **Learning:** \"Study tips\" \"Explain photosynthesis\"\n💡 **Advice:** \"Help me decide\" \"What should I do about...\"\n💪 **Health:** \"Exercise tips\" \"Healthy eating habits\"\n⏰ **Productivity:** \"Time management\" \"How to organize\"\n🌍 **Knowledge:** \"What is...\" \"How does... work?\"\n🎮 **Fun:** \"I'm bored\" \"Tell me a fun fact\"\n\nJust tell me what's on your mind and I'll do my best to help!",
         category: 'general'
       };
     }
@@ -224,9 +266,9 @@ const AIAssistant = ({ onClose }: AIAssistantProps) => {
 
   const getCategoryIcon = (category: string) => {
     const icons = {
+      programming: Code,
       cooking: BookOpen,
       math: Calculator,
-      education: BookOpen,
       advice: Lightbulb,
       health: Heart,
       productivity: Clock,
@@ -360,22 +402,34 @@ const AIAssistant = ({ onClose }: AIAssistantProps) => {
         </ScrollArea>
 
         {/* Input */}
-        <div className="flex gap-2">
-          <Input
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Ask me anything..."
-            onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-            disabled={isLoading}
-            className="flex-1"
-          />
-          <Button 
-            onClick={handleSendMessage} 
-            disabled={!input.trim() || isLoading}
-            className="bg-[hsl(var(--primary))] text-white hover:opacity-90"
-          >
-            <Send size={16} />
-          </Button>
+        <div className="space-y-2">
+          <div className="flex items-center justify-between text-xs text-muted-foreground">
+            <span>Ask me anything...</span>
+            <span className={`${input.length > MAX_CHARACTERS * 0.9 ? 'text-destructive' : ''}`}>
+              {input.length}/{MAX_CHARACTERS}
+            </span>
+          </div>
+          <div className="flex gap-2">
+            <Input
+              value={input}
+              onChange={(e) => {
+                if (e.target.value.length <= MAX_CHARACTERS) {
+                  setInput(e.target.value);
+                }
+              }}
+              placeholder="Ask me anything..."
+              onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+              disabled={isLoading}
+              className="flex-1"
+            />
+            <Button 
+              onClick={handleSendMessage} 
+              disabled={!input.trim() || isLoading || input.length > MAX_CHARACTERS}
+              className="bg-[hsl(var(--primary))] text-white hover:opacity-90"
+            >
+              <Send size={16} />
+            </Button>
+          </div>
         </div>
       </CardContent>
     </Card>
