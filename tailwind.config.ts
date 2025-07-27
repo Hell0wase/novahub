@@ -136,7 +136,17 @@ export default {
 				'roboto': ['Roboto', 'sans-serif'],
 				'opensans': ['Open Sans', 'sans-serif'],
 				'playfair': ['Playfair Display', 'serif'],
-				'poppins': ['Poppins', 'sans-serif']
+				'poppins': ['Poppins', 'sans-serif'],
+				'permanent-marker': ['Permanent Marker', 'cursive'],
+				'comic-sans': ['Comic Sans MS', 'cursive'],
+				'bitcount': ['Bitcount Prop Single', 'monospace'],
+				'playwrite': ['Playwrite Australia QLD', 'cursive'],
+				'bebas': ['Bebas Neue', 'sans-serif'],
+				'special-gothic': ['Special Gothic Expanded One', 'sans-serif'],
+				'pacifico': ['Pacifico', 'cursive'],
+				'lobster': ['Lobster Two', 'cursive'],
+				'luckiest': ['Luckiest Guy', 'cursive'],
+				'shadows': ['Shadows Into Light', 'cursive']
 			}
 		}
 	},

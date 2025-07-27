@@ -31,7 +31,17 @@ const UserSettings: React.FC = () => {
     { value: 'roboto', name: 'Roboto', class: 'font-roboto' },
     { value: 'opensans', name: 'Open Sans', class: 'font-opensans' },
     { value: 'playfair', name: 'Playfair Display', class: 'font-playfair' },
-    { value: 'poppins', name: 'Poppins', class: 'font-poppins' }
+    { value: 'poppins', name: 'Poppins', class: 'font-poppins' },
+    { value: 'permanent-marker', name: 'Permanent Marker', class: 'font-permanent-marker' },
+    { value: 'comic-sans', name: 'Comic Sans MS', class: 'font-comic-sans' },
+    { value: 'bitcount', name: 'Bitcount Prop Single', class: 'font-bitcount' },
+    { value: 'playwrite', name: 'Playwrite Australia QLD', class: 'font-playwrite' },
+    { value: 'bebas', name: 'Bebas Neue', class: 'font-bebas' },
+    { value: 'special-gothic', name: 'Special Gothic Expanded One', class: 'font-special-gothic' },
+    { value: 'pacifico', name: 'Pacifico', class: 'font-pacifico' },
+    { value: 'lobster', name: 'Lobster Two', class: 'font-lobster' },
+    { value: 'luckiest', name: 'Luckiest Guy', class: 'font-luckiest' },
+    { value: 'shadows', name: 'Shadows Into Light', class: 'font-shadows' }
   ];
 
   const handleSaveProfile = () => {
