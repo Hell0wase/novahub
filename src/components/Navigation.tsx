@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Menu, X, BookOpen, Users, Gamepad2, LogOut, User, Globe } from 'lucide-react';
+import { Menu, X, BookOpen, Users, Gamepad2, LogOut, User, Globe, ExternalLink } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import ThemeSettings from '@/components/ThemeSettings';
 
@@ -16,6 +16,37 @@ const Navigation = () => {
     navigate('/');
   };
 
+  const openAboutBlank = () => {
+    const newWindow = window.open('about:blank', '_blank');
+    if (newWindow) {
+      newWindow.document.write(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+        <title>Fullscreen Embed</title>
+        <style>
+          html, body {
+            height: 100%; /* Make sure the html and body take full height */
+            margin: 0;     /* Remove default body margins */
+            overflow: hidden; /* Prevent scrollbars if the embedded content is larger */
+          }
+          iframe {
+            display: block; /* Prevent extra space below the iframe */
+            width: 100%;
+            height: 100%;
+            border: none;   /* Remove the default border */
+          }
+        </style>
+        </head>
+        <body>
+          <iframe src="${window.location.origin}/"></iframe>
+        </body>
+        </html>
+      `);
+      newWindow.document.close();
+    }
+  };
+
   const navItems = [
     { href: '/notes', label: 'Notes', icon: BookOpen },
     { href: '/community', label: 'Community', icon: Users },
@@ -27,6 +58,18 @@ const Navigation = () => {
     <nav className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md border-b border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
+          {/* About:Blank Button */}
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={openAboutBlank}
+            className="mr-4 flex items-center space-x-1 text-muted-foreground hover:text-foreground"
+            title="Open in about:blank"
+          >
+            <ExternalLink size={16} />
+            <span className="hidden sm:inline">about:blank</span>
+          </Button>
+
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
