@@ -67,6 +67,22 @@ const Navigation = () => {
         <ExternalLink size={16} />
       </Button>
 
+      {/* Settings and User Info - Very Top Right */}
+      <div className="absolute top-2 right-2 z-10 flex items-center space-x-2">
+        <ThemeSettings />
+        {isAuthenticated && (
+          <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-2 text-sm">
+              <User size={16} />
+              <span>{user?.name}</span>
+            </div>
+            <Button variant="ghost" size="sm" onClick={handleLogout}>
+              <LogOut size={16} />
+            </Button>
+          </div>
+        )}
+      </div>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 gap-12">
           {/* Logo */}
@@ -100,21 +116,9 @@ const Navigation = () => {
             })}
           </div>
 
-          {/* Auth Buttons */}
+          {/* Auth Buttons for non-authenticated users */}
           <div className="hidden md:flex items-center space-x-6">
-            <ThemeSettings />
-            {isAuthenticated ? (
-              <div className="flex items-center space-x-4">
-                <div className="flex items-center space-x-2 text-sm">
-                  <User size={16} />
-                  <span>{user?.name}</span>
-                </div>
-                <Button variant="ghost" onClick={handleLogout}>
-                  <LogOut size={16} className="mr-2" />
-                  Logout
-                </Button>
-              </div>
-            ) : (
+            {!isAuthenticated && (
               <>
                 <Link to="/login">
                   <Button variant="ghost">Login</Button>
