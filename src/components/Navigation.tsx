@@ -20,7 +20,7 @@ const Navigation = () => {
     { href: '/notes', label: 'Notes', icon: BookOpen },
     { href: '/community', label: 'Community', icon: Users },
     { href: '/games', label: 'Fun Zone', icon: Gamepad2 },
-    { href: '/proxy', label: 'Proxy', icon: Globe },
+    { href: '/proxy', label: 'Application', icon: Globe },
   ];
 
   return (
