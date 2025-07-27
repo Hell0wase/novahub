@@ -84,6 +84,8 @@ import BasketballLegendsGame from '@/components/games/BasketballLegendsGame';
 const Games = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [currentGame, setCurrentGame] = useState<string | null>(null);
+  const [visibleGames, setVisibleGames] = useState(12); // Start with 12 games
+  const GAMES_PER_LOAD = 12; // Load 12 more games each time
 
   const games = [
     {
@@ -905,6 +907,20 @@ const Games = () => {
   const filteredGames = selectedCategory === 'all' 
     ? games 
     : games.filter(game => game.category === selectedCategory);
+  
+  // Show only a limited number of games for performance
+  const displayedGames = filteredGames.slice(0, visibleGames);
+  const hasMoreGames = filteredGames.length > visibleGames;
+
+  const loadMoreGames = () => {
+    setVisibleGames(prev => Math.min(prev + GAMES_PER_LOAD, filteredGames.length));
+  };
+
+  // Reset visible games when category changes
+  const handleCategoryChange = (categoryId: string) => {
+    setSelectedCategory(categoryId);
+    setVisibleGames(12); // Reset to initial amount
+  };
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
@@ -981,7 +997,7 @@ const Games = () => {
                         ? 'bg-gradient-primary text-primary-foreground neon-glow' 
                         : 'hover:bg-primary/10 hover:border-primary/30'
                     }`}
-                    onClick={() => setSelectedCategory(category.id)}
+                    onClick={() => handleCategoryChange(category.id)}
                   >
                     {category.label}
                   </Button>
@@ -1034,7 +1050,7 @@ const Games = () => {
           {/* Games Grid */}
           <div className="lg:col-span-3">
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-              {filteredGames.map((game) => {
+              {displayedGames.map((game) => {
                 const Icon = game.icon;
                 return (
                   <Card 
@@ -1082,6 +1098,19 @@ const Games = () => {
                 );
               })}
             </div>
+
+            {/* Load More Button */}
+            {hasMoreGames && (
+              <div className="text-center mt-8">
+                <Button 
+                  onClick={loadMoreGames}
+                  variant="outline"
+                  className="px-8 py-3 text-lg glass-card border-primary/30 hover:border-primary hover:bg-primary/10 transition-all duration-300"
+                >
+                  Load More Games ({filteredGames.length - visibleGames} remaining)
+                </Button>
+              </div>
+            )}
 
             {filteredGames.length === 0 && (
               <div className="text-center py-12">
