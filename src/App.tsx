@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import Notes from "./pages/Notes";
+import Settings from "./pages/Settings";
 import Games from "./pages/Games";
 import Navigation from "./components/Navigation";
 import NotFound from "./pages/NotFound";
@@ -41,6 +42,7 @@ const App = () => (
             <Route path="/signup" element={<Signup />} />
             <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
             <Route path="/notes" element={<ProtectedRoute><Notes /></ProtectedRoute>} />
+            <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
             <Route path="/community" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
             <Route path="/games" element={<ProtectedRoute><Games /></ProtectedRoute>} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
