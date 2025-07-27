@@ -8,69 +8,69 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 222 15% 6%;
-    --foreground: 210 40% 98%;
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
 
-    --card: 222 15% 8%;
-    --card-foreground: 210 40% 98%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
 
-    --popover: 222 15% 8%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
 
-    --primary: 217 91% 60%;
-    --theme-primary: 217 91% 60%;
-    --primary-foreground: 222 15% 6%;
+    --primary: 0 0% 9%;
+    --theme-primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
 
-    --secondary: 222 15% 12%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
 
-    --muted: 222 15% 12%;
-    --muted-foreground: 215 20% 65%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
 
-    --accent: 222 15% 12%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
 
-    --destructive: 0 62% 30%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 222 15% 15%;
-    --input: 222 15% 15%;
-    --ring: 217 91% 60%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
 
     --radius: 0.75rem;
 
-    /* NovaHub Academic Theme Colors */
-    --nova-blue: 217 91% 60%;
-    --nova-navy: 222 47% 11%;
-    --nova-cyan: 189 94% 55%;
-    --nova-green: 142 76% 36%;
+    /* Monochrome Theme Colors */
+    --nova-black: 0 0% 9%;
+    --nova-white: 0 0% 98%;
+    --nova-gray: 0 0% 45%;
+    --nova-light-gray: 0 0% 89%;
     
-    /* Academic Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(var(--theme-primary)), hsl(189 94% 55%));
-    --gradient-secondary: linear-gradient(135deg, hsl(142 76% 36%), hsl(var(--theme-primary)));
-    --gradient-academic: linear-gradient(135deg, hsl(222 47% 11%), hsl(var(--theme-primary)));
-    --gradient-neon: linear-gradient(135deg, hsl(var(--theme-primary)), hsl(271 81% 56%), hsl(330 81% 60%));
-    --gradient-hero: linear-gradient(135deg, rgba(var(--theme-primary-rgb), 0.9), rgba(189, 94%, 55%, 0.9), rgba(271, 81%, 56%, 0.9));
+    /* Monochrome Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(0 0% 9%), hsl(0 0% 25%));
+    --gradient-secondary: linear-gradient(135deg, hsl(0 0% 89%), hsl(0 0% 98%));
+    --gradient-academic: linear-gradient(135deg, hsl(0 0% 3%), hsl(0 0% 15%));
+    --gradient-neon: linear-gradient(135deg, hsl(0 0% 9%), hsl(0 0% 20%), hsl(0 0% 35%));
+    --gradient-hero: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(25, 25, 25, 0.9), rgba(50, 50, 50, 0.9));
     
-    /* Neon Effects */
-    --neon-glow: 0 0 5px hsl(var(--theme-primary)), 0 0 10px hsl(var(--theme-primary)), 0 0 15px hsl(var(--theme-primary)), 0 0 20px hsl(var(--theme-primary));
-    --neon-glow-strong: 0 0 10px hsl(var(--theme-primary)), 0 0 20px hsl(var(--theme-primary)), 0 0 30px hsl(var(--theme-primary)), 0 0 40px hsl(var(--theme-primary));
-    --neon-border: 1px solid hsl(var(--theme-primary) / 0.8);
-    --neon-bg: rgba(var(--theme-primary-rgb), 0.1);
+    /* Monochrome Neon Effects */
+    --neon-glow: 0 0 5px hsl(0 0% 9%), 0 0 10px hsl(0 0% 9%), 0 0 15px hsl(0 0% 9%), 0 0 20px hsl(0 0% 9%);
+    --neon-glow-strong: 0 0 10px hsl(0 0% 9%), 0 0 20px hsl(0 0% 9%), 0 0 30px hsl(0 0% 9%), 0 0 40px hsl(0 0% 9%);
+    --neon-border: 1px solid hsl(0 0% 9% / 0.8);
+    --neon-bg: rgba(0, 0, 0, 0.1);
     
     /* Glass morphism */
-    --glass-bg: rgba(255, 255, 255, 0.05);
-    --glass-border: rgba(255, 255, 255, 0.1);
-    --glass-strong: rgba(255, 255, 255, 0.08);
+    --glass-bg: rgba(0, 0, 0, 0.05);
+    --glass-border: rgba(0, 0, 0, 0.1);
+    --glass-strong: rgba(0, 0, 0, 0.08);
     
     /* Shadows */
-    --shadow-glow: 0 0 40px hsl(var(--theme-primary) / 0.3);
-    --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.3);
-    --shadow-neon: 0 0 20px hsl(var(--theme-primary) / 0.4);
+    --shadow-glow: 0 0 40px hsl(0 0% 9% / 0.3);
+    --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.1);
+    --shadow-neon: 0 0 20px hsl(0 0% 9% / 0.4);
     
-    /* Animation */
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    /* Smooth Animation */
+    --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     --sidebar-background: 0 0% 98%;
 
@@ -90,41 +90,43 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 0 0% 98%;
+    --theme-primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
 
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    
+    --sidebar-background: 0 0% 9%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 0 0% 98%;
+    --sidebar-primary-foreground: 0 0% 9%;
+    --sidebar-accent: 0 0% 15%;
+    --sidebar-accent-foreground: 0 0% 95%;
+    --sidebar-border: 0 0% 15%;
+    --sidebar-ring: 0 0% 83%;
   }
 }
 
@@ -197,37 +199,45 @@ All colors MUST be HSL.
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
+  0%, 100% { 
+    transform: translateY(0px) scale(1);
+    opacity: 0.8;
+  }
+  50% { 
+    transform: translateY(-25px) scale(1.05);
+    opacity: 1;
+  }
 }
 
 @keyframes pulseGlow {
   0% { 
-    box-shadow: 0 0 5px hsl(var(--theme-primary) / 0.5);
+    box-shadow: 0 0 5px hsl(0 0% 9% / 0.5);
+    transform: scale(1);
   }
   100% { 
-    box-shadow: 0 0 30px hsl(var(--theme-primary) / 0.8), 0 0 60px hsl(var(--theme-primary) / 0.4);
+    box-shadow: 0 0 30px hsl(0 0% 9% / 0.8), 0 0 60px hsl(0 0% 9% / 0.4);
+    transform: scale(1.02);
   }
 }
 
 @keyframes slideInUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(40px) scale(0.95);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
 @keyframes zoomIn {
   from {
     opacity: 0;
-    transform: scale(0.9);
+    transform: scale(0.8) rotate(-2deg);
   }
   to {
     opacity: 1;
-    transform: scale(1);
+    transform: scale(1) rotate(0deg);
   }
 }

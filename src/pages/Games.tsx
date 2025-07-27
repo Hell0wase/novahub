@@ -889,14 +889,21 @@ const Games = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background pt-20">
-      <div className="max-w-7xl mx-auto p-6">
+    <div className="min-h-screen bg-background pt-20 px-4 relative overflow-hidden">
+      {/* Animated Background Elements */}
+      <div className="fixed inset-0 opacity-30">
+        <div className="absolute top-10 left-1/4 w-72 h-72 bg-primary/10 rounded-full blur-3xl floating-animation" />
+        <div className="absolute top-1/3 right-1/4 w-64 h-64 bg-primary/15 rounded-full blur-3xl floating-animation" style={{ animationDelay: '2s' }} />
+        <div className="absolute bottom-1/4 left-1/3 w-56 h-56 bg-primary/20 rounded-full blur-3xl floating-animation" style={{ animationDelay: '4s' }} />
+      </div>
+      
+      <div className="max-w-7xl mx-auto p-6 relative z-10">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-2">
-            Fun Zone
+        <div className="mb-8 text-center slide-in-up">
+          <h1 className="text-5xl md:text-6xl font-bold gradient-text mb-4">
+            🎮 Fun Zone
           </h1>
-          <p className="text-muted-foreground text-lg">
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto glass-card p-6 rounded-xl">
             Educational games to help you learn while having fun during your study breaks
           </p>
         </div>
@@ -905,16 +912,23 @@ const Games = () => {
           {/* Sidebar */}
           <div className="lg:col-span-1 space-y-6">
             {/* Categories */}
-            <Card className="bg-card/50 backdrop-blur-sm border-border/50">
+            <Card className="glass-card border-primary/20 hover:border-primary/40 transition-all duration-500 zoom-in">
               <CardHeader>
-                <CardTitle className="text-lg">Categories</CardTitle>
+                <CardTitle className="text-lg gradient-text flex items-center">
+                  <Target className="mr-2 h-5 w-5 neon-glow" />
+                  Categories
+                </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-2">
+              <CardContent className="space-y-3">
                 {categories.map((category) => (
                   <Button
                     key={category.id}
                     variant={selectedCategory === category.id ? "default" : "ghost"}
-                    className="w-full justify-start"
+                    className={`w-full justify-start transition-all duration-300 ${
+                      selectedCategory === category.id 
+                        ? 'bg-gradient-primary text-primary-foreground neon-glow' 
+                        : 'hover:bg-primary/10 hover:border-primary/30'
+                    }`}
                     onClick={() => setSelectedCategory(category.id)}
                   >
                     {category.label}
@@ -924,10 +938,10 @@ const Games = () => {
             </Card>
 
             {/* Achievements */}
-            <Card className="bg-card/50 backdrop-blur-sm border-border/50">
+            <Card className="glass-card border-primary/20 hover:border-primary/40 transition-all duration-500 zoom-in" style={{ animationDelay: '0.2s' }}>
               <CardHeader>
-                <CardTitle className="flex items-center">
-                  <Trophy className="mr-2" size={20} />
+                <CardTitle className="flex items-center gradient-text">
+                  <Trophy className="mr-2 neon-glow" size={20} />
                   Achievements
                 </CardTitle>
               </CardHeader>
@@ -973,21 +987,22 @@ const Games = () => {
                 return (
                   <Card 
                     key={game.id} 
-                    className="bg-card/50 backdrop-blur-sm border-border/50 hover:border-primary/50 transition-all duration-300 group cursor-pointer"
+                    className="glass-card border-primary/20 hover:border-primary/50 transition-all duration-500 group cursor-pointer zoom-in hover:scale-105"
+                    style={{ animationDelay: `${game.id.length * 0.05}s` }}
                   >
                     <CardHeader className="pb-4">
                       <div className="flex items-center justify-between mb-2">
-                        <div className={`w-10 h-10 rounded-lg bg-gradient-primary flex items-center justify-center`}>
-                          <Icon className="text-white" size={20} />
+                        <div className="w-12 h-12 rounded-xl bg-gradient-primary flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 neon-glow">
+                          <Icon className="text-white" size={24} />
                         </div>
-                        <Badge className={getDifficultyColor(game.difficulty)}>
+                        <Badge className={`${getDifficultyColor(game.difficulty)} border-primary/20`}>
                           {game.difficulty}
                         </Badge>
                       </div>
-                      <CardTitle className="text-lg group-hover:text-primary transition-colors">
+                      <CardTitle className="text-lg group-hover:text-primary transition-colors gradient-text">
                         {game.title}
                       </CardTitle>
-                      <CardDescription className="text-sm">
+                      <CardDescription className="text-sm leading-relaxed">
                         {game.description}
                       </CardDescription>
                     </CardHeader>
@@ -1004,7 +1019,7 @@ const Games = () => {
                       </div>
                       <Button 
                         variant="default"
-                        className="w-full"
+                        className="w-full bg-gradient-primary hover:opacity-90 group-hover:scale-105 transition-all duration-500 neon-glow"
                         onClick={() => handlePlayGame(game)}
                       >
                         <Play size={16} className="mr-2" />
