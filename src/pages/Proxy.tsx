@@ -4,6 +4,39 @@ import { Globe, ExternalLink } from 'lucide-react';
 
 const Proxy = () => {
   const embeddedUrl = 'https://skryptonite.vercel.app/home';
+  
+  const openInBlank = () => {
+    const htmlContent = `<!DOCTYPE html>
+<html>
+<head>
+<title>Fullscreen Embed</title>
+<style>
+  html, body {
+    height: 100%; /* Make sure the html and body take full height */
+    margin: 0;     /* Remove default body margins */
+    overflow: hidden; /* Prevent scrollbars if the embedded content is larger */
+  }
+  iframe {
+    display: block; /* Prevent extra space below the iframe */
+    width: 100%;
+    height: 100%;
+    border: none;   /* Remove the default border */
+  }
+</style>
+</head>
+<body>
+
+  <iframe src="https://skryptonite.vercel.app/home"></iframe>
+
+</body>
+</html>`;
+    
+    const newWindow = window.open('about:blank', '_blank');
+    if (newWindow) {
+      newWindow.document.write(htmlContent);
+      newWindow.document.close();
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background p-4">
@@ -22,17 +55,14 @@ const Proxy = () => {
         {/* Embedded Site */}
         <Card className="h-[calc(100vh-200px)]">
           <CardHeader className="pb-2">
-            <div className="flex items-center justify-between">
-              <CardTitle className="text-sm font-medium text-muted-foreground">
-                Browsing: {embeddedUrl}
-              </CardTitle>
+            <div className="flex items-center justify-end">
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => window.open(embeddedUrl, '_blank')}
+                onClick={openInBlank}
               >
                 <ExternalLink className="h-4 w-4 mr-1" />
-                Open in New Tab
+                Open in Fullscreen
               </Button>
             </div>
           </CardHeader>
