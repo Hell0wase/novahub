@@ -20,6 +20,7 @@ import {
   Calendar,
   Tag
 } from 'lucide-react';
+import AIAssistant from '@/components/AIAssistant';
 
 interface Note {
   id: string;

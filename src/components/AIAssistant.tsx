@@ -1,0 +1,385 @@
+import { useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Badge } from '@/components/ui/badge';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { 
+  Bot, 
+  Send, 
+  User, 
+  BookOpen, 
+  Lightbulb,
+  Calculator,
+  MapPin,
+  Heart,
+  Clock,
+  Sparkles,
+  Copy,
+  ThumbsUp
+} from 'lucide-react';
+import { toast } from 'sonner';
+
+interface ChatMessage {
+  id: string;
+  message: string;
+  isBot: boolean;
+  timestamp: string;
+  category?: string;
+}
+
+interface AIAssistantProps {
+  onClose?: () => void;
+}
+
+const AIAssistant = ({ onClose }: AIAssistantProps) => {
+  const [messages, setMessages] = useState<ChatMessage[]>([
+    {
+      id: '1',
+      message: 'Hi! I\'m Nova AI, your comprehensive assistant! I can help you with:\n\n🍳 **Cooking & Recipes** - Step-by-step cooking instructions\n📚 **Study Help** - Homework, explanations, and learning\n💡 **Life Advice** - Decision making and problem solving\n🔢 **Math & Calculations** - From basic math to complex equations\n🌍 **General Knowledge** - Facts, trivia, and explanations\n🎯 **Goal Planning** - Task management and productivity\n\nWhat would you like help with today?',
+      isBot: true,
+      timestamp: new Date().toISOString(),
+      category: 'welcome'
+    }
+  ]);
+  const [input, setInput] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const quickActions = [
+    { icon: BookOpen, label: 'Recipe Help', query: 'How do I cook ' },
+    { icon: Calculator, label: 'Math Help', query: 'Calculate ' },
+    { icon: BookOpen, label: 'Study Tips', query: 'Explain ' },
+    { icon: Lightbulb, label: 'Life Advice', query: 'What should I do about ' },
+    { icon: MapPin, label: 'Local Info', query: 'Tell me about ' },
+    { icon: Heart, label: 'Health Tips', query: 'Is it healthy to ' }
+  ];
+
+  const getEnhancedResponse = async (userInput: string): Promise<{ message: string; category: string }> => {
+    const input = userInput.toLowerCase().trim();
+    
+    // Recipe and Cooking Help
+    if (input.includes('recipe') || input.includes('cook') || input.includes('bake') || input.includes('food') || input.includes('ingredient')) {
+      if (input.includes('pasta') || input.includes('spaghetti')) {
+        return {
+          message: "🍝 **Basic Pasta Recipe:**\n\n**Ingredients:**\n• 1 lb pasta\n• Salt for water\n• Your choice of sauce\n\n**Instructions:**\n1. Boil large pot of salted water\n2. Add pasta, stir occasionally\n3. Cook 8-12 minutes (check package)\n4. Taste test - should be al dente\n5. Drain and serve with sauce\n\n**Pro Tips:**\n• Salt water like the sea\n• Save pasta water for sauce\n• Don't rinse pasta after draining\n\nWant a specific sauce recipe?",
+          category: 'cooking'
+        };
+      } else if (input.includes('chicken')) {
+        return {
+          message: "🐔 **Basic Chicken Cooking Guide:**\n\n**Baked Chicken (375°F):**\n• Season with salt, pepper, herbs\n• Bake 20-25 min (165°F internal temp)\n\n**Pan-Fried Chicken:**\n• Heat oil in pan over medium-high\n• Cook 6-7 min per side\n• Check internal temp reaches 165°F\n\n**Safety Tips:**\n• Always wash hands after handling\n• Use separate cutting boards\n• Cook to 165°F internal temperature\n\nWhat specific chicken dish are you making?",
+          category: 'cooking'
+        };
+      } else if (input.includes('egg')) {
+        return {
+          message: "🥚 **Egg Cooking Guide:**\n\n**Scrambled:**\n• Low heat, constant stirring\n• Add butter/oil, whisk eggs\n• Cook slowly for creamy texture\n\n**Boiled:**\n• Soft: 4-6 minutes\n• Medium: 7-9 minutes\n• Hard: 10-12 minutes\n• Ice bath to stop cooking\n\n**Fried:**\n• Heat pan, add oil/butter\n• Crack egg into pan\n• Cook to desired doneness\n\nWhich style would you like detailed steps for?",
+          category: 'cooking'
+        };
+      } else {
+        return {
+          message: "🍳 **I can help with cooking!** Tell me:\n\n• What ingredient you want to cook\n• What type of dish you're making\n• Your cooking skill level\n• Any dietary restrictions\n\n**Popular recipes I can help with:**\n• Pasta dishes\n• Chicken recipes\n• Egg preparations\n• Vegetarian meals\n• Baking basics\n• Quick meals\n\nWhat would you like to cook today?",
+          category: 'cooking'
+        };
+      }
+    }
+
+    // Math and Calculations
+    else if (input.includes('+') || input.includes('-') || input.includes('*') || input.includes('×') || input.includes('÷') || input.includes('/') || input.includes('calculate') || input.includes('math')) {
+      try {
+        // Enhanced math handling
+        let cleanInput = input.replace(/calculate|math|equals|equal|is|\?/g, '').trim();
+        
+        // Handle word problems
+        if (input.includes('percent') || input.includes('%')) {
+          return {
+            message: "📊 **Percentage Calculator:**\n\nTo calculate percentages:\n• **X% of Y:** (X ÷ 100) × Y\n• **X is what % of Y:** (X ÷ Y) × 100\n• **Tip calculation:** Bill × (Tip% ÷ 100)\n\n**Examples:**\n• 15% of 80 = (15 ÷ 100) × 80 = 12\n• 20% tip on $50 = $50 × 0.20 = $10\n\nGive me specific numbers and I'll calculate it!",
+            category: 'math'
+          };
+        }
+
+        // Basic math operations
+        cleanInput = cleanInput.replace(/x/g, '*').replace(/÷/g, '/');
+        if (/^[0-9+\-*/().\s]+$/.test(cleanInput)) {
+          const result = new Function('return ' + cleanInput)();
+          return {
+            message: `🔢 **Calculation Result:**\n\n${cleanInput} = **${result}**\n\nNeed help with more complex math? I can explain:\n• Algebra equations\n• Geometry formulas\n• Percentage calculations\n• Word problems`,
+            category: 'math'
+          };
+        }
+      } catch (error) {
+        return {
+          message: "🔢 **Math Help Available!**\n\nI can help with:\n• Basic arithmetic (+, -, ×, ÷)\n• Percentage calculations\n• Algebra problems\n• Geometry formulas\n• Word problems\n• Unit conversions\n\nTry: \"Calculate 15% of 80\" or \"Solve 2x + 5 = 15\"",
+          category: 'math'
+        };
+      }
+    }
+
+    // Study and Educational Help
+    else if (input.includes('study') || input.includes('homework') || input.includes('explain') || input.includes('learn') || input.includes('school')) {
+      return {
+        message: "📚 **Study & Learning Support:**\n\n**Study Techniques:**\n• **Pomodoro:** 25 min focus, 5 min break\n• **Active recall:** Test yourself without notes\n• **Spaced repetition:** Review at intervals\n• **Mind maps:** Visual connections\n\n**Homework Help:**\n• Break big tasks into smaller steps\n• Start with easiest or hardest (your choice)\n• Use timers to stay focused\n• Take regular breaks\n\n**Subject-Specific Help:**\n• Math problems and explanations\n• Science concepts\n• History facts and dates\n• Reading comprehension\n\nWhat subject do you need help with?",
+        category: 'education'
+      };
+    }
+
+    // Life Advice and Decision Making
+    else if (input.includes('advice') || input.includes('should i') || input.includes('what do i do') || input.includes('help me decide') || input.includes('problem')) {
+      return {
+        message: "💡 **Life Advice & Decision Making:**\n\n**Decision Framework:**\n1. **Clarify the situation** - What exactly is the problem?\n2. **List your options** - What can you realistically do?\n3. **Consider pros/cons** - What are the benefits/risks?\n4. **Think long-term** - How will this affect your future?\n5. **Trust your gut** - What feels right?\n\n**Common Life Areas:**\n• School/career choices\n• Relationship issues\n• Time management\n• Goal setting\n• Stress management\n\nTell me more about your specific situation and I'll give tailored advice!",
+        category: 'advice'
+      };
+    }
+
+    // Health and Wellness
+    else if (input.includes('health') || input.includes('exercise') || input.includes('diet') || input.includes('sleep') || input.includes('stress')) {
+      return {
+        message: "💪 **Health & Wellness Tips:**\n\n**Basic Health Habits:**\n• **Sleep:** 7-9 hours per night\n• **Water:** 8 glasses daily\n• **Exercise:** 30 min most days\n• **Nutrition:** Balanced meals with variety\n\n**Stress Management:**\n• Deep breathing exercises\n• Regular physical activity\n• Adequate sleep schedule\n• Time for hobbies/relaxation\n\n**Quick Energy Boosters:**\n• 10-minute walk\n• Healthy snack (nuts, fruit)\n• 5 deep breaths\n• Stretching\n\n⚠️ **Note:** This is general advice. Consult healthcare professionals for medical concerns.\n\nWhat specific aspect of health are you interested in?",
+        category: 'health'
+      };
+    }
+
+    // Time Management and Productivity
+    else if (input.includes('time') || input.includes('productive') || input.includes('organize') || input.includes('schedule') || input.includes('plan')) {
+      return {
+        message: "⏰ **Time Management & Productivity:**\n\n**Time Blocking:**\n• Schedule specific times for activities\n• Include breaks and buffer time\n• Protect high-focus time slots\n\n**Priority Matrix:**\n• **Urgent + Important:** Do first\n• **Important + Not Urgent:** Schedule\n• **Urgent + Not Important:** Delegate\n• **Neither:** Eliminate\n\n**Productivity Tips:**\n• Start with hardest task when energy is high\n• Use the 2-minute rule (do it now if <2 min)\n• Batch similar tasks together\n• Remove distractions during focus time\n\nWhat area of your life needs better organization?",
+        category: 'productivity'
+      };
+    }
+
+    // General Knowledge and Trivia
+    else if (input.includes('what is') || input.includes('who is') || input.includes('when did') || input.includes('where is') || input.includes('how does')) {
+      return {
+        message: "🌍 **General Knowledge Help:**\n\nI can help explain:\n\n**Science & Nature:**\n• How things work in nature\n• Basic scientific principles\n• Weather and climate\n• Animals and ecosystems\n\n**History & Culture:**\n• Historical events and figures\n• Cultural practices\n• Geography and countries\n• Art and literature basics\n\n**Technology:**\n• How devices work\n• Internet and social media\n• Apps and software basics\n\n**Current Events:**\n• General world knowledge\n• Famous people and achievements\n\nBe more specific with your question and I'll give you a detailed explanation!",
+        category: 'knowledge'
+      };
+    }
+
+    // Fun and Entertainment
+    else if (input.includes('game') || input.includes('fun') || input.includes('joke') || input.includes('entertainment') || input.includes('bored')) {
+      return {
+        message: "🎮 **Fun & Entertainment Ideas:**\n\n**Quick Games:**\n• 20 Questions (I think of something, you guess)\n• Word Association\n• Riddles and brain teasers\n• Trivia questions\n\n**Creative Activities:**\n• Write a short story together\n• Create a bucket list\n• Plan an imaginary trip\n• Design your dream room\n\n**Learning Fun:**\n• Fun facts about animals\n• Interesting historical stories\n• Cool science experiments\n• Language learning games\n\nWhat sounds fun to you right now?",
+        category: 'entertainment'
+      };
+    }
+
+    // Default comprehensive response
+    else {
+      return {
+        message: "🤖 **I'm here to help with anything!**\n\nTry asking me about:\n\n🍳 **Cooking:** \"How do I make pasta?\" \"Cook chicken safely\"\n🔢 **Math:** \"Calculate 15% of 80\" \"Solve algebra problems\"\n📚 **Learning:** \"Study tips\" \"Explain photosynthesis\"\n💡 **Advice:** \"Help me decide\" \"What should I do about...\"\n💪 **Health:** \"Exercise tips\" \"Healthy eating habits\"\n⏰ **Productivity:** \"Time management\" \"How to organize\"\n🌍 **Knowledge:** \"What is...\" \"How does... work?\"\n🎮 **Fun:** \"I'm bored\" \"Tell me a fun fact\"\n\nJust tell me what's on your mind and I'll do my best to help!",
+        category: 'general'
+      };
+    }
+  };
+
+  const handleSendMessage = async () => {
+    if (!input.trim() || isLoading) return;
+
+    const userMessage: ChatMessage = {
+      id: Date.now().toString(),
+      message: input,
+      isBot: false,
+      timestamp: new Date().toISOString()
+    };
+
+    setMessages(prev => [...prev, userMessage]);
+    setInput('');
+    setIsLoading(true);
+
+    try {
+      const response = await getEnhancedResponse(input);
+      
+      setTimeout(() => {
+        const botMessage: ChatMessage = {
+          id: (Date.now() + 1).toString(),
+          message: response.message,
+          isBot: true,
+          timestamp: new Date().toISOString(),
+          category: response.category
+        };
+        setMessages(prev => [...prev, botMessage]);
+        setIsLoading(false);
+      }, 1000);
+    } catch (error) {
+      setTimeout(() => {
+        const errorMessage: ChatMessage = {
+          id: (Date.now() + 1).toString(),
+          message: "Sorry, I encountered an error. Please try again!",
+          isBot: true,
+          timestamp: new Date().toISOString(),
+          category: 'error'
+        };
+        setMessages(prev => [...prev, errorMessage]);
+        setIsLoading(false);
+      }, 1000);
+    }
+  };
+
+  const handleQuickAction = (query: string) => {
+    setInput(query);
+  };
+
+  const copyMessage = (message: string) => {
+    navigator.clipboard.writeText(message);
+    toast.success('Message copied to clipboard!');
+  };
+
+  const getCategoryIcon = (category: string) => {
+    const icons = {
+      cooking: BookOpen,
+      math: Calculator,
+      education: BookOpen,
+      advice: Lightbulb,
+      health: Heart,
+      productivity: Clock,
+      knowledge: Sparkles,
+      entertainment: '🎮',
+      welcome: Sparkles,
+      general: Bot
+    };
+    const IconComponent = icons[category as keyof typeof icons] || Bot;
+    return typeof IconComponent === 'string' ? IconComponent : <IconComponent size={16} />;
+  };
+
+  return (
+    <Card className="h-[600px] flex flex-col bg-card/50 backdrop-blur-sm border-border/50">
+      <CardHeader className="pb-4 border-b border-border/50">
+        <div className="flex items-center justify-between">
+          <CardTitle className="flex items-center gap-2">
+            <div className="p-2 rounded-lg bg-gradient-primary">
+              <Bot size={20} className="text-white" />
+            </div>
+            Nova AI Assistant
+          </CardTitle>
+          {onClose && (
+            <Button variant="ghost" size="sm" onClick={onClose}>
+              ×
+            </Button>
+          )}
+        </div>
+      </CardHeader>
+
+      <CardContent className="flex-1 flex flex-col p-4 space-y-4">
+        {/* Quick Actions */}
+        <div className="grid grid-cols-3 gap-2">
+          {quickActions.map((action, index) => (
+            <Button
+              key={index}
+              variant="outline"
+              size="sm"
+              className="text-xs h-auto py-2 flex flex-col items-center gap-1"
+              onClick={() => handleQuickAction(action.query)}
+            >
+              <action.icon size={14} />
+              {action.label}
+            </Button>
+          ))}
+        </div>
+
+        {/* Messages */}
+        <ScrollArea className="flex-1 pr-4">
+          <div className="space-y-4">
+            {messages.map((message) => (
+              <div
+                key={message.id}
+                className={`flex items-start gap-3 ${
+                  message.isBot ? 'justify-start' : 'justify-end'
+                }`}
+              >
+                {message.isBot && (
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-primary flex items-center justify-center">
+                    <Bot size={16} className="text-white" />
+                  </div>
+                )}
+                
+                <div
+                  className={`max-w-[80%] rounded-lg p-3 ${
+                    message.isBot
+                      ? 'bg-muted/50 border border-border/50'
+                      : 'bg-primary text-primary-foreground'
+                  }`}
+                >
+                  {message.category && message.isBot && (
+                    <div className="flex items-center gap-2 mb-2 pb-2 border-b border-border/30">
+                      {getCategoryIcon(message.category)}
+                      <Badge variant="secondary" className="text-xs">
+                        {message.category}
+                      </Badge>
+                    </div>
+                  )}
+                  
+                  <div className="whitespace-pre-wrap text-sm leading-relaxed">
+                    {message.message}
+                  </div>
+                  
+                  {message.isBot && (
+                    <div className="flex items-center gap-2 mt-2 pt-2 border-t border-border/30">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="h-6 px-2 text-xs"
+                        onClick={() => copyMessage(message.message)}
+                      >
+                        <Copy size={12} className="mr-1" />
+                        Copy
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="h-6 px-2 text-xs"
+                      >
+                        <ThumbsUp size={12} className="mr-1" />
+                        Helpful
+                      </Button>
+                    </div>
+                  )}
+                </div>
+
+                {!message.isBot && (
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-secondary flex items-center justify-center">
+                    <User size={16} />
+                  </div>
+                )}
+              </div>
+            ))}
+            
+            {isLoading && (
+              <div className="flex items-start gap-3">
+                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-primary flex items-center justify-center">
+                  <Bot size={16} className="text-white" />
+                </div>
+                <div className="bg-muted/50 border border-border/50 rounded-lg p-3">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 bg-primary rounded-full animate-bounce" />
+                    <div className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0.1s' }} />
+                    <div className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0.2s' }} />
+                    <span className="text-sm text-muted-foreground ml-2">Nova is thinking...</span>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </ScrollArea>
+
+        {/* Input */}
+        <div className="flex gap-2">
+          <Input
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Ask me anything..."
+            onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+            disabled={isLoading}
+            className="flex-1"
+          />
+          <Button 
+            onClick={handleSendMessage} 
+            disabled={!input.trim() || isLoading}
+            className="bg-[hsl(var(--primary))] text-white hover:opacity-90"
+          >
+            <Send size={16} />
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
+
+export default AIAssistant;
