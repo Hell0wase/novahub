@@ -22,6 +22,18 @@ import TetrisGame from '@/components/games/TetrisGame';
 import QuizGame from '@/components/games/QuizGame';
 import GrannyGameHTML from '@/components/games/GrannyGameHTML';
 import OneVOneGame from '@/components/games/OneVOneGame';
+import DuckLifeGame from '@/components/games/DuckLifeGame';
+import DuckLife2Game from '@/components/games/DuckLife2Game';
+import DuckLife3Game from '@/components/games/DuckLife3Game';
+import DuckLife4Game from '@/components/games/DuckLife4Game';
+import TombOfTheMaskGame from '@/components/games/TombOfTheMaskGame';
+import AngryBirdsGame from '@/components/games/AngryBirdsGame';
+import BobTheRobberGame from '@/components/games/BobTheRobberGame';
+import BlockBlastGame from '@/components/games/BlockBlastGame';
+import BitlifeGame from '@/components/games/BitlifeGame';
+import BlackOpsGame from '@/components/games/BlackOpsGame';
+import UnicycleHeroGame from '@/components/games/UnicycleHeroGame';
+import AppleShooterGame from '@/components/games/AppleShooterGame';
 import SlopeGame from '@/components/games/SlopeGame';
 import RetroBowlGame from '@/components/games/RetroBowlGame';
 import SnowRiderGame from '@/components/games/SnowRiderGame';
@@ -41,6 +53,78 @@ const Games = () => {
   const [currentGame, setCurrentGame] = useState<string | null>(null);
 
   const games = [
+    {
+      id: 'granny2',
+      title: 'Granny 2',
+      description: 'Escape from Granny\'s house in this horror sequel',
+      category: 'horror',
+      difficulty: 'Hard',
+      time: '20 min',
+      players: 4521,
+      icon: Brain,
+      color: 'text-red-500',
+      component: () => import('../components/games/Granny2Game').then(m => m.default)
+    },
+    {
+      id: 'drift-hunters',
+      title: 'Drift Hunters',
+      description: 'High-speed drifting racing game',
+      category: 'racing',
+      difficulty: 'Medium',
+      time: '15 min',
+      players: 3241,
+      icon: Target,
+      color: 'text-blue-500',
+      component: DriftHuntersGame
+    },
+    {
+      id: 'paper-io',
+      title: 'Paper.io',
+      description: 'Capture territory in this multiplayer game',
+      category: 'arcade',
+      difficulty: 'Easy',
+      time: '10 min',
+      players: 2156,
+      icon: Target,
+      color: 'text-orange-500',
+      component: PaperIOGame
+    },
+    {
+      id: 'slither-io',
+      title: 'Slither.io',
+      description: 'Grow your snake and dominate the arena',
+      category: 'arcade',
+      difficulty: 'Medium',
+      time: '12 min',
+      players: 5432,
+      icon: Target,
+      color: 'text-green-500',
+      component: SlitherIOGame
+    },
+    {
+      id: 'duck-life',
+      title: 'Duck Life',
+      description: 'Train your duck in this adventure game',
+      category: 'adventure',
+      difficulty: 'Easy',
+      time: '25 min',
+      players: 1876,
+      icon: Brain,
+      color: 'text-yellow-500',
+      component: DuckLifeGame
+    },
+    {
+      id: 'cookie-clicker',
+      title: 'Cookie Clicker',
+      description: 'Click cookies to build your empire',
+      category: 'idle',
+      difficulty: 'Easy',
+      time: '30 min',
+      players: 3456,
+      icon: Target,
+      color: 'text-brown-500',
+      component: CookieClickerGame
+    },
     {
       id: 'snake',
       title: 'Snake Classic',
