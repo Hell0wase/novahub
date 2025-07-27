@@ -102,10 +102,13 @@ const Navigation = () => {
               <span className="text-white font-bold text-lg">N</span>
             </div>
             <span 
-              className="text-xl font-bold bg-clip-text text-transparent"
+              className="text-xl font-bold"
               style={{ 
                 background: `linear-gradient(135deg, hsl(${themeColorHsl}), hsl(189 94% 55%))`,
-                WebkitBackgroundClip: 'text'
+                WebkitBackgroundClip: 'text',
+                backgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                color: 'transparent'
               }}
             >
               NovaHub
