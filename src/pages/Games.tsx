@@ -21,6 +21,7 @@ import SnakeGame from '@/components/games/SnakeGame';
 import TetrisGame from '@/components/games/TetrisGame';
 import QuizGame from '@/components/games/QuizGame';
 import GrannyGameHTML from '@/components/games/GrannyGameHTML';
+import Granny2Game from '@/components/games/Granny2Game';
 import OneVOneGame from '@/components/games/OneVOneGame';
 import DuckLifeGame from '@/components/games/DuckLifeGame';
 import DuckLife2Game from '@/components/games/DuckLife2Game';
@@ -47,6 +48,11 @@ import CookieClickerGame from '@/components/games/CookieClickerGame';
 import PaperIOGame from '@/components/games/PaperIOGame';
 import DriftHuntersGame from '@/components/games/DriftHuntersGame';
 import RagdollArchersGame from '@/components/games/RagdollArchersGame';
+import RooftopSnipersGame from '@/components/games/RooftopSnipersGame';
+import BasketballRandomGame from '@/components/games/BasketballRandomGame';
+import AgeOfWarGame from '@/components/games/AgeOfWarGame';
+import AgeOfWar2Game from '@/components/games/AgeOfWar2Game';
+import SmallWorldCupGame from '@/components/games/SmallWorldCupGame';
 
 const Games = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -63,7 +69,7 @@ const Games = () => {
       players: 4521,
       icon: Brain,
       color: 'text-red-500',
-      component: () => import('../components/games/Granny2Game').then(m => m.default)
+      component: Granny2Game
     },
     {
       id: 'drift-hunters',
@@ -318,52 +324,136 @@ const Games = () => {
       component: MinecraftGame
     },
     {
-      id: 'slither-io',
-      title: 'Slither.io',
-      description: 'Grow your snake by eating dots and avoid other players',
-      category: 'arcade',
-      difficulty: 'Medium',
-      time: '10 min',
-      players: 8765,
-      icon: Target,
-      color: 'text-purple-500',
-      component: SlitherIOGame
-    },
-    {
-      id: 'cookie-clicker',
-      title: 'Cookie Clicker',
-      description: 'Click cookies and build your baking empire',
-      category: 'arcade',
+      id: 'duck-life-2',
+      title: 'Duck Life 2',
+      description: 'Train your duck to become world champion',
+      category: 'adventure',
       difficulty: 'Easy',
-      time: '20 min',
-      players: 5432,
-      icon: Star,
-      color: 'text-orange-500',
-      component: CookieClickerGame
+      time: '25 min',
+      players: 1654,
+      icon: Brain,
+      color: 'text-yellow-500',
+      component: DuckLife2Game
     },
     {
-      id: 'paper-io',
-      title: 'Paper.io',
-      description: 'Capture territory by drawing lines and closing areas',
-      category: 'arcade',
+      id: 'duck-life-3',
+      title: 'Duck Life 3',
+      description: 'Evolution edition with new training methods',
+      category: 'adventure',
       difficulty: 'Medium',
-      time: '8 min',
-      players: 6789,
-      icon: Target,
-      color: 'text-blue-500',
-      component: PaperIOGame
+      time: '30 min',
+      players: 1432,
+      icon: Brain,
+      color: 'text-yellow-500',
+      component: DuckLife3Game
     },
     {
-      id: 'drifthunters',
-      title: 'Drift Hunters',
-      description: 'Master the art of drifting in this high-speed racing game',
-      category: 'racing',
+      id: 'duck-life-4',
+      title: 'Duck Life 4',
+      description: 'Space edition with alien races',
+      category: 'adventure',
+      difficulty: 'Medium',
+      time: '35 min',
+      players: 1298,
+      icon: Brain,
+      color: 'text-yellow-500',
+      component: DuckLife4Game
+    },
+    {
+      id: 'tomb-of-the-mask',
+      title: 'Tomb of the Mask',
+      description: 'Navigate through ancient tombs with special masks',
+      category: 'arcade',
       difficulty: 'Hard',
       time: '15 min',
-      players: 1234,
+      players: 2341,
+      icon: Target,
+      color: 'text-purple-500',
+      component: TombOfTheMaskGame
+    },
+    {
+      id: 'angry-birds',
+      title: 'Angry Birds',
+      description: 'Launch birds at structures to defeat the pigs',
+      category: 'puzzle',
+      difficulty: 'Easy',
+      time: '20 min',
+      players: 7654,
+      icon: Target,
+      color: 'text-red-500',
+      component: AngryBirdsGame
+    },
+    {
+      id: 'bob-the-robber',
+      title: 'Bob the Robber',
+      description: 'Help Bob sneak through buildings and steal treasures',
+      category: 'adventure',
+      difficulty: 'Medium',
+      time: '18 min',
+      players: 1987,
+      icon: Brain,
+      color: 'text-gray-500',
+      component: BobTheRobberGame
+    },
+    {
+      id: 'block-blast',
+      title: 'Block Blast',
+      description: 'Fill lines and clear the board in this puzzle game',
+      category: 'puzzle',
+      difficulty: 'Easy',
+      time: '15 min',
+      players: 3456,
+      icon: Brain,
+      color: 'text-blue-500',
+      component: BlockBlastGame
+    },
+    {
+      id: 'bitlife',
+      title: 'BitLife',
+      description: 'Live a virtual life and make choices that shape your destiny',
+      category: 'adventure',
+      difficulty: 'Easy',
+      time: '40 min',
+      players: 5432,
+      icon: Brain,
+      color: 'text-green-500',
+      component: BitlifeGame
+    },
+    {
+      id: 'black-ops',
+      title: 'Black Ops',
+      description: 'Call of Duty tactical shooting game',
+      category: 'action',
+      difficulty: 'Hard',
+      time: '30 min',
+      players: 2341,
+      icon: Target,
+      color: 'text-red-500',
+      component: BlackOpsGame
+    },
+    {
+      id: 'unicycle-hero',
+      title: 'Unicycle Hero',
+      description: 'Balance and perform stunts on your unicycle',
+      category: 'arcade',
+      difficulty: 'Medium',
+      time: '12 min',
+      players: 1876,
       icon: Target,
       color: 'text-orange-500',
-      component: DriftHuntersGame
+      component: UnicycleHeroGame
+    },
+    {
+      id: 'apple-shooter',
+      title: 'Apple Shooter',
+      description: 'Aim carefully and shoot the apple off your friend\'s head',
+      category: 'action',
+      difficulty: 'Hard',
+      time: '10 min',
+      players: 2109,
+      icon: Target,
+      color: 'text-red-500',
+      component: AppleShooterGame
     },
     {
       id: 'ragdollarchers',
@@ -376,6 +466,66 @@ const Games = () => {
       icon: Target,
       color: 'text-red-500',
       component: RagdollArchersGame
+    },
+    {
+      id: 'rooftop-snipers',
+      title: 'Rooftop Snipers',
+      description: 'Two-player sniper duel on the rooftops',
+      category: 'action',
+      difficulty: 'Easy',
+      time: '8 min',
+      players: 3421,
+      icon: Target,
+      color: 'text-red-500',
+      component: RooftopSnipersGame
+    },
+    {
+      id: 'basketball-random',
+      title: 'Basketball Random',
+      description: 'Chaotic basketball with random physics',
+      category: 'sports',
+      difficulty: 'Medium',
+      time: '10 min',
+      players: 2341,
+      icon: Target,
+      color: 'text-orange-500',
+      component: BasketballRandomGame
+    },
+    {
+      id: 'age-of-war',
+      title: 'Age of War',
+      description: 'Command troops through different ages of warfare',
+      category: 'strategy',
+      difficulty: 'Medium',
+      time: '25 min',
+      players: 1876,
+      icon: Brain,
+      color: 'text-yellow-500',
+      component: AgeOfWarGame
+    },
+    {
+      id: 'age-of-war-2',
+      title: 'Age of War 2',
+      description: 'The sequel with improved graphics and new civilizations',
+      category: 'strategy',
+      difficulty: 'Medium',
+      time: '30 min',
+      players: 1543,
+      icon: Brain,
+      color: 'text-yellow-500',
+      component: AgeOfWar2Game
+    },
+    {
+      id: 'small-world-cup',
+      title: 'Small World Cup',
+      description: 'Football simulation with different countries',
+      category: 'sports',
+      difficulty: 'Easy',
+      time: '15 min',
+      players: 4321,
+      icon: Target,
+      color: 'text-green-500',
+      component: SmallWorldCupGame
     }
   ];
 
@@ -389,7 +539,9 @@ const Games = () => {
     { id: 'racing', label: 'Racing' },
     { id: 'horror', label: 'Horror' },
     { id: 'battle', label: 'Battle Royale' },
-    { id: 'sports', label: 'Sports' }
+    { id: 'sports', label: 'Sports' },
+    { id: 'strategy', label: 'Strategy' },
+    { id: 'idle', label: 'Idle' }
   ];
 
   const achievements = [
