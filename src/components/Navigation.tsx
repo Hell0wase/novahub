@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Menu, X, BookOpen, Users, Gamepad2, LogOut, User, Globe, ExternalLink } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
+import { useTheme } from '@/contexts/ThemeContext';
 import UserSettings from '@/components/UserSettings';
 
 const Navigation = () => {
@@ -10,6 +11,11 @@ const Navigation = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { isAuthenticated, user, logout } = useAuth();
+  const { themeColor, themes } = useTheme();
+
+  // Get current theme color
+  const currentTheme = themes.find(t => t.value === themeColor);
+  const themeColorHsl = currentTheme?.primaryHsl || '217 91% 60%';
 
   const handleLogout = () => {
     logout();
@@ -87,10 +93,21 @@ const Navigation = () => {
         <div className="flex justify-between items-center h-16 gap-12">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
+            <div 
+              className="w-8 h-8 rounded-lg flex items-center justify-center"
+              style={{ 
+                background: `linear-gradient(135deg, hsl(${themeColorHsl}), hsl(189 94% 55%))` 
+              }}
+            >
               <span className="text-white font-bold text-lg">N</span>
             </div>
-            <span className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+            <span 
+              className="text-xl font-bold bg-clip-text text-transparent"
+              style={{ 
+                background: `linear-gradient(135deg, hsl(${themeColorHsl}), hsl(189 94% 55%))`,
+                WebkitBackgroundClip: 'text'
+              }}
+            >
               NovaHub
             </span>
           </Link>
