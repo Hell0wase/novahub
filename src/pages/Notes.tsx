@@ -160,18 +160,26 @@ const Notes = () => {
       const input = aiInput.toLowerCase().trim();
       
       // Math operations and algebra
-      if (input.includes('+') || input.includes('-') || input.includes('*') || input.includes('/') || input.includes('=') || /\d/.test(input)) {
+      if (input.includes('+') || input.includes('-') || input.includes('*') || input.includes('x') || input.includes('/') || input.includes('=') || /\d/.test(input)) {
         try {
           // Handle algebraic expressions and basic math
-          if (input.includes('x') || input.includes('y') || input.includes('algebra')) {
+          if ((input.includes('x') && input.includes('=')) || input.includes('algebra')) {
             response = "For algebraic equations, I can help explain the steps:\n\n• Linear equations: ax + b = c\n• Quadratic formula: x = (-b ± √(b²-4ac))/2a\n• Factor by grouping\n• Solve for the variable\n\nWhat specific algebraic problem would you like help with?";
           } else {
-            // Safe math evaluation for basic operations
-            const cleanInput = input.replace(/[^0-9+\-*/().\s]/g, '').trim();
+            // Handle multiplication with 'x' symbol
+            let cleanInput = input;
+            
+            // Replace 'x' with '*' for multiplication when surrounded by numbers or spaces
+            cleanInput = cleanInput.replace(/(\d+)\s*x\s*(\d+)/g, '$1 * $2');
+            cleanInput = cleanInput.replace(/(\d+)x(\d+)/g, '$1 * $2');
+            
+            // Clean the input for safe evaluation
+            cleanInput = cleanInput.replace(/[^0-9+\-*/().\s]/g, '').trim();
+            
             if (cleanInput && /^[0-9+\-*/().\s]+$/.test(cleanInput)) {
               try {
                 // Handle fractions
-                if (input.includes('/') && !input.includes('*') && !input.includes('+') && !input.includes('-')) {
+                if (cleanInput.includes('/') && !cleanInput.includes('*') && !cleanInput.includes('+') && !cleanInput.includes('-')) {
                   const parts = cleanInput.split('/');
                   if (parts.length === 2) {
                     const numerator = parseFloat(parts[0]);
@@ -189,7 +197,9 @@ const Notes = () => {
                   // Use Function constructor instead of eval for safety
                   const result = new Function('return ' + cleanInput)();
                   if (typeof result === 'number' && !isNaN(result)) {
-                    response = `The answer is: ${result}`;
+                    // Show the original input format in the response
+                    const originalExpression = input.replace(/(\d+)\s*x\s*(\d+)/g, '$1 × $2');
+                    response = `${originalExpression} = ${result}`;
                   } else {
                     response = "I couldn't calculate that. Please check the format.";
                   }
@@ -198,7 +208,7 @@ const Notes = () => {
                 response = "I couldn't solve that math problem. Please check the format and try again.";
               }
             } else {
-              response = "I can help with math operations like:\n• Addition: 5 + 3\n• Subtraction: 10 - 4\n• Multiplication: 6 * 7\n• Division: 20 / 4\n• Fractions: 3/4\n• Complex: (5 + 3) * 2\n\nTry one of these formats!";
+              response = "I can help with math operations like:\n• Addition: 5 + 3\n• Subtraction: 10 - 4\n• Multiplication: 6 * 7 or 6 x 7\n• Division: 20 / 4\n• Fractions: 3/4\n• Complex: (5 + 3) * 2\n\nTry one of these formats!";
             }
           }
         } catch (error) {
