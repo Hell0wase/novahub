@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Menu, X, BookOpen, Users, Gamepad2, LogOut, User, Globe, ExternalLink } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
-import ThemeSettings from '@/components/ThemeSettings';
+import UserSettings from '@/components/UserSettings';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -69,7 +69,7 @@ const Navigation = () => {
 
       {/* Settings and User Info - Very Top Right */}
       <div className="absolute top-2 right-2 z-10 flex items-center space-x-2">
-        <ThemeSettings />
+        <UserSettings />
         {isAuthenticated && (
           <div className="flex items-center space-x-2">
             <div className="flex items-center space-x-2 text-sm">
@@ -164,7 +164,7 @@ const Navigation = () => {
             })}
             <div className="pt-4 space-y-2">
               <div className="px-3">
-                <ThemeSettings />
+                <UserSettings />
               </div>
               {isAuthenticated ? (
                 <div className="space-y-2">
