@@ -10,6 +10,7 @@ import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import Notes from "./pages/Notes";
 import Games from "./pages/Games";
+import Proxy from "./pages/Proxy";
 import Navigation from "./components/Navigation";
 import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -43,6 +44,7 @@ const App = () => (
             <Route path="/notes" element={<ProtectedRoute><Notes /></ProtectedRoute>} />
             <Route path="/community" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
             <Route path="/games" element={<ProtectedRoute><Games /></ProtectedRoute>} />
+            <Route path="/proxy" element={<ProtectedRoute><Proxy /></ProtectedRoute>} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
