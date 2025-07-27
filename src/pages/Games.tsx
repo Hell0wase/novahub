@@ -53,6 +53,29 @@ import BasketballRandomGame from '@/components/games/BasketballRandomGame';
 import AgeOfWarGame from '@/components/games/AgeOfWarGame';
 import AgeOfWar2Game from '@/components/games/AgeOfWar2Game';
 import SmallWorldCupGame from '@/components/games/SmallWorldCupGame';
+import DogeMinerGame from '@/components/games/DogeMinerGame';
+import FireboyWatergirlGame from '@/components/games/FireboyWatergirlGame';
+import NuggetClickerGame from '@/components/games/NuggetClickerGame';
+import StickmanDuelGame from '@/components/games/StickmanDuelGame';
+import CarKingArenaGame from '@/components/games/CarKingArenaGame';
+import SuperHotGame from '@/components/games/SuperHotGame';
+import SubwaySurfersGame from '@/components/games/SubwaySurfersGame';
+import PlantsVsZombiesGame from '@/components/games/PlantsVsZombiesGame';
+import CrossyRoadsGame from '@/components/games/CrossyRoadsGame';
+import HoleIOGame from '@/components/games/HoleIOGame';
+import MotoX3MGame from '@/components/games/MotoX3MGame';
+import RagdollIOGame from '@/components/games/RagdollIOGame';
+import IdleMinerGame from '@/components/games/IdleMinerGame';
+import Fifa07Game from '@/components/games/Fifa07Game';
+import GetawayShootoutGame from '@/components/games/GetawayShootoutGame';
+import GunspinGame from '@/components/games/GunspinGame';
+import NbaJamGame from '@/components/games/NbaJamGame';
+import StreetFighterGame from '@/components/games/StreetFighterGame';
+import StreetFighterTurboGame from '@/components/games/StreetFighterTurboGame';
+import GtaEmulatedGame from '@/components/games/GtaEmulatedGame';
+import MiniCrosswordGame from '@/components/games/MiniCrosswordGame';
+import SkibidiToiletGame from '@/components/games/SkibidiToiletGame';
+import BasketballLegendsGame from '@/components/games/BasketballLegendsGame';
 
 const Games = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -514,6 +537,294 @@ const Games = () => {
       icon: Target,
       color: 'text-green-500',
       component: SmallWorldCupGame
+    },
+    {
+      id: 'doge-miner',
+      title: 'Doge Miner',
+      description: 'Mine dogecoins and build your cryptocurrency empire',
+      category: 'idle',
+      difficulty: 'Easy',
+      time: '30 min',
+      players: 2843,
+      icon: Target,
+      color: 'text-yellow-500',
+      component: DogeMinerGame
+    },
+    {
+      id: 'fireboy-watergirl',
+      title: 'Fireboy & Watergirl',
+      description: 'Cooperative puzzle platformer with elemental powers',
+      category: 'puzzle',
+      difficulty: 'Medium',
+      time: '20 min',
+      players: 6754,
+      icon: Brain,
+      color: 'text-red-500',
+      component: FireboyWatergirlGame
+    },
+    {
+      id: 'nugget-clicker',
+      title: 'Nugget Clicker',
+      description: 'Click nuggets to build your fast food empire',
+      category: 'idle',
+      difficulty: 'Easy',
+      time: '25 min',
+      players: 1932,
+      icon: Target,
+      color: 'text-orange-500',
+      component: NuggetClickerGame
+    },
+    {
+      id: 'stickman-duel',
+      title: 'Stickman Duel',
+      description: 'Epic stickman fighting battles',
+      category: 'action',
+      difficulty: 'Medium',
+      time: '12 min',
+      players: 4123,
+      icon: Target,
+      color: 'text-red-500',
+      component: StickmanDuelGame
+    },
+    {
+      id: 'car-king-arena',
+      title: 'Car King Arena',
+      description: 'Vehicular combat in destructible arenas',
+      category: 'action',
+      difficulty: 'Hard',
+      time: '18 min',
+      players: 3654,
+      icon: Target,
+      color: 'text-blue-500',
+      component: CarKingArenaGame
+    },
+    {
+      id: 'superhot',
+      title: 'SuperHot',
+      description: 'Time moves only when you move in this unique shooter',
+      category: 'action',
+      difficulty: 'Hard',
+      time: '25 min',
+      players: 5321,
+      icon: Zap,
+      color: 'text-red-500',
+      component: SuperHotGame
+    },
+    {
+      id: 'subway-surfers',
+      title: 'Subway Surfers',
+      description: 'Endless running game through subway tracks',
+      category: 'arcade',
+      difficulty: 'Easy',
+      time: '15 min',
+      players: 9876,
+      icon: Zap,
+      color: 'text-blue-500',
+      component: SubwaySurfersGame
+    },
+    {
+      id: 'plants-vs-zombies',
+      title: 'Plants vs Zombies',
+      description: 'Tower defense with plants against zombie invasion',
+      category: 'strategy',
+      difficulty: 'Medium',
+      time: '35 min',
+      players: 7432,
+      icon: Brain,
+      color: 'text-green-500',
+      component: PlantsVsZombiesGame
+    },
+    {
+      id: 'crossy-roads',
+      title: 'Crossy Roads',
+      description: 'Help the chicken cross busy roads and rivers',
+      category: 'arcade',
+      difficulty: 'Easy',
+      time: '10 min',
+      players: 4567,
+      icon: Target,
+      color: 'text-orange-500',
+      component: CrossyRoadsGame
+    },
+    {
+      id: 'hole-io',
+      title: 'Hole.io',
+      description: 'Control a black hole and swallow everything in your path',
+      category: 'arcade',
+      difficulty: 'Easy',
+      time: '8 min',
+      players: 6234,
+      icon: Target,
+      color: 'text-purple-500',
+      component: HoleIOGame
+    },
+    {
+      id: 'motox3m',
+      title: 'MotoX3M',
+      description: 'Extreme motorcycle racing with stunts and obstacles',
+      category: 'racing',
+      difficulty: 'Medium',
+      time: '16 min',
+      players: 4891,
+      icon: Target,
+      color: 'text-orange-500',
+      component: MotoX3MGame
+    },
+    {
+      id: 'ragdoll-io',
+      title: 'Ragdoll.io',
+      description: 'Physics-based ragdoll fighting arena',
+      category: 'action',
+      difficulty: 'Medium',
+      time: '12 min',
+      players: 3456,
+      icon: Target,
+      color: 'text-red-500',
+      component: RagdollIOGame
+    },
+    {
+      id: 'idle-miner',
+      title: 'Idle Miner',
+      description: 'Build and manage your mining empire',
+      category: 'idle',
+      difficulty: 'Easy',
+      time: '45 min',
+      players: 2134,
+      icon: Target,
+      color: 'text-yellow-500',
+      component: IdleMinerGame
+    },
+    {
+      id: 'fifa-07',
+      title: 'FIFA 07',
+      description: 'Classic football simulation game',
+      category: 'sports',
+      difficulty: 'Medium',
+      time: '30 min',
+      players: 5678,
+      icon: Target,
+      color: 'text-green-500',
+      component: Fifa07Game
+    },
+    {
+      id: 'getaway-shootout',
+      title: 'Getaway Shootout',
+      description: 'Chaotic multiplayer racing with weapons',
+      category: 'action',
+      difficulty: 'Medium',
+      time: '14 min',
+      players: 4321,
+      icon: Target,
+      color: 'text-red-500',
+      component: GetawayShootoutGame
+    },
+    {
+      id: 'gunspin',
+      title: 'Gunspin',
+      description: 'Physics-based gun spinning shooter',
+      category: 'action',
+      difficulty: 'Hard',
+      time: '12 min',
+      players: 2987,
+      icon: Target,
+      color: 'text-red-500',
+      component: GunspinGame
+    },
+    {
+      id: 'nba-jam',
+      title: 'NBA Jam',
+      description: 'Classic arcade basketball with over-the-top action',
+      category: 'sports',
+      difficulty: 'Medium',
+      time: '20 min',
+      players: 3456,
+      icon: Target,
+      color: 'text-orange-500',
+      component: NbaJamGame
+    },
+    {
+      id: 'street-fighter',
+      title: 'Street Fighter II',
+      description: 'Classic fighting game with iconic characters',
+      category: 'action',
+      difficulty: 'Hard',
+      time: '15 min',
+      players: 4567,
+      icon: Target,
+      color: 'text-red-500',
+      component: StreetFighterGame
+    },
+    {
+      id: 'street-fighter-turbo',
+      title: 'Street Fighter II Turbo',
+      description: 'Enhanced version with faster gameplay and new moves',
+      category: 'action',
+      difficulty: 'Hard',
+      time: '18 min',
+      players: 3892,
+      icon: Target,
+      color: 'text-red-500',
+      component: StreetFighterTurboGame
+    },
+    {
+      id: 'gta-emulated',
+      title: 'Grand Theft Auto',
+      description: 'Classic open-world crime game',
+      category: 'action',
+      difficulty: 'Hard',
+      time: '40 min',
+      players: 6789,
+      icon: Target,
+      color: 'text-gray-500',
+      component: GtaEmulatedGame
+    },
+    {
+      id: 'mini-crossword',
+      title: 'Mini Crossword',
+      description: 'Quick and fun crossword puzzles',
+      category: 'puzzle',
+      difficulty: 'Easy',
+      time: '8 min',
+      players: 2345,
+      icon: Brain,
+      color: 'text-blue-500',
+      component: MiniCrosswordGame
+    },
+    {
+      id: 'skibidi-toilet',
+      title: 'Skibidi Toilet',
+      description: 'Quirky action game with viral internet character',
+      category: 'arcade',
+      difficulty: 'Easy',
+      time: '10 min',
+      players: 8765,
+      icon: Target,
+      color: 'text-purple-500',
+      component: SkibidiToiletGame
+    },
+    {
+      id: 'basketball-legends',
+      title: 'Basketball Legends',
+      description: 'Play as legendary basketball players',
+      category: 'sports',
+      difficulty: 'Medium',
+      time: '15 min',
+      players: 5432,
+      icon: Target,
+      color: 'text-orange-500',
+      component: BasketballLegendsGame
+    },
+    {
+      id: 'minecraft',
+      title: 'Minecraft',
+      description: 'Build and explore in this creative sandbox world',
+      category: 'adventure',
+      difficulty: 'Easy',
+      time: '60 min',
+      players: 12345,
+      icon: Brain,
+      color: 'text-green-500',
+      component: MinecraftGame
     }
   ];
 

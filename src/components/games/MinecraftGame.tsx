@@ -9,93 +9,80 @@ const MinecraftGame = ({ onBack }: MinecraftGameProps) => {
 
   useEffect(() => {
     const gameHtml = `
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <title>Minecraft Classic</title>
-        <style>
-          body { margin: 0; padding: 0; overflow: hidden; background: #000; }
-          canvas { width: 100%; height: 100vh; display: block; }
-        </style>
-      </head>
-      <body>
-        <canvas id="canvas"></canvas>
-        <script src="https://classic.minecraft.net/js/game.js"></script>
-        <script>
-          const canvas = document.getElementById('canvas');
-          const ctx = canvas.getContext('2d');
-          canvas.width = window.innerWidth;
-          canvas.height = window.innerHeight;
-          
-          // Simple Minecraft-like demo
-          const blockSize = 32;
-          const world = [];
-          
-          // Initialize world
-          for(let x = 0; x < 50; x++) {
-            world[x] = [];
-            for(let y = 0; y < 50; y++) {
-              world[x][y] = Math.random() > 0.7 ? 1 : 0;
-            }
-          }
-          
-          let camera = { x: 0, y: 0 };
-          
-          function draw() {
-            ctx.fillStyle = '#87CEEB';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            for(let x = 0; x < 50; x++) {
-              for(let y = 0; y < 50; y++) {
-                if(world[x][y]) {
-                  ctx.fillStyle = '#8B4513';
-                  ctx.fillRect(
-                    x * blockSize - camera.x, 
-                    y * blockSize - camera.y, 
-                    blockSize, 
-                    blockSize
-                  );
-                }
-              }
-            }
-            
-            requestAnimationFrame(draw);
-          }
-          
-          document.addEventListener('keydown', (e) => {
-            const speed = 5;
-            switch(e.key) {
-              case 'ArrowUp': camera.y -= speed; break;
-              case 'ArrowDown': camera.y += speed; break;
-              case 'ArrowLeft': camera.x -= speed; break;
-              case 'ArrowRight': camera.x += speed; break;
-            }
-          });
-          
-          canvas.addEventListener('click', (e) => {
-            const rect = canvas.getBoundingClientRect();
-            const x = Math.floor((e.clientX - rect.left + camera.x) / blockSize);
-            const y = Math.floor((e.clientY - rect.top + camera.y) / blockSize);
-            if(x >= 0 && x < 50 && y >= 0 && y < 50) {
-              world[x][y] = world[x][y] ? 0 : 1;
-            }
-          });
-          
-          draw();
-          
-          // Instructions
-          const instructions = document.createElement('div');
-          instructions.style.position = 'absolute';
-          instructions.style.top = '10px';
-          instructions.style.left = '10px';
-          instructions.style.color = 'white';
-          instructions.style.fontFamily = 'Arial';
-          instructions.style.fontSize = '14px';
-          instructions.innerHTML = 'Use arrow keys to move, click to place/remove blocks';
-          document.body.appendChild(instructions);
-        </script>
-      </body>
-      </html>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>EaglercraftX</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    #game_frame {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #000;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/bubbls/loltheygotbannedfromjsdelivr@38f40924ae70b843f3d4d0a5dc3d6ba13ca3a461/classes.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/bubbls/loltheygotbannedfromjsdelivr@38f40924ae70b843f3d4d0a5dc3d6ba13ca3a461/fix-webm-duration.js"></script>
+  <script type="text/javascript">
+    window.addEventListener('load', function () {
+      window.focus();
+      document.body.addEventListener('click', function (e) {
+        window.focus();
+      }, false);
+    });
+
+    window.addEventListener("load", () => {
+      if (document.location.href.startsWith("file:")) {
+        console.warn("HTTP required. Do not open this file locally, run it via a local HTTP server.");
+      } else {
+        if (!window.eaglercraftXOpts) {
+          window.eaglercraftXOpts = {
+            container: "game_frame",
+            assetsURI: "https://cdn.jsdelivr.net/gh/bubbls/loltheygotbannedfromjsdelivr@38f40924ae70b843f3d4d0a5dc3d6ba13ca3a461/assets.epk",
+            localesURI: "lang/",
+            servers: [
+              { addr: "wss://mc.arch.lol/", name: "ArchMC" },
+              { addr: "wss://mc.asspixel.net", name: "AssPixel" },
+              { addr: "wss://sus.shhnowisnottheti.me", name: "Ayunboom" },
+              { addr: "wss://aeon-network.net/1.8", name: "Aeon" },
+              { addr: "wss://zentic.org/", name: "Zentic" }
+            ]
+          };
+        }
+        let container = document.querySelector('#game_frame');
+        if (!container) {
+          console.error("Container element not found. Creating a default one.");
+          container = document.createElement("div");
+          container.id = "game_frame";
+          document.body.appendChild(container);
+        }
+        try {
+          main();
+        } catch (error) {
+          console.error("Error starting EaglercraftX:", error);
+        }
+      }
+    });
+  </script>
+</head>
+<body>
+  <div id="game_frame"></div>
+  <div class="_eaglercraftX_wrapper_element"></div>
+  <div id="_eaglercraftX_crashReason" style="display:none;"></div>
+  <div id="_eaglercraftX_crashUserAgent" style="display:none;"></div>
+</body>
+</html>
     `;
 
     if (iframeRef.current) {
