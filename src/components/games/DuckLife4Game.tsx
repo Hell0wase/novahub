@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from 'react';
+import FullscreenGame from '../FullscreenGame';
 
 interface DuckLife4GameProps {
   onBack: () => void;
@@ -42,13 +43,13 @@ const DuckLife4Game: React.FC<DuckLife4GameProps> = ({ onBack }) => {
   }, []);
 
   return (
-    <div className="w-full h-full">
+    <FullscreenGame gameName="Duck Life 4" onBack={onBack}>
       <iframe
         ref={iframeRef}
         className="w-full h-full border-0"
         title="Duck Life 4 Game"
       />
-    </div>
+    </FullscreenGame>
   );
 };
 

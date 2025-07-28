@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from 'react';
+import FullscreenGame from '../FullscreenGame';
 
 interface AppleShooterGameProps {
   onBack: () => void;
@@ -39,13 +40,13 @@ const AppleShooterGame: React.FC<AppleShooterGameProps> = ({ onBack }) => {
   }, []);
 
   return (
-    <div className="w-full h-full">
+    <FullscreenGame gameName="Apple Shooter" onBack={onBack}>
       <iframe
         ref={iframeRef}
         className="w-full h-full border-0"
         title="Apple Shooter Game"
       />
-    </div>
+    </FullscreenGame>
   );
 };
 
