@@ -85,6 +85,7 @@ const Games = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [currentGame, setCurrentGame] = useState<string | null>(null);
   const [visibleGames, setVisibleGames] = useState(12); // Start with 12 games
+  const [showGames, setShowGames] = useState(false); // Hidden by default
   const GAMES_PER_LOAD = 12; // Load 12 more games each time
 
   const games = [
@@ -904,9 +905,16 @@ const Games = () => {
     { name: 'Perfectionist', description: 'Get 100% on any quiz', icon: Star, earned: false }
   ];
 
-  const filteredGames = selectedCategory === 'all' 
-    ? games 
-    : games.filter(game => game.category === selectedCategory);
+  // Filter games based on category and showGames state
+  let filteredGames;
+  if (!showGames) {
+    // Only show trivia/quiz games when games are hidden
+    filteredGames = games.filter(game => game.category === 'trivia');
+  } else {
+    filteredGames = selectedCategory === 'all' 
+      ? games 
+      : games.filter(game => game.category === selectedCategory);
+  }
   
   // Show only a limited number of games for performance
   const displayedGames = filteredGames.slice(0, visibleGames);
@@ -968,42 +976,51 @@ const Games = () => {
       <div className="max-w-7xl mx-auto p-6 relative z-10">
         {/* Header */}
         <div className="mb-8 text-center slide-in-up">
-          <h1 className="text-5xl md:text-6xl font-bold gradient-text mb-4">
+          <h1 
+            className="text-5xl md:text-6xl font-bold gradient-text mb-4 cursor-pointer hover:scale-105 transition-transform"
+            onClick={() => setShowGames(!showGames)}
+            title="Click to toggle games visibility"
+          >
             🎮 Fun Zone
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto glass-card p-6 rounded-xl">
-            Educational games to help you learn while having fun during your study breaks
+            {showGames 
+              ? "Educational games to help you learn while having fun during your study breaks"
+              : "Educational quizzes and learning resources for academic success"
+            }
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
           {/* Sidebar */}
           <div className="lg:col-span-1 space-y-6">
-            {/* Categories */}
-            <Card className="glass-card border-primary/20 hover:border-primary/40 transition-all duration-500 zoom-in">
-              <CardHeader>
-                <CardTitle className="text-lg gradient-text flex items-center">
-                  <Target className="mr-2 h-5 w-5 neon-glow" />
-                  Categories
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                {categories.map((category) => (
-                  <Button
-                    key={category.id}
-                    variant={selectedCategory === category.id ? "default" : "ghost"}
-                    className={`w-full justify-start transition-all duration-300 ${
-                      selectedCategory === category.id 
-                        ? 'bg-gradient-primary text-primary-foreground neon-glow' 
-                        : 'hover:bg-primary/10 hover:border-primary/30'
-                    }`}
-                    onClick={() => handleCategoryChange(category.id)}
-                  >
-                    {category.label}
-                  </Button>
-                ))}
-              </CardContent>
-            </Card>
+            {/* Categories - Only show when games are visible */}
+            {showGames && (
+              <Card className="glass-card border-primary/20 hover:border-primary/40 transition-all duration-500 zoom-in">
+                <CardHeader>
+                  <CardTitle className="text-lg gradient-text flex items-center">
+                    <Target className="mr-2 h-5 w-5 neon-glow" />
+                    Categories
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  {categories.map((category) => (
+                    <Button
+                      key={category.id}
+                      variant={selectedCategory === category.id ? "default" : "ghost"}
+                      className={`w-full justify-start transition-all duration-300 ${
+                        selectedCategory === category.id 
+                          ? 'bg-gradient-primary text-primary-foreground neon-glow' 
+                          : 'hover:bg-primary/10 hover:border-primary/30'
+                      }`}
+                      onClick={() => handleCategoryChange(category.id)}
+                    >
+                      {category.label}
+                    </Button>
+                  ))}
+                </CardContent>
+              </Card>
+            )}
 
             {/* Achievements */}
             <Card className="glass-card border-primary/20 hover:border-primary/40 transition-all duration-500 zoom-in" style={{ animationDelay: '0.2s' }}>

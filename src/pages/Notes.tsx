@@ -369,7 +369,7 @@ const Notes = () => {
                   onClick={() => setShowAI(!showAI)}
                 >
                   <Bot size={16} className="mr-2" />
-                  AI Assistant
+                  Helpful Resources
                 </Button>
               </CardContent>
             </Card>
@@ -542,7 +542,7 @@ const Notes = () => {
                 <CardHeader>
                   <CardTitle className="flex items-center">
                     <Bot className="mr-2" size={20} />
-                    AI Study Assistant
+                    Helpful Resources
                   </CardTitle>
                   <CardDescription>
                     Get help with your studies, ask questions, and create summaries

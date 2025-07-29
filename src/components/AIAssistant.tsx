@@ -38,7 +38,7 @@ const AIAssistant = ({ onClose }: AIAssistantProps) => {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: '1',
-      message: "Hi! I'm Nova AI, your comprehensive assistant! I can help you with:\n\n🍳 **Cooking & Recipes** - Step-by-step cooking instructions\n💻 **Programming & Code** - Debug, explain, and write code\n📚 **Study Help** - Homework, explanations, and learning\n💡 **Life Advice** - Decision making and problem solving\n🔢 **Math & Calculations** - From basic math to complex equations\n🌍 **General Knowledge** - Facts, trivia, and explanations\n🎯 **Goal Planning** - Task management and productivity\n\nWhat would you like help with today?",
+      message: "Hi! I'm your helpful resource assistant! I can help you with:\n\n🍳 **Cooking & Recipes** - Step-by-step cooking instructions\n💻 **Programming & Code** - Debug, explain, and write code\n📚 **Study Help** - Homework, explanations, and learning\n💡 **Life Advice** - Decision making and problem solving\n🔢 **Math & Calculations** - From basic math to complex equations\n🌍 **General Knowledge** - Facts, trivia, and explanations\n🎯 **Goal Planning** - Task management and productivity\n\nWhat would you like help with today?",
       isBot: true,
       timestamp: new Date().toISOString(),
       category: 'welcome'
@@ -289,7 +289,7 @@ const AIAssistant = ({ onClose }: AIAssistantProps) => {
             <div className="p-2 rounded-lg bg-gradient-primary">
               <Bot size={20} className="text-white" />
             </div>
-            Nova AI Assistant
+            Helpful Resources
           </CardTitle>
           {onClose && (
             <Button variant="ghost" size="sm" onClick={onClose}>
