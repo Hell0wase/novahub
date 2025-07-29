@@ -1,7 +1,5 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { ArrowLeft } from 'lucide-react';
-import { useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
+import FullscreenGame from '../FullscreenGame';
 
 interface BasketballStarsGameProps {
   onBack: () => void;
@@ -57,39 +55,13 @@ const BasketballStarsGame = ({ onBack }: BasketballStarsGameProps) => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background pt-20 p-6">
-      <div className="max-w-6xl mx-auto">
-        <div className="flex items-center mb-6">
-          <Button variant="ghost" onClick={onBack} className="mr-4">
-            <ArrowLeft size={20} className="mr-2" />
-            Back to Games
-          </Button>
-          <h1 className="text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-            Basketball Stars
-          </h1>
-        </div>
-
-        <Card className="bg-card/50 backdrop-blur-sm border-border/50">
-          <CardHeader>
-            <CardTitle>Basketball Stars - Multiplayer Basketball</CardTitle>
-          </CardHeader>
-          <CardContent className="p-0">
-            <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
-              <iframe
-                ref={iframeRef}
-                className="absolute top-0 left-0 w-full h-full rounded-lg"
-                frameBorder="0"
-                title="Basketball Stars Game"
-              />
-            </div>
-          </CardContent>
-        </Card>
-        
-        <div className="mt-4 text-center text-sm text-muted-foreground">
-          <p>Use WASD keys to move and space to shoot. Play 1v1 or tournaments!</p>
-        </div>
-      </div>
-    </div>
+    <FullscreenGame gameName="Basketball Stars" onBack={onBack}>
+      <iframe
+        ref={iframeRef}
+        className="w-full h-full border-0"
+        title="Basketball Stars Game"
+      />
+    </FullscreenGame>
   );
 };
 

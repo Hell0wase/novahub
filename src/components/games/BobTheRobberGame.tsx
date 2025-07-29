@@ -1,7 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { ArrowLeft } from 'lucide-react';
+import FullscreenGame from '../FullscreenGame';
 
 interface BobTheRobberGameProps {
   onBack: () => void;
@@ -43,39 +41,13 @@ const BobTheRobberGame: React.FC<BobTheRobberGameProps> = ({ onBack }) => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background p-6">
-      <div className="max-w-6xl mx-auto">
-        <div className="flex items-center mb-6">
-          <Button variant="ghost" onClick={onBack} className="mr-4">
-            <ArrowLeft size={20} className="mr-2" />
-            Back to Games
-          </Button>
-          <h1 className="text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-            Bob the Robber
-          </h1>
-        </div>
-
-        <Card className="bg-card/50 backdrop-blur-sm border-border/50">
-          <CardHeader>
-            <CardTitle>Bob the Robber</CardTitle>
-          </CardHeader>
-          <CardContent className="p-0">
-            <div className="relative w-full h-[600px]">
-              <iframe
-                ref={iframeRef}
-                className="w-full h-full border-0 rounded-lg"
-                title="Bob the Robber Game"
-              />
-            </div>
-            <div className="p-4">
-              <p className="text-sm text-muted-foreground">
-                Help Bob sneak through buildings and steal treasures while avoiding guards!
-              </p>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-    </div>
+    <FullscreenGame gameName="Bob the Robber" onBack={onBack}>
+      <iframe
+        ref={iframeRef}
+        className="w-full h-full border-0"
+        title="Bob the Robber Game"
+      />
+    </FullscreenGame>
   );
 };
 
