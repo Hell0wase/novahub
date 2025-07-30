@@ -60,6 +60,26 @@ const AIAssistant = ({ onClose }: AIAssistantProps) => {
   const getEnhancedResponse = async (userInput: string): Promise<{ message: string; category: string }> => {
     const input = userInput.toLowerCase().trim();
     
+    // MVP and ChatGPT Concepts
+    if (input.includes('mvp') || input.includes('minimum viable product') || input.includes('chatgpt') || input.includes('ai') || input.includes('artificial intelligence') || input.includes('llm') || input.includes('language model')) {
+      if (input.includes('mvp') || input.includes('minimum viable product')) {
+        return {
+          message: "🚀 **MVP (Minimum Viable Product) Explained:**\n\n**What is an MVP?**\nThe simplest version of a product that delivers value to early adopters while requiring minimal resources to build.\n\n**🧠 ChatGPT as an MVP Example:**\n\n**Core Problem Solved:** People want fast, intelligent answers to questions, help with writing, coding, and more.\n\n**Early Adopters:** Developers, writers, students, customer support teams, and productivity-focused users.\n\n**Core Functionality:**\n• Takes natural language input\n• Returns relevant, helpful responses\n\n**Stripped-Down Features:**\n• No memory or history\n• No plugin tools or image generation\n• Simple Q&A capability\n\n**Delivery Platform:** A web interface or API (e.g. chat.openai.com)\n\n**Feedback Loop:** User thumbs up/down and usage metrics help refine responses\n\n**Monetization:** Freemium model - Basic chat is free, premium offers advanced features\n\n✅ **MVP Success:** Proves the concept that \"AI can understand you and help you in natural language.\"\n\nWant to learn more about MVP development or AI concepts?",
+          category: 'education'
+        };
+      } else if (input.includes('chatgpt') || input.includes('ai') || input.includes('artificial intelligence')) {
+        return {
+          message: "🤖 **Understanding ChatGPT & AI:**\n\n**What is ChatGPT?**\nA conversational AI built on large language models (LLMs), capable of understanding and generating human-like text.\n\n**How it Works (Simplified):**\n1. **Training:** Learns from billions of text examples\n2. **Understanding:** Processes your input to find patterns\n3. **Generation:** Creates responses based on learned patterns\n4. **Context:** Maintains conversation flow\n\n**Key Capabilities:**\n• Natural language understanding\n• Code generation and debugging\n• Creative writing assistance\n• Educational explanations\n• Problem-solving guidance\n\n**Limitations to Remember:**\n• Knowledge cutoff dates\n• Can make mistakes or \"hallucinate\"\n• No real-time internet access (in basic versions)\n• No memory between separate conversations\n\n**Educational Value:**\n• Great for learning programming concepts\n• Helps explain complex topics simply\n• Provides study assistance and tutoring\n• Offers writing feedback and suggestions\n\nWant to know more about how AI can help with your specific studies or projects?",
+          category: 'education'
+        };
+      } else if (input.includes('llm') || input.includes('language model')) {
+        return {
+          message: "🧠 **Large Language Models (LLMs) Explained:**\n\n**What is an LLM?**\nA type of AI trained on massive amounts of text to understand and generate human-like language.\n\n**How LLMs Learn:**\n1. **Pre-training:** Read billions of text examples from books, articles, websites\n2. **Pattern Recognition:** Learn grammar, facts, reasoning patterns\n3. **Fine-tuning:** Specialized training for specific tasks\n4. **Alignment:** Training to be helpful, harmless, and honest\n\n**Key Features:**\n• **Scale:** Billions of parameters (adjustable values)\n• **Versatility:** Can handle multiple types of tasks\n• **Emergence:** Complex behaviors arise from simple training\n• **Context:** Can maintain conversation threads\n\n**Real-World Applications:**\n• Educational tutoring and explanations\n• Code assistance and debugging\n• Writing and editing help\n• Research and information synthesis\n• Creative content generation\n\n**Study Applications:**\n• Explain difficult concepts in simple terms\n• Generate practice problems and quizzes\n• Help with essay structure and ideas\n• Code learning and debugging assistance\n\nWhat aspect of AI or language models interests you most?",
+          category: 'education'
+        };
+      }
+    }
+    
     // Programming and Coding Help
     if (input.includes('code') || input.includes('programming') || input.includes('javascript') || input.includes('python') || input.includes('html') || input.includes('css') || input.includes('react') || input.includes('function') || input.includes('variable') || input.includes('array') || input.includes('loop') || input.includes('debug') || input.includes('error')) {
       if (input.includes('javascript') || input.includes('js')) {
