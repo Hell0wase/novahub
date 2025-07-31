@@ -2,9 +2,11 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { BookOpen, Users, Gamepad2, Zap, Shield, Smartphone } from 'lucide-react';
+import { useAuth } from '@/hooks/useAuth';
 import heroImage from '@/assets/hero-image.jpg';
 
 const Landing = () => {
+  const { isAuthenticated } = useAuth();
   const features = [
     {
       icon: BookOpen,
@@ -89,18 +91,30 @@ const Landing = () => {
             Built for the modern learner with cutting-edge technology.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center zoom-in" style={{ animationDelay: '0.4s' }}>
-            <Link to="/signup">
-              <Button size="lg" className="bg-gradient-primary hover:opacity-90 text-lg px-12 py-6 neon-glow pulse-glow rounded-full">
-                🚀 Get Started Free
-              </Button>
-            </Link>
-            <Link to="/login">
-              <Button size="lg" variant="outline" className="text-lg px-12 py-6 glass-card border-primary/30 hover:border-primary rounded-full">
-                ✨ Sign In
-              </Button>
-            </Link>
-          </div>
+          {!isAuthenticated && (
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center zoom-in" style={{ animationDelay: '0.4s' }}>
+              <Link to="/signup">
+                <Button size="lg" className="bg-gradient-primary hover:opacity-90 text-lg px-12 py-6 neon-glow pulse-glow rounded-full">
+                  🚀 Get Started Free
+                </Button>
+              </Link>
+              <Link to="/login">
+                <Button size="lg" variant="outline" className="text-lg px-12 py-6 glass-card border-primary/30 hover:border-primary rounded-full">
+                  ✨ Sign In
+                </Button>
+              </Link>
+            </div>
+          )}
+          
+          {isAuthenticated && (
+            <div className="zoom-in" style={{ animationDelay: '0.4s' }}>
+              <Link to="/dashboard">
+                <Button size="lg" className="bg-gradient-primary hover:opacity-90 text-lg px-12 py-6 neon-glow pulse-glow rounded-full">
+                  🎓 Go to Dashboard
+                </Button>
+              </Link>
+            </div>
+          )}
           
           <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 slide-in-up" style={{ animationDelay: '0.6s' }}>
             <div className="text-center glass-card p-6 rounded-xl neon-glow">
@@ -187,28 +201,30 @@ const Landing = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-primary opacity-90" />
-        <div className="absolute inset-0">
-          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-white/10 rounded-full blur-3xl floating-animation" />
-          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-cyan-400/20 rounded-full blur-3xl floating-animation" style={{ animationDelay: '2s' }} />
-        </div>
-        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 slide-in-up">
-            Ready to transform your learning?
-          </h2>
-          <p className="text-xl text-white/90 mb-10 slide-in-up glass-card p-6 rounded-xl inline-block" style={{ animationDelay: '0.2s' }}>
-            Join thousands of students already using NovaHub to excel in their studies with cutting-edge technology.
-          </p>
-          <div className="zoom-in" style={{ animationDelay: '0.4s' }}>
-            <Link to="/signup">
-              <Button size="lg" className="bg-white text-primary hover:bg-white/90 text-lg px-12 py-6 neon-glow pulse-glow rounded-full font-bold">
-                🎓 Start Your Journey
-              </Button>
-            </Link>
+      {!isAuthenticated && (
+        <section className="py-20 relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-primary opacity-90" />
+          <div className="absolute inset-0">
+            <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-white/10 rounded-full blur-3xl floating-animation" />
+            <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-cyan-400/20 rounded-full blur-3xl floating-animation" style={{ animationDelay: '2s' }} />
           </div>
-        </div>
-      </section>
+          <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 slide-in-up">
+              Ready to transform your learning?
+            </h2>
+            <p className="text-xl text-white/90 mb-10 slide-in-up glass-card p-6 rounded-xl inline-block" style={{ animationDelay: '0.2s' }}>
+              Join thousands of students already using NovaHub to excel in their studies with cutting-edge technology.
+            </p>
+            <div className="zoom-in" style={{ animationDelay: '0.4s' }}>
+              <Link to="/signup">
+                <Button size="lg" className="bg-white text-primary hover:bg-white/90 text-lg px-12 py-6 neon-glow pulse-glow rounded-full font-bold">
+                  🎓 Start Your Journey
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
     </div>
   );
 };
