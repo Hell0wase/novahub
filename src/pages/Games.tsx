@@ -80,6 +80,11 @@ import GtaEmulatedGame from '@/components/games/GtaEmulatedGame';
 import MiniCrosswordGame from '@/components/games/MiniCrosswordGame';
 import SkibidiToiletGame from '@/components/games/SkibidiToiletGame';
 import BasketballLegendsGame from '@/components/games/BasketballLegendsGame';
+import SuperLiquidSoccerGame from '@/components/games/SuperLiquidSoccerGame';
+import GeometryDashLiteGame from '@/components/games/GeometryDashLiteGame';
+import FnafGame from '@/components/games/FnafGame';
+import FnfGame from '@/components/games/FnfGame';
+import InfiniteCraftGame from '@/components/games/InfiniteCraftGame';
 
 const Games = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -880,6 +885,66 @@ const Games = () => {
       icon: Brain,
       color: 'text-green-500',
       component: MinecraftGame
+    },
+    {
+      id: 'super-liquid-soccer',
+      title: 'Super Liquid Soccer',
+      description: 'Physics-based soccer with liquid ball mechanics',
+      category: 'sports',
+      difficulty: 'Medium',
+      time: '15 min',
+      players: 3456,
+      icon: Target,
+      color: 'text-blue-500',
+      component: SuperLiquidSoccerGame
+    },
+    {
+      id: 'geometry-dash-lite',
+      title: 'Geometry Dash Lite',
+      description: 'Jump and fly through dangerous passages and spiky obstacles',
+      category: 'arcade',
+      difficulty: 'Hard',
+      time: '20 min',
+      players: 7890,
+      icon: Target,
+      color: 'text-yellow-500',
+      component: GeometryDashLiteGame
+    },
+    {
+      id: 'fnaf',
+      title: 'Five Nights at Freddy\'s',
+      description: 'Survive five nights at a haunted pizzeria',
+      category: 'horror',
+      difficulty: 'Hard',
+      time: '30 min',
+      players: 6543,
+      icon: Brain,
+      color: 'text-red-500',
+      component: FnafGame
+    },
+    {
+      id: 'fnf',
+      title: 'Friday Night Funkin\'',
+      description: 'Rhythm game with challenging musical battles',
+      category: 'arcade',
+      difficulty: 'Medium',
+      time: '25 min',
+      players: 8765,
+      icon: Target,
+      color: 'text-purple-500',
+      component: FnfGame
+    },
+    {
+      id: 'infinite-craft',
+      title: 'Infinite Craft',
+      description: 'Combine elements to create infinite possibilities',
+      category: 'puzzle',
+      difficulty: 'Easy',
+      time: '45 min',
+      players: 5432,
+      icon: Brain,
+      color: 'text-green-500',
+      component: InfiniteCraftGame
     }
   ];
 
