@@ -27,10 +27,6 @@ import ReadingQuizGame from '@/components/games/ReadingQuizGame';
 import GrannyGameHTML from '@/components/games/GrannyGameHTML';
 import Granny2Game from '@/components/games/Granny2Game';
 import OneVOneGame from '@/components/games/OneVOneGame';
-import DuckLifeGame from '@/components/games/DuckLifeGame';
-import DuckLife2Game from '@/components/games/DuckLife2Game';
-import DuckLife3Game from '@/components/games/DuckLife3Game';
-import DuckLife4Game from '@/components/games/DuckLife4Game';
 import TombOfTheMaskGame from '@/components/games/TombOfTheMaskGame';
 import AngryBirdsGame from '@/components/games/AngryBirdsGame';
 import BobTheRobberGame from '@/components/games/BobTheRobberGame';
@@ -38,7 +34,7 @@ import BlockBlastGame from '@/components/games/BlockBlastGame';
 import BitlifeGame from '@/components/games/BitlifeGame';
 import BlackOpsGame from '@/components/games/BlackOpsGame';
 import UnicycleHeroGame from '@/components/games/UnicycleHeroGame';
-import AppleShooterGame from '@/components/games/AppleShooterGame';
+
 import SlopeGame from '@/components/games/SlopeGame';
 import RetroBowlGame from '@/components/games/RetroBowlGame';
 import SnowRiderGame from '@/components/games/SnowRiderGame';
@@ -141,18 +137,6 @@ const Games = () => {
       icon: Target,
       color: 'text-green-500',
       component: SlitherIOGame
-    },
-    {
-      id: 'duck-life',
-      title: 'Duck Life',
-      description: 'Train your duck in this adventure game',
-      category: 'adventure',
-      difficulty: 'Easy',
-      time: '25 min',
-      players: 1876,
-      icon: Brain,
-      color: 'text-yellow-500',
-      component: DuckLifeGame
     },
     {
       id: 'cookie-clicker',
@@ -395,42 +379,6 @@ const Games = () => {
       component: (props: any) => <HTMLGameComponent {...props} title="Racing Championship" gameId="racing-championship" />
     },
     {
-      id: 'duck-life-2',
-      title: 'Duck Life 2',
-      description: 'Train your duck to become world champion',
-      category: 'adventure',
-      difficulty: 'Easy',
-      time: '25 min',
-      players: 1654,
-      icon: Brain,
-      color: 'text-yellow-500',
-      component: DuckLife2Game
-    },
-    {
-      id: 'duck-life-3',
-      title: 'Duck Life 3',
-      description: 'Evolution edition with new training methods',
-      category: 'adventure',
-      difficulty: 'Medium',
-      time: '30 min',
-      players: 1432,
-      icon: Brain,
-      color: 'text-yellow-500',
-      component: DuckLife3Game
-    },
-    {
-      id: 'duck-life-4',
-      title: 'Duck Life 4',
-      description: 'Space edition with alien races',
-      category: 'adventure',
-      difficulty: 'Medium',
-      time: '35 min',
-      players: 1298,
-      icon: Brain,
-      color: 'text-yellow-500',
-      component: DuckLife4Game
-    },
-    {
       id: 'tomb-of-the-mask',
       title: 'Tomb of the Mask',
       description: 'Navigate through ancient tombs with special masks',
@@ -513,18 +461,6 @@ const Games = () => {
       icon: Target,
       color: 'text-orange-500',
       component: UnicycleHeroGame
-    },
-    {
-      id: 'apple-shooter',
-      title: 'Apple Shooter',
-      description: 'Aim carefully and shoot the apple off your friend\'s head',
-      category: 'action',
-      difficulty: 'Hard',
-      time: '10 min',
-      players: 2109,
-      icon: Target,
-      color: 'text-red-500',
-      component: AppleShooterGame
     },
     {
       id: 'ragdollarchers',
